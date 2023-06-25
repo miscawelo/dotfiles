@@ -1,0 +1,21 @@
+alias ls='ls -F --color=auto'
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotad='dotfiles add'
+alias dotst='dotfiles status'
+alias dotcm='dotfiles commit -m'
+alias dotps='dotfiles push'
+alias dotrs='dotfiles restore --staged'
+alias dotdf='dotfiles difftool'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gp='git push'
+alias gd='git difftool'
+
+alias gpgrs='echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null'
+
+# xdg-ninja
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"

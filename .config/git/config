@@ -1,0 +1,12 @@
+[user]
+	email = m_moreno.15@hotmail.com
+	name = Missael Moreno
+	signingkey = 760E376794FD640D19908FD69EC0B9031E326A0F
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
