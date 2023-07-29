@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+asusctl profile -n
+profile=$(asusctl profile -p | cut -d ' ' -f4)
+
+if [[ $profile  == "Performance" ]]; then
+	corectrl -m Eco
+	corectrl -m Performance
+elif [[ $profile  == "Balanced" ]]; then
+    $HOME/scripts/asus/power_mode
+    exit
+else
+	corectrl -m Performance
+	corectrl -m Eco
+fi
+
+dunstify "$profile profile is active" -h string:x-dunst-stack-tag:power_mode

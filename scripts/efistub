@@ -1,17 +1,19 @@
 #!/usr/bin/bash
 
+[[ $(id -u) -eq 0 ]] || { echo >&2 "Must be root to run script"; exit 1; }
+
 # Variables
 efi_dir="/boot"
 ucode=amd-ucode.img
 luks_options="discard"
 swapfile="/swapfile"
-kernel_params="nowatchdog quiet zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+kernel_params="nowatchdog quiet loglevel=0 zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
 
 # Distro name
 distro=$(grep PRETTY_NAME /etc/os-release | cut -d '"' -f 2)
 
 # Root partition
-root_uuid=$(sudo blkid | grep LUKS | cut -d '"' -f 2)
+root_uuid=$(blkid | grep LUKS | cut -d '"' -f 2)
 
 # Boot partition
 boot_partition="$(lsblk -l | grep boot | cut -d ' ' -f 1)"
@@ -20,18 +22,15 @@ boot_part=${boot_partition#*p}
 
 # Swap and hibernation
 swap_uuid=$(grep root -A1 /etc/fstab | tail -n 1 |  sed -e 's/.*UUID=//' | cut -d $'\t' -f 1)
-swap_offset=$(sudo filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}')
+swap_offset=$(filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}')
 hibernation="resume=UUID="$swap_uuid" resume-offset="$swap_offset
 
 # LUKS options
 luks_options="rd.luks.options="$luks_options
 
-rm /tmp/cmdline &> /dev/null
 echo "root=UUID="$root_uuid" rw "$luks_options" "$hibernation" "$kernel_params > /tmp/cmdline
 
-for vmlinuz in $efi_dir/vmlinuz*
-do
-
+for vmlinuz in $efi_dir/vmlinuz* ; do
     kernel=${vmlinuz#*-}
 
     cat $efi_dir/$ucode $efi_dir/booster-$kernel.img > /tmp/$kernel.img
@@ -50,21 +49,63 @@ do
         --add-section .initrd="/tmp/$kernel.img" --change-section-vma .initrd=$(printf 0x%x $initrd_offs) \
         "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "$kernel.efi"
 
-    sudo mv $efi_dir/EFI/Linux/$kernel.efi $efi_dir/EFI/Linux/$kernel-fallback.efi
-    sudo cp $kernel.efi $efi_dir/EFI/Linux/$kernel.efi
-    sudo rm $kernel.efi
+    mv $kernel.efi $efi_dir/EFI/Linux/$kernel.efi
 
     entry=$(efibootmgr | grep "($kernel)" | grep -oP "(?<=Boot).*(?=\*)")
     if [[ ! -z $entry ]]; then
         for i in $(echo $entry); do
-            sudo efibootmgr -Bb "$i" &> /dev/null
+            efibootmgr -Bb "$i" &> /dev/null
         done
     fi
 
-    sudo efibootmgr --create --disk $boot_drive --part $boot_part --label "$distro ($kernel)" --loader 'EFI\Linux\'$kernel.efi &> /dev/null
-
+    efibootmgr --create --disk $boot_drive --part $boot_part --label "$distro ($kernel)" --loader 'EFI\Linux\'$kernel.efi &> /dev/null
 done
 
-sudo sbctl sign-all
+kernel_params="nowatchdog quiet loglevel=3 booster.log=warning zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+echo "root=UUID="$root_uuid" rw "$luks_options" "$hibernation" "$kernel_params > /tmp/cmdline
 
-efibootmgr
+for vmlinuz in $efi_dir/vmlinuz* ; do
+    kernel=${vmlinuz#*-}
+
+    cat $efi_dir/$ucode $efi_dir/booster-$kernel.img > /tmp/$kernel.img
+    stub_line=$(objdump -h "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" | tail -2 | head -1)
+    stub_size=0x$(echo "$stub_line" | awk '{print $3}')
+    stub_offs=0x$(echo "$stub_line" | awk '{print $4}')
+    osrel_offs=$((stub_size + stub_offs))
+    cmdline_offs=$((osrel_offs + $(stat -c%s "/usr/lib/os-release")))
+    linux_offs=$((cmdline_offs + $(stat -c%s "/tmp/cmdline")))
+    initrd_offs=$((linux_offs + $(stat -c%s "$vmlinuz")))
+
+    objcopy \
+        --add-section .osrel="/usr/lib/os-release" --change-section-vma .osrel=$(printf 0x%x $osrel_offs) \
+        --add-section .cmdline="/tmp/cmdline" --change-section-vma .cmdline=$(printf 0x%x $cmdline_offs) \
+        --add-section .linux="$vmlinuz" --change-section-vma .linux=$(printf 0x%x $linux_offs) \
+        --add-section .initrd="/tmp/$kernel.img" --change-section-vma .initrd=$(printf 0x%x $initrd_offs) \
+        "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "$kernel.efi"
+
+    mv $kernel.efi $efi_dir/EFI/Linux/$kernel-debug.efi
+
+    entry=$(efibootmgr | grep "($kernel-debug)" | grep -oP "(?<=Boot).*(?=\*)")
+    if [[ ! -z $entry ]]; then
+        for i in $(echo $entry); do
+            efibootmgr -Bb "$i" &> /dev/null
+        done
+    fi
+
+    efibootmgr --create --disk $boot_drive --part $boot_part --label "$distro ($kernel-debug)" --loader 'EFI\Linux\'$kernel-debug.efi &> /dev/null
+done
+
+
+while true; do
+    entry=$(efibootmgr | grep "Archboot" | grep -oP "(?<=Boot).*(?=\*)")
+    [[ ! -z $entry ]] || break
+    for i in $(echo $entry); do
+        efibootmgr -Bb "$i" &> /dev/null
+    done
+done
+
+efibootmgr --create --disk $boot_drive --part $boot_part --label "Archboot (latest - ethernet only)" --loader 'EFI\Linux\archboot-latest-x86_64.efi' &> /dev/null
+efibootmgr --create --disk $boot_drive --part $boot_part --label "Archboot (local - cached with wifi)" --loader 'EFI\Linux\archboot-local-x86_64.efi' &> /dev/null
+
+sbctl sign-all
+efibootmgr -o 1,0,3,2,4,5

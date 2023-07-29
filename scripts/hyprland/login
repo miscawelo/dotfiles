@@ -1,0 +1,65 @@
+#!/usr/bin/bash
+
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# GTK settings
+# config="$HOME/.config/gtk-3.0/settings.ini"
+# gnome_schema="org.gnome.desktop.interface"
+#
+# gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+# icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+# cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+# font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
+#
+# gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
+# gsettings set "$gnome_schema" icon-theme "$icon_theme"
+# gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
+# gsettings set "$gnome_schema" font-name "$font_name"
+#
+# Swayidle
+killall swayidle ; swayidle -w timeout 300 'brightnessctl -s ; [[ $(pactl list | grep RUNNING) ]] || [[ $(brightnessctl set 0) ]]' resume 'brightnessctl -r' timeout 600 '[[ $(pactl list | grep RUNNING) ]] || [[ $(hyprctl dispatch dpms off) ]]' resume 'hyprctl dispatch dpms on' timeout 900 '[[ $(pactl list | grep RUNNING) ]] || [[ $(systemctl suspend) ]]' before-sleep 'swaylock -C $HOME/.config/swaylock/config' &
+
+# Autostart
+/usr/lib/polkit-kde-authentication-agent-1 &
+
+killall dunst ; dunst &
+killall waybar ; waybar &
+killall swaybg ; swaybg -i $HOME/pictures/wallpapers/$(ls $HOME/pictures/wallpapers | sort -R | tail -1) &
+
+killall nm-applet ; nm-applet &
+killall blueman-applet ; blueman-applet &
+
+killall rog-control-center ; rog-control-center &
+killall corectrl ; corectrl &
+
+killall wl-paste ; wl-paste --watch cliphist store &
+
+# Hyprland
+# systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
+# sleep 4
+# killall -e xdg-desktop-portal-wlr
+# killall xdg-desktop-portal
+# /usr/lib/xdg-desktop-portal-wlr &
+# sleep 4
+# /usr/lib/xdg-desktop-portal &
+
+# sleep 1
+# killall -e xdg-desktop-portal-hyprland
+# killall -e xdg-desktop-portal-wlr
+# killall xdg-desktop-portal
+# /usr/lib/xdg-desktop-portal-hyprland &
+# sleep 2
+# /usr/lib/xdg-desktop-portal &
+
+# # Battery notifications
+# $HOME/scripts/dunst/battery &
+
+# # Hyprland socket
+# # $HOME/scripts/hyprland/hyprland_socket &
+
+# Secure Boot
+if [[ ! $(sbctl status | grep Secure | grep Enabled) ]]; then
+    dunstify --urgency critical "Secure boot is disabled" "Reboot now and enable secure boot!"
+fi
+
+dunstify "Finished Hyprland startup" "Welcome $USER\!" -i $HOME/scripts/assets/icons/hyprland.png -h string:x-dunst-stack-tag:welcome_message

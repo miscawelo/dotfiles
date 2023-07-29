@@ -1,0 +1,8 @@
+!#/usr/bin/bash
+
+# Disable systemd hibernation
+echo "HandlePowerKey=ignore" >> /etc/systemd/logind.conf
+echo "HandlePowerKeyLongPress=ignore" >> /etc/systemd/logind.conf
+echo "HandleLidSwitch=ignore" >> /etc/systemd/logind.conf
+echo "HandleLidSwitchExternalPower=ignore" >> /etc/systemd/logind.conf
+echo "HandleLidSwitchDocked=ignore" >> /etc/systemd/logind.conf

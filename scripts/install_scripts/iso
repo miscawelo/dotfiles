@@ -1,0 +1,32 @@
+!#/usr/bin/bash
+
+# Partition disk
+cfdisk /dev/nvme0n1
+
+# Encrypt root partition
+cryptsetup -y -v luksFormat /dev/nvme0n1p2
+cryptsetup open /dev/nvme0n1p2 root
+
+# Format partitions
+mkfs.ext4 /dev/mapper/root
+mkfs.fat -F32 /dev/nvme0n1p1
+
+# Mount partitions
+mount /dev/mapper/root /mnt
+mkdir /mnt/boot
+moumt /dev/nvme0n1p1 /mnt/boot
+
+# Swapfile
+dd if=/dev/zero of=/swapfile bs=1M count=16384 status=progress
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+swapon /swapfile
+
+# Install all packages
+pacstrap -K /mnt base linux-firmware linux-zen linux zen-headers git
+
+# Fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Chroot into the system
+arch-chroot /mnt

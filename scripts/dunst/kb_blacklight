@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+send_notif() {
+    dunstify "Brightness" "Keyboard" -i $HOME/scripts/assets/icons/keyboard.png -h string:x-dunst-stack-tag:kb_brightness -h int:value:"$(($(asusctl -k | cut -d ' ' -f 5) * 33))"
+}
+
+[ "$1" = "down" ] && if [[ $(asusctl -k | cut -d ' ' -f 5) > 0 ]]; then asusctl -p ; send_notif ; fi && exit
+[ "$1" = "up" ] && if [[ $(asusctl -k | cut -d ' ' -f 5) < 3 ]]; then asusctl -n ; send_notif ; fi && exit

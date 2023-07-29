@@ -1,0 +1,57 @@
+#!/usr/bin/bash
+
+already_running="$(ps -fC 'grep' -N | grep -c 'battery')"
+
+if [[ $already_running -gt 1 ]]; then
+    pkill -f --older 1 'battery'
+fi
+
+icons="$HOME/scripts/assets/icons"
+
+low=0
+critical=0
+dead=0
+battery_80=0
+full=0
+
+while true; do
+    battery_status="$(cat /sys/class/power_supply/BAT0/status)"
+    battery_charge="$(cat /sys/class/power_supply/BAT0/capacity)"
+
+    if [ "$battery_status" == 'Discharging' ]; then
+        battery_80=0
+        battery_90=0
+        full=0
+
+        if [ "$battery_charge" -le 5 ] && [ "$dead" -eq 0 ]; then
+            dunstify --urgency critical "Battery dead" "Hibernating in 15 seconds" -I "$icons/battery_dead.png" -h string:x-dunst-stack-tag:battery
+            dead=1
+            sleep 15
+            systemctl hibernate
+        elif [ "$battery_charge" -le 10 ] && [ "$critical" -eq 0 ]; then
+            dunstify --urgency critical "Critical battery" "${battery_charge}% remaining" -I "$icons/battery_critical.png" -h string:x-dunst-stack-tag:battery
+            critical=1
+        elif [ "$battery_charge" -le 20 ] && [ "$low" -eq 0 ]; then
+            dunstify --urgency critical "Low battery" "${battery_charge}% remaining" -t 20000 -I "$icons/battery_low.png" -h string:x-dunst-stack-tag:battery
+            low=1
+        fi
+    else
+        low=0
+        critical=0
+        dead=0
+
+        if [ "$battery_charge" -ge 99 ] && [ "$full" -eq 0 ]; then
+            dunstify "Battery full" -I "$icons/battery_full.png" -h string:x-dunst-stack-tag:battery
+            full=1
+        elif [ "$battery_charge" -ge 90 ] && [ "$battery_90" -eq 0 ]; then
+            dunstify "Battery at 90%" -I "$icons/battery_90.png" -h string:x-dunst-stack-tag:battery
+            battery_90=1
+        elif [ "$battery_charge" -ge 80 ] && [ "$battery_80" -eq 0 ]; then
+            dunstify "Battery at 80%" -I "$icons/battery_80.png" -h string:x-dunst-stack-tag:battery
+            battery_80=1
+        fi
+    fi
+
+    sleep 1m
+
+done

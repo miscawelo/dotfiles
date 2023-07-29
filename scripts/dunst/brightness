@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+send_notif() {
+  dunstify "Brightness" "Device" -i $HOME/scripts/assets/icons/brightness.png -h string:x-dunst-stack-tag:volume -h int:value:"$(brightnessctl -m -d amdgpu_bl1 | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%')"
+}
+
+[ "$1" = "down" ] && brightnessctl set $2%- && send_notif && exit
+[ "$1" = "up" ] && brightnessctl set +$2% && send_notif && exit

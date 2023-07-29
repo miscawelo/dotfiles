@@ -1,0 +1,13 @@
+!#/usr/bin/bash
+
+passwd
+
+user="miscawelo"
+
+useradd -m $user
+usermod -aG audio,video,wheel $user
+
+passwd $user
+
+ln -sf /usr/share/zoneinfo/Mexico/General /etc/localtime
+hwclock --systohc
