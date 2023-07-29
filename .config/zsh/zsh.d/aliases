@@ -6,6 +6,7 @@ alias dotst='dotfiles status'
 alias dotcm='dotfiles commit -m'
 alias dotps='dotfiles push'
 alias dotrs='dotfiles restore --staged'
+alias dotrm='dotfiles rm -r --cached'
 alias dotdf='dotfiles difftool'
 
 alias gs='git status'
