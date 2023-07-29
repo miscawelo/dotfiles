@@ -26,6 +26,8 @@ return {
 
     color_scheme = 'Dracula',
 
+    window_background_opacity = 0.7,
+
     window_close_confirmation = "AlwaysPrompt",
 
     enable_scroll_bar = true,
@@ -35,5 +37,5 @@ return {
         'FontAwesome6Free'
     }),
 
-    font_size = 10.0,
+    font_size = 12.0,
 }

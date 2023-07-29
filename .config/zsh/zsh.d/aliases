@@ -17,5 +17,10 @@ alias gd='git difftool'
 alias gpgrs='echo UPDATESTARTUPTTY | gpg-connect-agent &> /dev/null'
 
 # xdg-ninja
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
-alias svn="svn --config-dir $XDG_CONFIG_HOME/subversion"
+alias wget='wget --hsts-file=$XDG_DATA_HOME/wget-hsts'
+alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
+
+# pacman
+alias pm-ls='pacman -Qq | fzf --preview "pacman -Qil {}" --layout=reverse --bind "enter:execute(pacman -Qil {} | less)"'
+alias pm-lse='pacman -Qqe | fzf --preview "pacman -Qil {}" --layout=reverse --bind "enter:execute(pacman -Qil {} | less)"'
+alias pm-find='pacman -Slq | fzf --preview "pacman -Si {}" --layout=reverse'

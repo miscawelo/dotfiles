@@ -1,0 +1,148 @@
+[
+{
+    "layer": "top",
+    "position": "top",
+    "margin": "0, 0, 0, 0",
+
+    "modules-left":   ["idle_inhibitor", "wlr/workspaces", "custom/power_mode"],
+    "modules-center": ["hyprland/window"],
+    "modules-right":  ["clock", "custom/user"],
+
+    "clock": {
+        "interval": 1,
+        "format": "{:%A, %B %d | %H:%M:%S}",
+        "tooltip-format": "{calendar}",
+
+        "calendar": {
+            "mode"          : "year",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "on-click-right": "mode",
+            "format": {
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions":  {
+            "on-click-right": "mode",
+        }
+    },
+
+    "custom/power_mode": {
+        "interval": 1,
+        "format": "{}",
+        "exec": "asusctl profile -p | cut -d ' ' -f4",
+        "on-click" : "$HOME/scripts/asus/power_mode",
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": true,
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "",
+        }
+    },
+
+    "wlr/workspaces": {
+        "all-outputs": true,
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "urgent": "",
+        }
+    },
+
+    "custom/user": {
+        "format": "{}",
+        "exec" : "echo $USER",
+        "on-click" : "wlogout",
+    },
+},
+
+{
+    "layer": "top",
+    "position": "bottom",
+    "margin": "0, 0, 0, 0",
+
+    "modules-left":   ["cpu", "custom/cpu_details", "custom/gpu", "custom/fans"],
+    "modules-center": [],
+    "modules-right":  ["tray", "network", "bluetooth", "wireplumber", "battery"],
+
+    "battery": {
+        "interval": 1,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity} ({time} {power} W)",
+        "format-charging": " {capacity} ({time} {power} W)",
+        "format-full": " {capacity} {time}",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{power} W ({time:2} remaining)",
+    },
+
+    "bluetooth": {
+        "format-disabled": "",
+        "format-off": "",
+        "format-on": "",
+        "format-connected": "",
+        "tooltip-format": "{device_alias}",
+        "on-click": "blueman-manager",
+    },
+
+    "cpu": {
+        "interval": 1,
+        "format": "&#xf2db; {usage}% ({avg_frequency} GHz",
+    },
+
+    "custom/cpu_details": {
+        "interval": 1,
+        "format": "{})",
+        "exec" : "echo $(sensors | grep Tdie | awk '{print $2+0}')°C $(sensors | grep PPT | tail -n1 | awk '{print $2+0}') W",
+    },
+
+    "custom/gpu": {
+        "interval": 1,
+        "format": " &#xf11b; {}",
+        "exec": "sensors | grep 0300 >> /dev/null && echo $(sensors | grep -m1 PPT | awk '{print $2+0}')/$(sensors | grep -m1 PPT | awk '{print $6+0}') W $(sensors | grep mem | awk '{print $2+0}')°C || echo disabled",
+    },
+
+    "custom/fans": {
+        "interval": 1,
+        "format": " &#xf863; {}",
+        "exec" : "echo CPU: $(sensors | grep cpu | awk '{print $2}') GPU: $(sensors | grep gpu | awk '{print $2}')",
+    },
+
+    "network": {
+        "interval": 1,
+        "format-ethernet": "",
+        "format-wifi": "{icon}",
+        "format-disabled": "",
+        "format-disconnected": "",
+        "on-click": "nmtui",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format-wifi": "{essid}",
+    },
+
+    "tray": {
+        "icon-size": 22,
+        "spacing": 3
+    },
+
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "on-click": "helvum",
+        "format-icons": ["", "", ""]
+    },
+}
+]
