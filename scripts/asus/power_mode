@@ -4,11 +4,10 @@ asusctl profile -n
 profile=$(asusctl profile -p | cut -d ' ' -f4)
 
 if [[ $profile  == "Performance" ]]; then
-	corectrl -m Eco
+	corectrl -m Balanced
 	corectrl -m Performance
 elif [[ $profile  == "Balanced" ]]; then
-    $HOME/scripts/asus/power_mode
-    exit
+    $HOME/scripts/asus/power_mode ; exit
 else
 	corectrl -m Performance
 	corectrl -m Eco
