@@ -1,8 +1,6 @@
-bindkey -e
-setopt histignoredups
-
 autoload -Uz compinit
 compinit
+setopt histignoredups
 
 HISTSIZE=10000
 SAVEHIST=10000
