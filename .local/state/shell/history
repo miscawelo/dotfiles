@@ -1,0 +1,866 @@
+: 1690930520:0;git clone https://github.com/miscawelo/dotfiles2.git
+: 1690930526:0;git clone git@github.com:miscawelo/dotfiles2.git
+: 1690930535:0;ls dotfiles2
+: 1690930557:0;cd dotfiles2
+: 1690930564:0;git -b miscawelo-nas
+: 1690930573:0;git checkout miscawelo-nas
+: 1690930576:0;git pull
+: 1690930579:0;ls
+: 1690930581:0;cd ..
+: 1690930595:0;scp -r dotfiles2/docker/homer/logos miscawelo@miscawelo-nas:/home/miscawelo
+: 1690932226:0;tailscale status
+: 1690948410:0;ssh miscawelo@miscawelo-nas
+: 1690952424:0;rm -fr downloads/bitwarden_export_20230801225956.json
+: 1691022802:0;sudo systemctl restart asusd.service
+: 1691022817:0;yay
+: 1691023198:0;sudo systemctl restart asusd.service
+: 1691023213:0;systemctl status asusd
+: 1691023227:0;killall rog-control-center
+: 1691024650:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691036861:0;ssh miscawelo@miscawelo-nas
+: 1691041614:0;ssh miscawelo@192.168.1.200
+: 1691041746:0;ssh miscawelo@miscawelo-nas
+: 1691042228:0;ssh miscawelo@192.168.1.200
+: 1691042301:0;tailscale down
+: 1691042317:0;ping google.com
+: 1691042583:0;tailscale up
+: 1691043196:0;ssh miscawelo@192.168.1.200
+: 1691096192:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691097009:0;ssh miscawelo@miscawelo-nas
+: 1691097684:0;yay
+: 1691097689:0;yay --noconfirm
+: 1691097699:0;sudo pacman -Sy
+: 1691097706:0;sudo pacman -S do
+: 1691097709:0;yay --noconfirm
+: 1691101279:0;ssh miscawelo@192.168.1.200
+: 1691101437:0;tailscale down
+: 1691101754:0;tailscale up
+: 1691121604:0;nvim .config/hypr/keybinds.conf
+: 1691121610:0;nvim .config/hypr/hyprland.conf
+: 1691121994:0;ssh miscawelo@miscawelo-nas
+: 1691121997:0;gpgrs
+: 1691121999:0;ssh miscawelo@miscawelo-nas
+: 1691122327:0;tailscale up
+: 1691122350:0;ssh miscawelo@192.168.1.200
+: 1691122509:0;ssh miscawelo@miscawelo-nas
+: 1691122528:0;ping google.com
+: 1691122533:0;tailscale status
+: 1691122538:0;cat /etc/resolv.conf
+: 1691122545:0;tailscale up
+: 1691122546:0;tailscale status
+: 1691122550:0;tailscale down && tailscale up
+: 1691122552:0;tailscale status
+: 1691122554:0;cat /etc/resolv.conf
+: 1691122663:0;ssh miscawelo@miscawelo-nas
+: 1691123381:0;yay -S sddm-git --noconfirm
+: 1691123703:0;gamemoderun steam-native
+: 1691126115:0;yay -S sddm-git --noconfirm
+: 1691126128:0;yay -S sddm-git
+: 1691182656:0;ssh miscawelo@miscawelo-nas
+: 1691182712:0;cliphist wipe
+: 1691183704:0;wl-paste --watch cliphist store
+: 1691183963:0;gamemoderun steam-native
+: 1691184094:0;docker
+: 1691184096:0;ls
+: 1691184097:0;cd
+: 1691184098:0;ls
+: 1691184110:0;rm -fr docker 
+: 1691184112:0;ls serverfiles
+: 1691184119:0;rm -fr serverfiles
+: 1691184120:0;ls
+: 1691184124:0;rm -fr Downloads
+: 1691184142:0;sudo pacman -S qbittorrent
+: 1691185702:0;sudo pacman -S flatpak
+: 1691185756:0;flatpak install bottles
+: 1691187465:0;yay -S flatseal
+: 1691187663:0;flatpak run bottles
+: 1691187672:0;ls /var/lib/flatpak/exports/share
+: 1691187685:0;ls /var/lib/flatpak/exports/share/applications
+: 1691187693:0;flatpak run com.usebottles.bottles.deskto
+: 1691187694:0;flatpak run com.usebottles.bottles.desktop
+: 1691187745:0;flatpak run com.usebottles.bottles
+: 1691187969:0;mkdir .wine_bottles
+: 1691189970:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691199813:0;sudo blkid
+: 1691199819:0;sudo lsblk
+: 1691199829:0;sudo mount /dev/mapper/luks-8b67f69c-e239-46a9-9f51-922731e30667 /mny
+: 1691199830:0;sudo mount /dev/mapper/luks-8b67f69c-e239-46a9-9f51-922731e30667 /mnt
+: 1691199833:0;cd /mnt
+: 1691199833:0;ls
+: 1691199840:0;sudo rm luksHeader.miscawelo-arch-laptop.bin
+: 1691199843:0;ls gnupg
+: 1691199870:0;ls -la gnupg
+: 1691199873:0;cd gnupg
+: 1691199873:0;ls
+: 1691199877:0;cat private-keys.asc
+: 1691199987:0;sudo nvim ../verification_codes
+: 1691200069:0;yay -S termius
+: 1691200126:0;ssh miscawelo@miscawelo-nas
+: 1691200135:0;gpgrs
+: 1691200136:0;ssh miscawelo@miscawelo-nas
+: 1691200152:0;yay -S termius
+: 1691200185:0;ssh miscawelo@miscawelo-nas
+: 1691200190:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691200198:0;ssh pi@miscawelo-raspberry
+: 1691200230:0;sudo nvim /etc/ssh/sshd_config
+: 1691200257:0;ssh pi@miscawelo-raspberry
+: 1691200261:0;ssh -p6304 pi@miscawelo-raspberry
+: 1691200426:0;cliphist wipe
+: 1691200478:0;ls
+: 1691200480:0;cat private-keys.asc
+: 1691200508:0;ls
+: 1691200557:0;ssh-add -L miscawelo@miscawelo-arch-acer
+: 1691200561:0;ssh-add -L
+: 1691200761:0;gpg
+: 1691200765:0;gpg --list-secret-keys
+: 1691200801:0;cat private-keys.asc
+: 1691200814:0;ls
+: 1691200816:0;cat public-keys.asc
+: 1691201007:0;ssh-copy-id miscawelo@miscawelo-nas
+: 1691201011:0;ssh-copy-id -p6304 miscawelo@miscawelo-nas
+: 1691201018:0;gpgrs
+: 1691201019:0;ssh-copy-id -p6304 miscawelo@miscawelo-nas
+: 1691201034:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691201418:0;sudo nvim /etc/ssh/sshd_config
+: 1691201444:0;EDITOR=nvim sudoedit /etc/ssh/sshd_config
+: 1691201509:0;ls
+: 1691201677:0;ssh -p6304 miscawelo@miscawelo-arch
+: 1691201692:0;sudo systemctl restart sshdgenkeys.service
+: 1691201695:0;sudo systemctl restart sshd
+: 1691201696:0;sudo systemctl restart ssh
+: 1691201701:0;ssh -p6304 miscawelo@miscawelo-arch
+: 1691201726:0;ks
+: 1691201726:0;ls
+: 1691201880:0;exit
+: 1691201883:0;gpg-agent
+: 1691201890:0;gpg-agent --help
+: 1691201906:0;ssh -i
+: 1691202608:0;exit
+: 1691202913:0;cd
+: 1691202917:0;ls .ssh
+: 1691202936:0;ls -la .ssh
+: 1691202962:0;cat .ssh/yubikey-ssh
+: 1691203023:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691203043:0;ssh -L
+: 1691203047:0;ssh-add -L
+: 1691203062:0;ssh miscawelo@miscawelo-nas
+: 1691203071:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691203075:0;gpgrs
+: 1691203076:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691203083:0;ls
+: 1691203091:0;cat .ssh/yubikey-ssh
+: 1691203149:0;nvim .ssh/authorized_keys
+: 1691203171:0;cat .ssh/authorized_keys
+: 1691203174:0;nvim .ssh/authorized_keys
+: 1691203191:0;rm -fr .ssh/known_hosts.old .ssh/yubikey-ssh
+: 1691203194:0;cat .ssh/authorized_keys
+: 1691203253:0;ssh -p6304 miscawelo@miscawelo-raspberry
+: 1691203256:0;gpgrs
+: 1691203257:0;ssh -p6304 miscawelo@miscawelo-raspberry
+: 1691203264:0;ssh -p6304 pi@miscawelo-raspberry
+: 1691203341:0;ls
+: 1691203434:0;sudo nvim /etc/ssh/sshd_config
+: 1691203476:0;sudo systemctl restart ssh
+: 1691203477:0;sudo systemctl restart sshd
+: 1691203479:0;exit
+: 1691203482:0;lsblk
+: 1691203486:0;sudo umount /mnt
+: 1691203491:0;bashmount
+: 1691203505:0;sudo cryptsetup close /dev/sda1
+: 1691203513:0;sudo cryptsetup close /dev/mapper/luks-8b67f69c-e239-46a9-9f51-922731e30667
+: 1691203517:0;lsblk
+: 1691373616:0;yay -S amdctl-git
+: 1691373761:0;amdctl
+: 1691374211:0;cat /usr/share/X11/xkb/rules/base.lst
+: 1691374232:0;grep 'grp:.*toggle' /usr/share/X11/xkb/rules/base.lst | grep Ctrl
+: 1691374287:0;nvim .config/hypr/hyprland.conf
+: 1691374317:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691374708:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691378070:0;nvim .config/hypr/hyprland.conf
+: 1691378896:0;./scripts/hyprland/login
+: 1691378924:0;hyprctl monitor
+: 1691378928:0;hyprctl monitors
+: 1691379022:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691379257:0;sudo pacman -S piper
+: 1691447288:0;nvim .config/hypr/hyprland.conf
+: 1691447391:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691447406:0;nvim .config/hypr/hyprland.conf
+: 1691447513:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691451287:0;gamemoderun steam-native
+: 1691451815:0;socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do handle "$line"; done
+: 1691451842:0;sudo pacman -S socat
+: 1691451853:0;socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do handle "$line"; done
+: 1691451861:0;socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do echo "$line"; done
+: 1691451915:0;gamemoderun prismlauncher
+: 1691452013:0;DRI_PRIME=1 prismlauncher
+: 1691452120:0;gamemoderun steam-native
+: 1691455580:0;cat scripts/hyprland/hyprland_socket
+: 1691455626:0;;s
+: 1691455627:0;ls
+: 1691455643:0;nvim scripts/hyprland/
+: 1691455706:0;./scripts/hyprland/hyprland_socket +
+: 1691455708:0;nvim scripts/hyprland/
+: 1691455713:0;nvim scripts/hyprland/hyprland_socket
+: 1691455722:0;./scripts/hyprland/hyprland_socket
+: 1691455737:0;hyprctl reload
+: 1691455786:0;nvim scripts/hyprland/hyprland_socket
+: 1691455812:0;socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do echo "$line"; done
+: 1691455876:0;./scripts/hyprland/hyprland_socket
+: 1691455911:0;./scripts/hyprland/login
+: 1691455918:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691458860:0;nvim scripts/hyprland/hyprland_socket
+: 1691458916:0;socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do echo "$line"; done
+: 1691458930:0;socat - "UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket.sock" | while read -r line; do echo "$line"; done
+: 1691463892:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691463907:0;nvim .config/hypr/hyprland.conf
+: 1691463910:0;exit
+: 1691463917:0;./scripts/hyprland/login
+: 1691463936:0;nvim .config/hypr/hyprland.conf
+: 1691463970:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691463973:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@20, 0x0, 1, bitdepth, 10
+: 1691463977:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691463988:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@30, 0x0, 1, bitdepth, 10
+: 1691464029:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@60, 0x0, 1, bitdepth, 10
+: 1691464127:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691464134:0;tailscale status
+: 1691464298:0;sudo powertop
+: 1691464312:0;sudo pacman -S battop
+: 1691464317:0;yay -S battop
+: 1691464546:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@30, 0x0, 1, bitdepth, 10
+: 1691464608:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691464618:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691464626:0;tailscale status
+: 1691464631:0;cat /etc/resolv.conf
+: 1691464640:0;tailscale up
+: 1691464642:0;cat /etc/resolv.conf
+: 1691464644:0;tailscale up
+: 1691464657:0;sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+: 1691464668:0;ls -l /etc/resolv.conf
+: 1691464700:0;sudo systemctl restart systemd-resolved
+: 1691464705:0;sudo systemctl restart NetworkManager
+: 1691464709:0;sudo systemctl restart tailscaled
+: 1691464720:0;cat /etc/resolv.conf
+: 1691464726:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691468813:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 2, bitdepth, 10
+: 1691468823:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth, 10
+: 1691468859:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 1920x1200@120, 0x0, 1, bitdepth, 10
+: 1691468870:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth, 10
+: 1691468877:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691468882:0;hyprctl reload
+: 1691468894:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@60, 0x0, 1, bitdepth, 10
+: 1691468901:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth, 10
+: 1691469528:0;hyprctl reload
+: 1691470245:0;tailscale down
+: 1691470283:0;cat /etc/resolv.conf
+: 1691470519:0;curl -s https://ipinfo.io/ip
+: 1691470525:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691470534:0;tailscale up
+: 1691470540:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691470544:0;gpgrs
+: 1691470546:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691470707:0;dotst
+: 1691471273:0;nvim .config/hypr/hyprland.conf
+: 1691471973:0;sudo pacman -S nvidia-smi
+: 1691471980:0;yay -S nvidia-smi
+: 1691473661:0;sudo mv downloads/GA402R* /boot
+: 1691473669:0;cd /boot
+: 1691473670:0;ls
+: 1691473683:0;rm -fr GA402RJAS318
+: 1691473685:0;sudo rm -fr GA402RJAS318
+: 1691473690:0;sudo rm -fr GA402RJAS.318
+: 1691473691:0;ls
+: 1691473697:0;reboot
+: 1691473799:0;cd /boot
+: 1691473800:0;su
+: 1691531419:0;ls
+: 1691531419:0;rm GA402RKAS318.zip 
+: 1691531419:0;extract
+: 1691531419:0;exit
+: 1691473820:0;sudo extract
+: 1691473831:0;extract GA402RJAS318.zip
+: 1691473843:0;sudo cp GA402RJAS318.zip /home/miscawelo
+: 1691473845:0;cd
+: 1691473848:0;ls -l
+: 1691473856:0;sudo chown miscawelo:miscawelo GA402RJAS318.zip
+: 1691473859:0;extract GA402RJAS318.zip
+: 1691473860:0;ls
+: 1691473868:0;sudo mv GA402RJAS.318 /boot
+: 1691473876:0;sudo rm GA402RJAS318.zip /boot/GA402RJAS318.zip
+: 1691473880:0;ls /boot
+: 1691473883:0;reboot
+: 1691474350:0;asusctl -c 
+: 1691474353:0;asusctl
+: 1691474359:0;asusctl -s
+: 1691474406:0;nvtop
+: 1691474428:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691526836:0;hyprctl client
+: 1691526837:0;hyprctl clients
+: 1691526843:0;hyprctl clients | grep 'class'
+: 1691526848:0;hyprctl clients | grep 'class|title'
+: 1691526865:0;hyprctl clients | grep class|title
+: 1691526870:0;hyprctl clients | grep -E 'class|title'
+: 1691526914:0;ls
+: 1691526924:0;tailscale status
+: 1691526934:0;nvim .config/hypr/hyprland.conf
+: 1691526938:0;nvim .config/hypr/window_rules.conf
+: 1691526957:0;hyprctl clients | grep -E 'class|title'
+: 1691526963:0;hyprctl clients | grep class
+: 1691527009:0;sudo pacman -S kavantum qt6ct
+: 1691527015:0;sudo pacman -S kvantum qt6ct
+: 1691527055:0;nvim .config/zsh/zsh.d/envvars
+: 1691527100:0;bash -l
+: 1691531419:0;exit
+: 1691527110:0;chsh
+: 1691527125:0;chsh -l
+: 1691527132:0;chsh -s /bin/bash
+: 1691527681:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691529480:0;envsubst
+: 1691531006:0;flatpak uninstall all
+: 1691531010:0;flatpak uninstall com.usebottles.bottles
+: 1691531016:0;flatpak rm
+: 1691531018:0;flatpak remove
+: 1691531022:0;flatpak remove --all
+: 1691531027:0;sudo pacman -Rns flatpak
+: 1691531030:0;sudo pacman -Rns flatpak-builder
+: 1691531034:0;sudo pacman -Rns flatpak
+: 1691531049:0;sudo pacman -S lutris
+: 1691531349:0;sudo pacman -Rns bash
+: 1691531357:0;sh
+: 1691531419:0;ls
+: 1691531419:0;exit
+: 1691531361:0;ls
+: 1691531419:0;exec Hyprland
+: 1691531460:0;chsh -s /bin/bash
+: 1691531558:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691531573:0;nvim .config/hypr/hyprland.conf
+: 1691531624:0;./scripts/hyprland/hyprland_socket
+: 1691531720:0;nvim .config/hypr/hyprland.conf
+: 1691531727:0;killall hyprland_socket
+: 1691531806:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691532029:0;chsh -s /usr/bin/zsh
+: 1691532043:0;cat .config/zsh/.zshrc
+: 1691532051:0;rm -fr .config/zsh/.zsh_history
+: 1691532055:0;cat .config/zsh/.zshrc
+: 1691532106:0;tput
+: 1691532109:0;tput colors
+: 1691532116:0;tput -T
+: 1691532124:0;nvim .config/zsh/.zshrc
+: 1691532198:0;sudo pacman -Rns sddm-git 
+: 1691532214:0;pm-ls
+: 1691532251:0;nvim .config/zsh/zsh.d/envvars
+: 1691532289:0;pm-ls
+: 1691532309:0;sudo pacman -Rns kded
+: 1691532315:0;sudo pacman -Rns kio
+: 1691532317:0;sudo pacman -Rns kparts
+: 1691532320:0;sudo pacman -Rns ark
+: 1691532327:0;pm-ls
+: 1691532338:0;sudo pacman -Rns karchive
+: 1691532341:0;sudo pacman -Rns kiconthemes
+: 1691532349:0;sudo pacman -Rns polkit-kde-agent
+: 1691532363:0;sudo pacman -Rns kconfig
+: 1691532368:0;sudo pacman -Rns libkscreen
+: 1691532378:0;sudo pacman -Rns kwindowsystem
+: 1691532382:0;sudo pacman -Rns kvantum
+: 1691532391:0;pm-ls
+: 1691532433:0;sudo pacman -S kvantum polkit-kde-agent
+: 1691532483:0;lspci | grep -E 'VGA|3D'
+: 1691532496:0;lspci
+: 1691532501:0;lspci | grep -E 'VGA|3D'
+: 1691532526:0;echo 1 | sudo tee /sys/bus/pci/rescan
+: 1691532540:0;lspci | grep -E 'VGA|3D'
+: 1691532603:0;echo $GDK_BACKEND
+: 1691532639:0;qt6ct
+: 1691532658:0;nvim .config/zsh/zsh.d/envvars
+: 1691532762:0;sudo pacman -S lxappearance
+: 1691532783:0;ls -l /dev/dri/by-path
+: 1691532798:0;lspci | grep -E 'VGA|3D'
+: 1691532838:0;nvim .config/zsh/zsh.d/envvars
+: 1691532875:0;echo $WLR_DRM_DEVICES
+: 1691533212:0;sudo pacman -S ark
+: 1691533357:0;thunar
+: 1691534059:0;zsh-new
+: 1691534059:0;zsh-newuser-install
+: 1691534059:0;exit
+: 1691534059:0;exit
+: 1691534046:0;ls
+: 1691534059:0;exit
+: 1691534079:0;ls
+: 1691534080:0;exit
+: 1691534134:0;nvim .config/zsh/.zshrc 
+: 1691534134:0;zsh
+: 1691534134:0;nvim .config/zsh/.zshrc 
+: 1691534134:0;zsh
+: 1691534134:0;nvim .config/zsh/.zshrc 
+: 1691534134:0;exit
+: 1691534134:0;htop
+: 1691534134:0;ssh miscawelo@miscawelo-nas
+: 1691534134:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691534134:0;ls
+: 1691534134:0;bash
+: 1691534134:0;cat .bashrc 
+: 1691534134:0;cat .bash_profile 
+: 1691534134:0;zsh
+: 1691534134:0;exit
+: 1691534119:0;nvim .config/zsh/.zshrc 
+: 1691534132:0;zsh -l
+: 1691534134:0;exit
+: 1691534305:0;bash -l
+: 1691534374:0;exit
+: 1691534374:0;nvim .bash_profile 
+: 1691534374:0;nvim .bashrc 
+: 1691534374:0;fastfetch 
+: 1691534374:0;nvim .bashrc 
+: 1691534374:0;bash
+: 1691534374:0;exit
+: 1691534374:0;cat .bashrc 
+: 1691534374:0;bash
+: 1691534374:0;exit
+: 1691534386:0;nvim .config/zsh/.zshrc 
+: 1691534406:0;exit
+: 1691534454:0;echo $ZDOTDIR
+: 1691534457:0;exec Hyprland
+: 1691534477:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, disable
+: 1691534515:0;bash
+: 1691534635:0;exit
+: 1691534515:0;bash
+: 1691534635:0;exit
+: 1691534515:0;bash
+: 1691534635:0;exit
+: 1691534515:0;bash
+: 1691534635:0;exity
+: 1691534635:0;exit
+: 1691534515:0;bash
+: 1691534635:0;exit
+: 1691534536:0;fastfetch ]
+: 1691534538:0;fastfetch
+: 1691534566:0;sudo pacman -S dolphin
+: 1691534631:0;zsh -l
+: 1691534730:0;sudoedit
+: 1691534732:0;sudoedit /etc/zsh/zshenv
+: 1691534745:0;cat /etc/profile
+: 1691534826:0;sudoedit /etc/zsh/zshenv
+: 1691534871:0;reboot
+: 1691534877:0;sudo reboot
+: 1691534920:0;nvim .config/zsh/.zshrc 
+: 1691534924:0;exit
+: 1691534956:0;bash -l
+: 1691534982:0;exit
+: 1691534966:0;nvim .config/zsh/.zshrc 
+: 1691534972:0;zsh
+: 1691534977:0;nvim .config/zsh/.zshrc 
+: 1691534980:0;zsh
+: 1691534982:0;exit
+: 1691534984:0;nvim .config/zsh/.zshrc 
+: 1691534988:0;bash -l
+: 1691534995:0;exit
+: 1691534995:0;exec bash
+: 1691535060:0;exit
+: 1691535020:0;nvim .config/zsh/.zshrc 
+: 1691535041:0;zsh
+: 1691535060:0;exit
+: 1691535045:0;nvim .config/zsh/.zshrc 
+: 1691535053:0;echo $ZDOTDIR
+: 1691535060:0;exit
+: 1691537144:0;ls
+: 1691537144:0;ls
+: 1691537144:0;nvim .config/zsh/.zshrc 
+: 1691537144:0;mv .config/zsh/zsh.d/envvars .config/environment/envvars
+: 1691537144:0;rm -fr .config/env
+: 1691537144:0;exit
+: 1691535045:0;nvim .config/zsh/.zshrc 
+: 1691537144:0;nvim .bash_profile 
+: 1691537144:0;bash -l
+: 1691537144:0;nvim .bash_profile 
+: 1691537144:0;nvim .bashrc 
+: 1691537144:0;exit
+: 1691535798:0;ls
+: 1691535804:0;nvim .bashrc 
+: 1691535840:0;tty
+: 1691535846:0;nvim .bashrc 
+: 1691535860:0;wlogout
+: 1691535880:0;hyprctl dispatch exit
+: 1691537144:0;exit
+: 1691537144:0;exit
+: 1691537144:0;exit
+: 1691537144:0;exit
+: 1691537144:0;tty
+: 1691537144:0;nvim .bashrc 
+: 1691537144:0;bash -l
+: 1691537144:0;nvim .bashrc 
+: 1691537144:0;bash -l
+: 1691537144:0;nvim .bashrc 
+: 1691537144:0;bash -l
+: 1691537144:0;nvim .bashrc 
+: 1691537144:0;bash -l
+: 1691537144:0;nvim .bashrc 
+: 1691537144:0;exit
+: 1691537144:0;exit
+: 1691536095:0;nvim .bashrc 
+: 1691536099:0;nvim .bash_profile
+: 1691536126:0;bash
+: 1691536154:0;sudo nvim /etc/profile
+: 1691536171:0;sudoedit /etc/profile
+: 1691536176:0;yay
+: 1691536786:0;nvim .config/zsh/zsh.d/functions
+: 1691536796:0;nvim .config/zsh/zsh.d/options
+: 1691536910:0;cd /boot
+: 1691536959:0;dirs -v
+: 1691536962:0;dirs
+: 1691536963:0;dirs -v
+: 1691536967:0;cd /boot
+: 1691536969:0;cd
+: 1691536971:0;nvim .config/zsh/zsh.d/options
+: 1691536995:0;cd -10
+: 1691537008:0;cd -17
+: 1691537061:0;cd downloads
+: 1691537093:0;ls
+: 1691537094:0;cd
+: 1691537096:0;ls
+: 1691537097:0;cd
+: 1691537099:0;cd pictures
+: 1691537108:0;cd nextcloud
+: 1691537109:0;cd
+: 1691537118:0;cd miscawelo
+: 1691537190:0;battop
+: 1691537199:0;sudo pacman -Rns nvtop
+: 1691537204:0;nvtop
+: 1691537240:0;nvim .config/zsh/zsh.d/options
+: 1691537247:0;nvtop
+: 1691537348:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691538139:0;ls downloads/torrents
+: 1691538142:0;ls downloads
+: 1691538164:0;df -h
+: 1691538175:0;sudo ncdu
+: 1691538180:0;sudo ncdu /
+: 1691538229:0;sudo pacman -Rns .local/share/Trash/files/*
+: 1691538234:0;df -h
+: 1691538407:0;smartctl
+: 1691538569:0;history
+: 1691538571:0;ls
+: 1691538584:0;killall thunar
+: 1691538593:0;sudo rm .local/share/Trash/files/*
+: 1691538599:0;sudo rm -fr .local/share/Trash/files/*
+: 1691538601:0;df -h
+: 1691539429:0;lutris
+: 1691539883:0;sudo pacman -Rns lutris
+: 1691539892:0;ls Games
+: 1691539904:0;wine downloads/torrents/The\ Last\ of\ Us\ \[DODI\ Repack\]/Setup.exe
+: 1691539947:0;ls
+: 1691539950:0;mkdir games
+: 1691539951:0;ls
+: 1691539953:0;ls Games
+: 1691539955:0;ls ff
+: 1691539960:0;rm -fr Games
+: 1691540015:0;rm -fr downloads/torrents/*
+: 1691540104:0;ls downloads/torrents
+: 1691540105:0;ls downloads/torrents
+: 1691540106:0;ls downloads/torrents
+: 1691540135:0;ls downloads/torrents
+: 1691540135:0;ls downloads/torrents
+: 1691540136:0;ls downloads/torrents
+: 1691540136:0;ls downloads/torrents
+: 1691540136:0;ls downloads/torrents
+: 1691540172:0;reset
+: 1691546815:0;cd downloads
+: 1691546816:0;cd torrents
+: 1691546817:0;ls
+: 1691546835:0;wine It\ Takes\ Two\ \[FitGirl\ Repack\]/setup.exe
+: 1691546894:0;htop
+: 1691547076:0;sudo pacman -Rns qbittorrent
+: 1691547081:0;cd
+: 1691547086:0;rm -fr downloads/torrents
+: 1691547089:0;df -h
+: 1691547095:0;ls
+: 1691547097:0;rm games
+: 1691547100:0;rm -fr games
+: 1691547102:0;df -h
+: 1691547104:0;ls
+: 1691547113:0;sudo rm -fr .local/share/Trash/files/*
+: 1691547122:0;ls .local/share/Trash/files
+: 1691547127:0;gamemoderun steam-native
+: 1691547147:0;echo 1 | sudo tee /sys/bus/pci/rescan
+: 1691547936:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691547939:0;gpgrs
+: 1691547941:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691547965:0;cat /etc/zsh/zshenv
+: 1691548309:0;tailscale status
+: 1691549031:0;ssh -p6304 miscawelo@192.168.1.200
+: 1691549262:0;tailscale down
+: 1691549907:0;tailscale up
+: 1691550057:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691550068:0;asusctl -c 80
+: 1691550072:0;ssh -p6304 miscawelo@miscawelo-nas
+: 1691550081:0;ssh -p6304 miscawelo@miscawelo-raspberry
+: 1691550084:0;gpgrs
+: 1691550085:0;ssh -p6304 miscawelo@miscawelo-raspberry
+: 1691550087:0;ssh -p6304 miscawelo@miscawelo-raspberry
+: 1691550091:0;ssh -p6304 pi@miscawelo-raspberry
+: 1691550252:0;scp miscawelo@miscawelo-nas:/home/miscawelo/.ssh/config .ssh/config
+: 1691550257:0;scp -p6304 miscawelo@miscawelo-nas:/home/miscawelo/.ssh/config .ssh/config
+: 1691550262:0;scp -P6304 miscawelo@miscawelo-nas:/home/miscawelo/.ssh/config .ssh/config
+: 1691550268:0;nvim .ssh/config
+: 1691550272:0;ssh miscawelo-nas
+: 1691550284:0;nvim .ssh/config
+: 1691550350:0;ssh miscawelo-raspberry
+: 1691550357:0;nvim .ssh/known_hosts
+: 1691550362:0;ssh miscawelo-nas
+: 1691550368:0;ssh miscawelo-raspberry
+: 1691552516:0;sudo journalctl maxUseSize
+: 1691552526:0;sudo journalctl maxUseSize 256
+: 1691552528:0;sudo journalctl maxUseSize 256Mb
+: 1691552529:0;sudo journalctl maxUseSize 256MB
+: 1691552688:0;yay -S lact
+: 1691552706:0;echo 1 | sudo tee /sys/bus/pci/rescan
+: 1691552723:0;rustup default stable
+: 1691552764:0;yay -S lact
+: 1691552959:0;sudo systemctl start lactd.service
+: 1691553030:0;gputest
+: 1691553090:0;yay -S amdgpu_top
+: 1691553114:0;cat $HISTFILE
+: 1691553126:0;cat $HISTFILE | grep DRI
+: 1691553129:0;cat $HISTFILE | grep DRI
+: 1691553134:0;history
+: 1691553175:0;DRI_PRIME=1 gputest
+: 1691553212:0;DRI_PRIME=1 gputest
+: 1691553252:0;amdgpu-clocks
+: 1691553256:0;amdgpu_stress
+: 1691553265:0;amdgpu_stress -b 1
+: 1691553266:0;amdgpu_stress -b 2
+: 1691553268:0;amdgpu_stress
+: 1691553274:0;amdgpu_stress 2k
+: 1691553276:0;amdgpu_stress -b 2k
+: 1691553286:0;amdgpu_top
+: 1691553330:0;DRI_PRIME=1 gputest
+: 1691553565:0;asusctl -c 60
+: 1691554183:0;nvim .config/hypr/hyprland.conf
+: 1691554259:0;nvim .config/hypr/window_rules.conf
+: 1691554287:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth, 10
+: 1691554998:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth,
+: 1691554999:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth,
+: 1691555001:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth, 10
+: 1691555003:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.5, bitdepth, 11
+: 1691555008:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691555011:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1.2, bitdepth, 10
+: 1691555014:0;hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, 0x0, 1, bitdepth, 10
+: 1691555309:0;yay -S system-monitoring-center
+: 1691555765:0;sudo netstat -tulpn | grep LISTEN
+: 1691555777:0;sudo pacman -S netstat
+: 1691555792:0;sudo pacman -S net-tools
+: 1691555796:0;sudo netstat -tulpn | grep LISTEN
+: 1691555799:0;sudo netstat -tulpn | grep LISTEN
+: 1691555799:0;sudo netstat -tulpn | grep LISTEN
+: 1691555799:0;sudo netstat -tulpn | grep LISTEN
+: 1691555800:0;sudo netstat -tulpn | grep LISTEN
+: 1691555800:0;sudo netstat -tulpn | grep LISTEN
+: 1691555800:0;sudo netstat -tulpn | grep LISTEN
+: 1691555800:0;sudo netstat -tulpn | grep LISTEN
+: 1691555801:0;sudo netstat -tulpn | grep LISTEN
+: 1691555801:0;sudo netstat -tulpn | grep LISTEN
+: 1691555802:0;sudo netstat -tulpn | grep LISTEN
+: 1691555802:0;sudo netstat -tulpn | grep LISTEN
+: 1691555850:0;sudo pacman -S firewalld
+: 1691555869:0;sudo systemctl enable --now firewalld.service
+: 1691556014:0;sudo pacman -S kitty lf
+: 1691556052:0;yay -S ueberzugpp
+: 1691556077:0;lf
+: 1691556103:0;sudo pacman -Rns lf kitty
+: 1691556208:0;yay
+: 1691556222:0;systemctl status reflector.
+: 1691556224:0;systemctl status reflector.service
+: 1691556228:0;systemctl status reflector.timer
+: 1691556882:0;tailscale status
+: 1691558388:0;systemctl status reflector.timer
+: 1691569363:0;ssh miscawelo-nas
+: 1691616643:0;ssh miscawelo-nas
+: 1691617744:0;ssh miscawelo-nas
+: 1691618190:0;yay
+: 1691618195:0;yay --noconfirm
+: 1691618964:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691786355:0;tailscale status
+: 1691786366:0;ssh miscawelo-nas
+: 1691786629:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691786662:0;echo a8:1e:84:9e:01:93
+: 1691786698:0;wol
+: 1691786749:0;sudo pacman -S wol
+: 1691786761:0;tailscale down
+: 1691786765:0;sudo pacman -S wol
+: 1691786772:0;wol a8:1e:84:9e:01:93
+: 1691786775:0;ssh miscawelo-nas
+: 1691786776:0;ssh miscawelo-nas
+: 1691786776:0;ssh miscawelo-nas
+: 1691786779:0;tailscale up
+: 1691786780:0;ssh miscawelo-nas
+: 1691786789:0;ping 192.168.1.200
+: 1691786877:0;ssh miscawelo-nas
+: 1691788084:0;tailscale down
+: 1691788096:0;tailscale up
+: 1691791160:0;nvim
+: 1691791347:0;ssh miscawelo-nas
+: 1691791351:0;gpgrs
+: 1691791352:0;ssh miscawelo-nas
+: 1691797258:0;stress -c16
+: 1691797261:0;stress -c 16
+: 1691797264:0;htop
+: 1691797526:0;stress -c 16
+: 1691797556:0;echo 1 | sudo tee /sys/bus/pci/rescan
+: 1691797567:0;nvtop
+: 1691797570:0;sudo pacman -S nvtop
+: 1691797575:0;nvtop
+: 1691797581:0;DRI_PRIME=1 gputest 
+: 1691797648:0;htop
+: 1691797757:0;gputest -h
+: 1691797835:0;DRI_PRIME=1 gputest  /width=2560 /height=1600 /test=fur /
+: 1691797869:0;DRI_PRIME=1 gputest /test=fur /benchmark
+: 1691797890:0;DRI_PRIME=1 gputest --help
+: 1691797983:0;DRI_PRIME=1 gputest /test=fur /benchmark /ani
+: 1691797996:0;DRI_PRIME=1 gputest /test=fur /antialiasing=yes
+: 1691798005:0;man gputest
+: 1691798790:0;DRI_PRIME=1 gputest /test=fur /antialiasing /stats
+: 1691799006:0;stress -c 16
+: 1691799009:0;htop
+: 1691799259:0;gamemoderun steam-native
+: 1691800811:0;wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
+: 1691800899:0;wget https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+: 1691800904:0;cat docker-compose.yml
+: 1691801566:0;nvim .config/MangoHud/MangoHud.conf
+: 1691801676:0;ls /sys/class/drm/card0/
+: 1691801678:0;sudo ls /sys/class/drm/card0/
+: 1691801705:0;cat /sys/class/drm/card2
+: 1691801718:0;cat /sys/class/drm/card2/device/power_dpm_force_performance_level
+: 1691801722:0;cat /sys/class/drm/card1/device/power_dpm_force_performance_level
+: 1691801726:0;cat /sys/class/drm/card0/device/power_dpm_force_performance_level
+: 1691801789:0;lspci | grep -E 'VGA|3D'
+: 1691801795:0;history
+: 1691801801:0;nvim .config/zsh/zsh.d/options
+: 1691801814:0;nvim .config/zsh/zsh.d/options
+: 1691801842:0;history
+: 1691801850:0;cat .$HISTFILE
+: 1691801853:0;cat $HISTFILE
+: 1691801873:0;cat $HISTFILE | grep lspci -B 10 -A 10
+: 1691801893:0;clear
+: 1691801919:0;echo manual | sudo tee /sys/class/drm/card1/device/power_dpm_force_performance_level
+: 1691801921:0;echo manual | sudo tee /sys/class/drm/card1/device/power_dpm_force_performance_level
+: 1691801924:0;sudo
+: 1691801925:0;sudo su
+: 1691801939:0;cat /sys/class/drm/card{0,2}/device/power_dpm_force_performance_level
+: 1691801943:0;cat /sys/class/drm/card{0-2}/device/power_dpm_force_performance_level
+: 1691801946:0;cat /sys/class/drm/card{0..2}/device/power_dpm_force_performance_level
+: 1691801951:0;cat /sys/class/drm/card{1,2}/device/power_dpm_force_performance_level
+: 1691801959:0;echo manual | sudo tee /sys/class/drm/card{1,2}/device/power_dpm_force_performance_level
+: 1691801960:0;cat /sys/class/drm/card{1,2}/device/power_dpm_force_performance_level
+: 1691801982:0;echo 1 | sudo tee /sys/class/drm/card2/device/pp_power_profile_mode
+: 1691801992:0;cat /sys/class/drm/card{1,2}/device/power_power_profile_mode
+: 1691801997:0;cat /sys/class/drm/card{1,2}/device/pp_power_power_profile_mode
+: 1691802013:0;cat /sys/class/drm/card2/device/pp_power_profile_mode
+: 1691802024:0;cat /sys/class/drm/card{1,2}/device/pp_power_profile_mode
+: 1691802027:0;echo 1 | sudo tee /sys/class/drm/card2/device/pp_power_profile_mode
+: 1691802032:0;cat /sys/class/drm/card{1,2}/device/power_dpm_force_performance_level
+: 1691804738:0;nvim .config/MangoHud/MangoHud.conf
+: 1691804842:0;nvim .config/MangoHud/MangoHud.conf
+: 1691808376:0;asusctl -c 80
+: 1691808385:0;ssh miscawelo-nas
+: 1691808390:0;yay --noconfirm
+: 1691808883:0;nvim .config/zsh/zsh.d/options
+: 1691808954:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691811643:0;asusctl -c 60
+: 1691814290:0;nvim .config/zsh/zsh.d/options
+: 1691814293:0;nvim .config/zsh/zsh.d/aliases
+: 1691816800:0;ls documents
+: 1691816807:0;ls documents/Notes/Linux/Zephyrus\ G14\ 2022
+: 1691816809:0;ls
+: 1691816811:0;rm do
+: 1691816814:0;rm docker-compose.yml
+: 1691816817:0;ld
+: 1691816820:0;ld --help
+: 1691816906:0;nvim
+: 1691817018:0;cat /sys/firmware/efi/fw_platform_size
+: 1691817114:0;nvim .config/hypr/hyprland.conf
+: 1691817257:0;hyprctl keyword gestures
+: 1691817268:0;hyprctl keyword gestures cursor_zoom_factor 1.0
+: 1691817277:0;hyprctl keyword gestures cursor_zoom_factor, 1.0
+: 1691817282:0;hyprctl keyword gestures cursor_zoom_factor
+: 1691817288:0;hyprctl keyword gestures:cursor_zoom_factor
+: 1691817289:0;hyprctl keyword gestures:cursor_zoom_factor 1
+: 1691817313:0;hyprctl keyword misc cursor_zoom_factor 1
+: 1691817315:0;hyprctl keyword misc:cursor_zoom_factor 1
+: 1691817317:0;hyprctl keyword misc:cursor_zoom_factor 2
+: 1691817325:0;hyprctl keyword misc:cursor_zoom_factor 1
+: 1691817339:0;nvim .config/hypr/keybinds.conf
+: 1691817577:0;hyprctl keyword misc:cursor_zoom_factor
+: 1691817581:0;hyprctl keyword misc:cursor_zoom_factor --help
+: 1691817599:0;hyprctl getoptionmisc:cursor_zoom_factor 
+: 1691817602:0;hyprctl getoption misc:cursor_zoom_factor 
+: 1691817628:0;hyprctl getoption misc:cursor_zoom_factor | grep float
+: 1691817663:0;nvim .config/hypr/hyprland.conf
+: 1691817783:0;nvim .config/hypr/window_rules.conf
+: 1691817801:0;nvim .config/hypr/keybinds.conf
+: 1691818454:0;yay anty
+: 1691818460:0;yay antype
+: 1691818464:0;yay -S antype
+: 1691818478:0;yay anytype
+: 1691818506:0;yay -S anytype
+: 1691818520:0;yay anytype-bin
+: 1691818862:0;yay -S anytype-bin
+: 1691818942:0;sudo lsblk
+: 1691818946:0;sudo blkikd
+: 1691818950:0;sudo blkid
+: 1691818956:0;sudo lsblk
+: 1691819008:0;sudo nvim .verification_codes
+: 1691819015:0;ls l .verification_codes
+: 1691819017:0;ls -l .verification_codes
+: 1691820606:0;sudo pacman -Rns anytype-bin
+: 1691821275:0;ls /usr/share/kbd/keymaps/*/*.map.gz
+: 1691821278:0;ls /usr/share/kbd/keymaps/*/*.map.gz | wc -l
+: 1691821282:0;ls /usr/share/kbd/keymaps/**/*.map.gz | wc -l
+: 1691821293:0;ls /usr/share/kbd/keymaps/
+: 1691821295:0;ls /usr/share/kbd/keymaps/*
+: 1691821298:0;ls /usr/share/kbd/keymaps/**
+: 1691821488:0;ip link
+: 1691821531:0;sudo pacman -S iwd
+: 1691821541:0;sudo systemctl start iwctl
+: 1691821543:0;sudo systemctl start iwd
+: 1691821553:0;sudo systemctl start iwd.service
+: 1691821562:0;sudo journalctl -xeu iwd.service
+: 1691821573:0;sudo systemctl stop NetworkManager.service
+: 1691821575:0;sudo systemctl start iwd.service
+: 1691821595:0;systemctl status iwd
+: 1691821600:0;rfkill
+: 1691821606:0;systemctl status iwd
+: 1691821609:0;sudo systemctl start iwd.service
+: 1691821611:0;systemctl status iwd
+: 1691821635:0;sudo systemctl start NetworkManager
+: 1691821730:0;sudo systemctl start iwd.service
+: 1691821733:0;sudo journalctl -xeu iwd.service
+: 1691821753:0;sudo pacman -Rns iwd
+: 1691822324:0;ssh miscawelo-nas
+: 1691847887:0;systemd-analyze
+: 1691847889:0;systemd-analyze blame
+: 1691847905:0;ssh miscawelo-nas
+: 1691847988:0;dotst
+: 1691847994:0;dotdf
+: 1691848020:0;dotst
+: 1691848033:0;ls .config/corectrl/**/
+: 1691848037:0;ls .config/corectrl/**/*
+: 1691848059:0;nvim scripts/asus/power_mode
+: 1691848126:0;dotst
+: 1691848133:0;ls .config/corectrl/**/*
+: 1691848188:0;echo 1 | sudo tee /sys/bus/pci/devices/0000:03:00.{0,1}/remove
+: 1691848196:0;echo 1 | sudo tee /sys/bus/pci/rescan
+: 1691848216:0;dotst
+: 1691848268:0;dotdf
+: 1691848296:0;dotrm .config/corectrl/corectrl.ini
+: 1691848300:0;dotst
+: 1691848304:0;ls .config/corectrl
+: 1691848338:0;dotad .config/corectrl/profiles
+: 1691848351:0;dotcm "Profiles update""
+: 1691848352:0;dotcm "Profiles update"
+: 1691848357:0;gpgrs
+: 1691848358:0;dotcm "Profiles update"
+: 1691848508:0;gpg --list-secret-keys
+: 1691848527:0;gpg --edit-card
+: 1691848535:0;gpg --list-secret-keys
+: 1691848600:0;gpg --edit-key 760E376794FD640D19908FD69EC0B9031E326A0F
+: 1691848674:0;gpg --list-secret-keys
+: 1691848681:0;dotcm "Profiles update"
+: 1691848685:0;dotps
+: 1691848711:0;dotad $HISTFILE
