@@ -6,11 +6,11 @@
 
     "modules-left":   ["idle_inhibitor", "wlr/workspaces", "custom/power_mode"],
     "modules-center": ["hyprland/window"],
-    "modules-right":  ["clock", "custom/user"],
+    "modules-right":  ["hyprland/language", "clock", "custom/user"],
 
     "clock": {
         "interval": 1,
-        "format": "{:%A, %B %d | %H:%M:%S}",
+        "format": "{:%A, %B %d | %H:%M}",
         "tooltip-format": "{calendar}",
 
         "calendar": {
@@ -42,6 +42,10 @@
     "hyprland/window": {
         "format": "{}",
         "separate-outputs": true,
+    },
+
+    "hyprland/language": {
+        "format": "Lang: {}",
     },
 
     "idle_inhibitor": {
@@ -107,7 +111,7 @@
     "custom/cpu_details": {
         "interval": 1,
         "format": "{})",
-        "exec" : "echo $(sensors | grep Tdie | awk '{print $2+0}')°C $(sensors | grep PPT | tail -n1 | awk '{print $2+0}') W",
+        "exec" : "echo $(sensors | grep Tctl | awk '{print $2+0}')°C $(sensors | grep PPT | tail -n1 | awk '{print $2+0}') W",
     },
 
     "custom/gpu": {
