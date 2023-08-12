@@ -864,3 +864,40 @@
 : 1691848681:0;dotcm "Profiles update"
 : 1691848685:0;dotps
 : 1691848711:0;dotad $HISTFILE
+: 1691848717:0;dotcm "Initial commit"
+: 1691848730:0;dotad .config/dunst
+: 1691848748:0;dotcm "Added alpha channel"
+: 1691848866:0;dotad .config/hyprland --patch
+: 1691848871:0;dotst
+: 1691848878:0;dotad .config/hypr --patch
+: 1691848912:0;dotst
+: 1691848925:0;ls .config/hypr
+: 1691848949:0;dotad .config/hypr/{keybinds.conf,window_rules.conf}
+: 1691848976:0;dotcm "Moved window rules and keybinds to external file"
+: 1691848981:0;dotad .config/hypr --patch
+: 1691849013:0;dotst
+: 1691849025:0;dotcm "Updated monitor config"
+: 1691849028:0;dotad .config/hypr --patch
+: 1691849066:0;dotcm "Minor updates"
+: 1691849073:0;dotad .config/hypr --patch
+: 1691849097:0;dotcm "Updated blur settings"
+: 1691849100:0;dotad .config/hypr --patch
+: 1691849127:0;dotcm "Added second keyboard layout and switch keybind"
+: 1691849150:0;dotad .config/waybar
+: 1691849152:0;dotst
+: 1691849160:0;ls .config/waybar
+: 1691849167:0;dotad .config/waybar/styles.css
+: 1691849177:0;dotad .config/waybar/style.css
+: 1691849178:0;dotst
+: 1691849184:0;dotcm "Major update"
+: 1691849209:0;dotad .config/zsh
+: 1691849211:0;dotst
+: 1691849219:0;dotrm .config/zsh
+: 1691849225:0;rm -fr .config/zsh/.zsh_history
+: 1691849246:0;dotad .config/zsh/{.zshrc,zsh.d}
+: 1691849247:0;dotst
+: 1691849254:0;ls -a .config/zsh
+: 1691849274:0;dotcm "Minor organization change"
+: 1691849298:0;dotad --patch .
+: 1691849332:0;dotcm "Updatde environment variables file"
+: 1691849335:0;dotad --patch .
