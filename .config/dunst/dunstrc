@@ -105,20 +105,20 @@
 
 
 [urgency_low]
-    background = "#636366"
+    background = "#636366c0"
     foreground = "#ffffff"
     frame_color = "#d1d1d6"
     timeout = 10
 
 [urgency_normal]
-    background = "#3a3a3c"
+    background = "#3a3a3cc0"
     foreground = "#ffffff"
     frame_color = "#d1d1d6"
-    highlight = "#0a84ff"
+    highlight = "#0a84ff80"
     timeout = 10
 
 [urgency_critical]
-    background = "#ff453a"
+    background = "#ff453ac0"
     foreground = "#ffffff"
     frame_color = "#d1d1d6"
     timeout = 0
