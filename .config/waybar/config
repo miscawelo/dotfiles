@@ -57,10 +57,11 @@
         }
     },
 
-    "wlr/workspaces": {
-        "all-outputs": true,
-        "format": "{icon}",
-        "on-click": "activate",
+    "hyprland/workspaces": {
+        "all-outputs": false,
+        "active-only": false,
+        "show-special": true,
+        "format": "{name}",
         "format-icons": {
             "urgent": "",
         }
