@@ -37,25 +37,25 @@ tooltip, #network menu, #tray menu {
     padding: 8px;
 }
 
-/* Pill Left */
-#idle_inhibitor, #clock, #cpu, #tray {
-    padding: 2px 5px 2px 10px;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
-
-/* Pill Right */
-#custom-power_mode, #custom-user, #custom-fans, #battery {
-    padding: 2px 10px 2px 5px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-/* Pill Center */
-#window {
-    padding: 2px 10px 2px 10px;
-    border-radius: 8px;
-}
+/* [> Pill Left <] */
+/* #idle_inhibitor, #clock, #cpu, #tray { */
+/*     padding: 2px 5px 2px 10px; */
+/*     border-top-left-radius: 8px; */
+/*     border-bottom-left-radius: 8px; */
+/* } */
+/*  */
+/* [> Pill Right <] */
+/* #custom-power_mode, #custom-user, #custom-fans, #battery { */
+/*     padding: 2px 10px 2px 5px; */
+/*     border-top-right-radius: 8px; */
+/*     border-bottom-right-radius: 8px; */
+/* } */
+/*  */
+/* [> Pill Center <] */
+/* #window { */
+/*     padding: 2px 10px 2px 10px; */
+/*     border-radius: 8px; */
+/* } */
 
 /* Battery */
 #battery.charging {
