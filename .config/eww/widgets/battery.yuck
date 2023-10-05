@@ -1,0 +1,16 @@
+(defwidget battery []
+  (box
+    :class "battery"
+    (label
+      :text "${
+        battStatus == "Charging" ? "" :
+        battStatus == "Not charging" ? "" :
+        acStatus == "1" ? "" :
+        battLevel < 20 ? "" :
+        battLevel < 40 ? "" :
+        battLevel < 60 ? "" :
+        battLevel < 80 ? "" :
+        battLevel < 100 ? "" : ""} ${battLevel}"
+    )
+  )
+)

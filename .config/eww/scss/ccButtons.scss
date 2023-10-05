@@ -1,0 +1,46 @@
+.ccButton {
+    border-radius: 1rem;
+    padding: 0rem 1rem;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.ccButton.left {
+    margin: 0.5rem 0.25rem 0.5rem 0.5rem;
+}
+
+.ccButton.center {
+    margin: 0.5rem 0.25rem 0.5rem 0.25rem;
+}
+
+.ccButton.right {
+    margin: 0.5rem 0.5rem 0.5rem 0.25rem;
+}
+
+.ccButton.on {
+    background: $light_blue;
+}
+
+.ccButton.off {
+    background: $light_gray;
+}
+
+.ccButton.active {
+    background: $blue;
+}
+
+.ccButton:hover {
+    background: $lighter_gray;
+}
+
+.ccButton.active:hover {
+    background: $light_blue;
+}
+
+.toggleIcon {
+    margin: 0rem 1rem 0rem 0rem;
+}
+
+.toggleStatus {
+    font-style: italic;
+    font-weight: 300;
+}

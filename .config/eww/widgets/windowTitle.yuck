@@ -1,0 +1,6 @@
+(defwidget windowTitle []
+  (label
+    :limit-width 180
+    :text "${windowTitle}"
+  )
+)

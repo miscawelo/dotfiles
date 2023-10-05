@@ -1,0 +1,96 @@
+(defwidget performanceCC []
+  (box
+    :class "controlCenterModule"
+    :orientation "v"
+    (screenCC)
+    (pstateCC)
+    (fanModeCC)
+    (statsCC)
+  )
+)
+
+(defwidget screenCC []
+  (box
+    :orientation "v"
+    "Screen"
+    (box
+      (button
+        :class "ccButton left ${!screenOD ? "active" : "off"}"
+          :onclick "hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@60, auto, 1.25, bitdepth, 10 ; asusctl bios -O false"
+          (label
+            :text "60 Hz + OD off"
+          )
+      )
+      (button
+        :class "ccButton right ${screenOD ? "active" : "off"}"
+          :onclick "hyprctl keyword monitor desc:Thermotrex Corporation TL140ADXP01, 2560x1600@120, auto, 1.25, bitdepth, 10 ; asusctl bios -O true"
+          "120Hz + OD"
+      )
+    )
+  )
+)
+
+(defwidget pstateCC []
+  (box
+    :orientation "v"
+    "AMD P-State"
+    (box
+      (button
+        :class "ccButton left ${pstate == "power" ? "active" : "off"}"
+        " Power"
+      )
+      (button
+        :class "ccButton right ${pstate == "performance" ? "active" : "off"}"
+        " Performance"
+      )
+    )
+  )
+)
+
+(defwidget fanModeCC []
+  (box
+    :orientation "v"
+    "Fan Mode"
+    (box
+      (button
+        :class "ccButton left ${fanMode == "Quiet" ? "active" : "off"}"
+        :onclick "asusctl profile -P Quiet"
+        " Quiet"
+      )
+      (button
+        :class "ccButton center ${fanMode == "Balanced" ? "active" : "off"}"
+        :onclick "asusctl profile -P Balanced"
+        " Balanced"
+      )
+      (button
+        :class "ccButton right ${fanMode == "Performance" ? "active" : "off"}"
+        :onclick "asusctl profile -P Performance"
+        " Performance"
+      )
+    )
+  )
+)
+
+(defwidget statsCC []
+  (box
+    :orientation "v"
+      :class "ccSubmodule"
+    "Stats"
+    (box
+      (label
+        :text "CPU fan: ${cpuFanSpeed} RPM"
+      )
+      (label
+        :text "GPU fan: ${gpuFanSpeed} RPM"
+      )
+    )
+    (box
+      (label
+        :text "CPU temp: 0 °C"
+      )
+      (label
+        :text "GPU temp: 0 °C"
+      )
+    )
+  )
+)

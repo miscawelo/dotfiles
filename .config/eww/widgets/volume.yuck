@@ -1,0 +1,27 @@
+(defvar volumeRev false)
+
+(defwidget volume []
+  (eventbox
+    :onhover "eww update volumeRev=true"
+    :onhoverlost "eww update volumeRev=false"
+    (box
+      :class "volume"
+      :space-evenly "false"
+      (label
+        :text " ${volumeCurr}"
+      )
+      (revealer
+        :transition "slideright"
+        :reveal volumeRev
+        :duration "${sliderDuration}ms"
+        (scale
+          :class "slider"
+          :value volumeCurr
+          :max 101
+          :min 0
+          :onchange "pamixer --set-volume {}"
+        )
+      )
+    )
+  )
+)

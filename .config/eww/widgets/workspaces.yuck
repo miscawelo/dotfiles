@@ -1,0 +1,14 @@
+(defwidget workspaces []
+  (box
+    (for workspace in workspaces
+      (eventbox
+        :onclick "hyprctl dispatch workspace ${workspace.id}"
+        :class "workspaceBox"
+        (label
+          :class "workspace ${workspace.id == workspaceCurr ? "current" : workspace.windows == 0 ? "empty" : ""}"
+          :text "${workspace.id}"
+        )
+      )
+    )
+  )
+)

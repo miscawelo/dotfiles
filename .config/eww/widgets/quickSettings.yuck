@@ -1,0 +1,7 @@
+(defwidget quickSettings []
+  (button
+    :onclick "eww open controlCenter"
+    :class "quickSettings"
+    ""
+  )
+)

@@ -1,0 +1,29 @@
+(defwidget bottomBar []
+  (box
+    (bottomBarLeft)
+    (bottomBarRight)
+  )
+)
+
+(defwidget bottomBarLeft []
+  (box
+    :class "bar left"
+    :halign "start"
+  )
+)
+
+(defwidget bottomBarRight []
+  (box
+    :class "bar right"
+    :halign "end"
+    :space-evenly "false"
+    (systray)
+    (wifi)
+    (bluetooth)
+    (keyboard)
+    (brightness)
+    (volume)
+    (battery)
+    (quickSettings)
+  )
+)

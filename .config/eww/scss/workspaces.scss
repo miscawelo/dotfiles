@@ -1,0 +1,17 @@
+.workspaceBox:hover {
+    background: $lighter_gray;
+    border-radius: 1rem;
+}
+
+.workspace {
+    margin: 0px 0px;
+}
+
+.workspace.current {
+    border-bottom: 2px solid;
+}
+
+.workspace.empty {
+    font-weight: 300;
+    color: $light_gray;
+}

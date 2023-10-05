@@ -1,0 +1,30 @@
+(defwidget topBar []
+  (centerbox
+    (topBarLeft)
+    (topBarCenter)
+    (topBarRight)
+  )
+)
+
+(defwidget topBarLeft []
+  (box
+    :class "bar left"
+    :space-evenly "false"
+    (workspaces)
+  )
+)
+
+(defwidget topBarCenter []
+  (box
+    :class "bar center"
+    (windowTitle)
+  )
+)
+
+(defwidget topBarRight []
+  (box
+    :class "bar right"
+    :halign "end"
+    time
+  )
+)

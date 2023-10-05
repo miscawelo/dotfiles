@@ -1,0 +1,28 @@
+(defwidget controlCenter []
+  (eventbox
+    :onhoverlost "eww close controlCenter"
+    (box
+      :orientation "v"
+      :space-evenly "false"
+      (label
+        :class "controlCenterLabel title"
+        :text " Control center"
+      )
+      (label
+        :class "controlCenterLabel"
+        :text "Toggles"
+      )
+      (togglesCC)
+      (label
+        :class "controlCenterLabel"
+        :text "Battery"
+      )
+      (batteryCC)
+      (label
+        :class "controlCenterLabel"
+        :text "Performance"
+      )
+      (performanceCC)
+    )
+  )
+)

@@ -1,0 +1,27 @@
+(defvar brightnessRev false)
+
+(defwidget brightness []
+  (eventbox
+    :onhover "eww update brightnessRev=true"
+    :onhoverlost "eww update brightnessRev=false"
+    (box
+      :class "brightness"
+      :space-evenly "false"
+      (label
+        :text " ${brightnessCurr}"
+      )
+      (revealer
+        :transition "slideright"
+        :reveal brightnessRev
+        :duration "${sliderDuration}ms"
+        (scale
+          :class "slider"
+          :value brightnessCurr
+          :onchange "brightnessctl set {}%"
+          :max 101
+          :min 0
+        )
+      )
+    )
+  )
+)

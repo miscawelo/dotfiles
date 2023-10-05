@@ -1,0 +1,37 @@
+(defwindow topBar
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "100%"
+    :height "2%"
+    :anchor "top center"
+  )
+  :exclusive true
+  (topBar)
+)
+
+(defwindow bottomBar
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "0px"
+    :width "100%"
+    :height "2%"
+    :anchor "bottom center"
+  )
+  :exclusive true
+  (bottomBar)
+)
+
+(defwindow controlCenter
+  :monitor 0
+  :geometry (geometry
+    :x "1%"
+    :y "1.5%"
+    :width "1%"
+    :height "1%"
+    :anchor "bottom right"
+  )
+  (controlCenter)
+)

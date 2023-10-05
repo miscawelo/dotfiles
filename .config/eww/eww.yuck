@@ -1,0 +1,27 @@
+(include "windows/windows.yuck")
+
+; Windows
+(include "windows/topBar.yuck")
+(include "windows/bottomBar.yuck")
+(include "windows/controlCenter.yuck")
+
+; Top bar widgets
+(include "widgets/workspaces.yuck")
+(include "widgets/windowTitle.yuck")
+
+; Bottom bar widgets
+(include "widgets/wifi.yuck")
+(include "widgets/bluetooth.yuck")
+(include "widgets/keyboard.yuck")
+(include "widgets/brightness.yuck")
+(include "widgets/volume.yuck")
+(include "widgets/battery.yuck")
+(include "widgets/quickSettings.yuck")
+
+; Control center widgets
+(include "widgets/batteryCC.yuck")
+(include "widgets/togglesCC.yuck")
+(include "widgets/performanceCC.yuck")
+
+; Polls
+(include "polls.yuck")

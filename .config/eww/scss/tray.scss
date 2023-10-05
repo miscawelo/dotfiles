@@ -1,0 +1,39 @@
+.wifi, .bluetooth, .keyboard, .brightness, .volume, .battery {
+    margin: 0rem 0.5rem;
+}
+
+// WiFi
+.wifi.on {
+    color: $light_gray;
+}
+
+.wifiLabel {
+    margin: 0rem 0rem 0rem 0.5rem;
+}
+
+.wifiLabel.off {
+    color: $light_gray;
+}
+
+// Bluetooth
+.bluetooth.on {
+    color: $light_gray;
+}
+
+.bluetoothLabel {
+    margin: 0rem 0rem 0rem 0.5rem;
+}
+
+.bluetoothLabel.off {
+    color: $light_gray;
+}
+
+// Quick settings menu
+.quickSettings {
+    padding: 0rem 0.5rem;
+}
+
+.quickSettings:hover {
+    background: $light_gray;
+    border-radius: 0.5rem;
+}

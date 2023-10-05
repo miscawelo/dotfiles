@@ -1,0 +1,118 @@
+(defwidget togglesCC []
+  (box
+    :orientation "v"
+    :class "controlCenterModule"
+    (box
+      (wifiCC)
+      (bluetoothCC)
+    )
+    (box
+      (dndCC)
+      (idleCC)
+    )
+  )
+)
+
+(defwidget wifiCC []
+  (button
+    :class "ccButton left ${wifiNetwork != "" ? "active" : wifiStatus}"
+    :onclick "rfkill toggle wlan"
+    (box
+      :space-evenly "false"
+      (label
+        :class "toggleIcon"
+        :text ""
+      )
+      (box
+        :orientation "v"
+        (label
+          :class "toggleName"
+          :text "${wifiNetwork != "" ? wifiNetwork : "Not active"}"
+        )
+        (label
+          :class "toggleStatus"
+          :halign "start"
+          :text "${wifiStatus == "on" ? "On" : "Off"}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget bluetoothCC []
+  (button
+    :onclick "rfkill toggle bluetooth"
+    :class "ccButton right ${bluetoothDevice != "" ? "active" : bluetoothStatus}"
+    (box
+      :space-evenly "false"
+      (label
+        :class "toggleIcon"
+        :text ""
+      )
+      (box
+        :orientation "v"
+        (label
+          :class "toggleName"
+          :text "${bluetoothDevice != "" ? bluetoothDevice : "Not active"}"
+        )
+        (label
+          :class "toggleStatus"
+          :halign "start"
+          :text "${bluetoothStatus == "on" ? "On" : "Off"}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget dndCC []
+  (button
+    :onclick "dunstctl set-paused toggle"
+    :class "ccButton left ${dndStatus == "true" ? "active" : "off"}"
+    (box
+      :space-evenly "false"
+      (label
+        :class "toggleIcon"
+        :text ""
+      )
+      (box
+        :orientation "v"
+        (label
+          :class "toggleName"
+          :text "Do not disturb"
+        )
+        (label
+          :class "toggleStatus"
+          :halign "start"
+          :text "${dndStatus == "true" ? "On" : "Off"}"
+        )
+      )
+    )
+  )
+)
+
+(defwidget idleCC []
+  (button
+    :onclick ""
+      :class "ccButton right ${dndStatus == "true" ? "active" : "off"}"
+    (box
+      :space-evenly "false"
+      (label
+        :class "toggleIcon"
+        :text ""
+      )
+      (box
+        :orientation "v"
+        (label
+          :class "toggleName"
+          :text "Presentation mode"
+        )
+        (label
+          :class "toggleStatus"
+          :halign "start"
+          :text "${dndStatus == "true" ? "On" : "Off"}"
+        )
+      )
+    )
+  )
+)

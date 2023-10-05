@@ -1,0 +1,27 @@
+(defvar keyboardRev false)
+
+(defwidget keyboard []
+  (eventbox
+    :onhover "eww update keyboardRev=true"
+    :onhoverlost "eww update keyboardRev=false"
+    (box
+      :class "keyboard"
+      :space-evenly "false"
+      (label
+        :text " (${keyboardLayout}) ${kbBrightness == 0 ? "off" : kbBrightness}"
+      )
+      (revealer
+        :transition "slideright"
+        :reveal keyboardRev
+        :duration "${sliderDuration}ms"
+        (scale
+          :class "slider"
+          :value kbBrightness
+          :onchange "$HOME/scripts/dunst/kb_blacklight {}"
+          :max 4
+          :min 0
+        )
+      )
+    )
+  )
+)

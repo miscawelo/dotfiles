@@ -1,0 +1,17 @@
+.controlCenterLabel {
+    background: $dark_gray;
+    margin: 0.25rem 0rem;
+    border-radius: 0.5rem;
+}
+
+.controlCenterLabel.title {
+    font-size: 3rem;
+}
+
+.controlCenterModule {
+    background: $gray;
+    border: 1px solid;
+    border-radius: 1rem;
+    border-color: $light_gray;
+    margin: 0.5rem 0rem;
+}
