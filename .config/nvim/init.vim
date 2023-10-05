@@ -126,6 +126,7 @@ call plug#begin("$HOME/.config/nvim/plugged")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/plenary.nvim'
     Plug 'mhinz/vim-signify'
+    Plug 'elkowar/yuck.vim'
 call plug#end()
 
 lua require("init")
