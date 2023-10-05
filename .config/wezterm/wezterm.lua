@@ -34,6 +34,7 @@ return {
 
     font = wezterm.font_with_fallback({
         'SF Mono',
+        'FontAwesome5Free',
         'FontAwesome6Free'
     }),
 
