@@ -64,13 +64,7 @@
         "format": "{name}",
         "format-icons": {
             "urgent": "",
-        }
-    },
-
-    "custom/user": {
-        "format": "{}",
-        "exec" : "echo $USER",
-        "on-click" : "wlogout",
+        },
     },
 },
 
