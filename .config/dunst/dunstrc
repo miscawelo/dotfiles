@@ -8,7 +8,7 @@
 
     ### Geometry ###
 
-    width = 500
+    width = 450
     height = 300
     origin = bottom-right
     offset = 20x20
