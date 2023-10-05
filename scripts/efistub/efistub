@@ -1,0 +1,37 @@
+#!/usr/bin/bash
+
+[[ $(id -u) -eq 0 ]] || { echo >&2 "Must be root to run script"; exit 1; }
+
+# Disk layout
+drive="nvme0n1"
+
+root_uuid=$(blkid | grep $drive"p2" | cut -d '"' -f 2)
+
+boot_drive="/dev/"$drive
+boot_part="1"
+
+for vmlinuz in /boot/vmlinuz* ; do
+    kernel=${vmlinuz#*-}
+
+    entry=$(efibootmgr | grep "($kernel)" | grep -oP "(?<=Boot).*(?=\*)")
+    if [[ ! -z $entry ]]; then
+        for i in $(echo $entry); do
+            efibootmgr -Bb "$i" &> /dev/null
+        done
+    fi
+
+    efibootmgr --create --disk $boot_drive --part $boot_part --label "Arch ($kernel)" --loader EFI/Linux/$kernel.efi &> /dev/null
+done
+
+while true; do
+    entry=$(efibootmgr | grep "Archboot" | grep -oP "(?<=Boot).*(?=\*)")
+    [[ ! -z $entry ]] || break
+    for i in $(echo $entry); do
+        efibootmgr -Bb "$i" &> /dev/null
+    done
+done
+
+efibootmgr --create --disk $boot_drive --part $boot_part --label "Archboot (latest - ethernet only)" --loader EFI/Linux/archboot-latest-x86_64.efi &> /dev/null
+efibootmgr --create --disk $boot_drive --part $boot_part --label "Archboot (local - cached with wifi)" --loader EFI/Linux/archboot-local-x86_64.efi &> /dev/null
+
+efibootmgr -o 1,0,3,2

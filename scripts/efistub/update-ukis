@@ -1,0 +1,49 @@
+#!/usr/bin/bash
+
+[[ $(id -u) -eq 0 ]] || { echo >&2 "Must be root to run script"; exit 1; }
+
+# Disk layout
+drive="nvme0n1"
+
+root_uuid=$(blkid | grep $drive"p2" | cut -d '"' -f 2)
+
+# Variables
+efi_dir="/boot"
+ucode=amd-ucode.img
+
+# LUKS options
+luks_options="rd.luks.options=discard"
+
+# Hibernation
+swap_uuid=$(grep root -A1 /etc/fstab | tail -n 1 |  sed -e 's/.*UUID=//' | cut -d $'\t' -f 1)
+swap_offset=$(filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}')
+hibernation="resume=UUID="$swap_uuid" resume-offset="$swap_offset
+
+# cmdline
+kernel_params="nowatchdog iomem=relaxed amd_pstate=active zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+
+echo "root=UUID="$root_uuid" rw "$luks_options" "$hibernation" "$kernel_params > /tmp/cmdline
+
+for vmlinuz in $efi_dir/vmlinuz* ; do
+    kernel=${vmlinuz#*-}
+
+    cat $efi_dir/$ucode $efi_dir/booster-$kernel.img > /tmp/$kernel.img
+    stub_line=$(objdump -h "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" | tail -2 | head -1)
+    stub_size=0x$(echo "$stub_line" | awk '{print $3}')
+    stub_offs=0x$(echo "$stub_line" | awk '{print $4}')
+    osrel_offs=$((stub_size + stub_offs))
+    cmdline_offs=$((osrel_offs + $(stat -c%s "/usr/lib/os-release")))
+    linux_offs=$((cmdline_offs + $(stat -c%s "/tmp/cmdline")))
+    initrd_offs=$((linux_offs + $(stat -c%s "$vmlinuz")))
+
+    objcopy \
+        --add-section .osrel="/usr/lib/os-release" --change-section-vma .osrel=$(printf 0x%x $osrel_offs) \
+        --add-section .cmdline="/tmp/cmdline" --change-section-vma .cmdline=$(printf 0x%x $cmdline_offs) \
+        --add-section .linux="$vmlinuz" --change-section-vma .linux=$(printf 0x%x $linux_offs) \
+        --add-section .initrd="/tmp/$kernel.img" --change-section-vma .initrd=$(printf 0x%x $initrd_offs) \
+        "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "$kernel.efi"
+
+    mv $kernel.efi $efi_dir/EFI/Linux/$kernel.efi
+
+    sbctl sign -s $efi_dir/EFI/Linux/$kernel.efi
+done
