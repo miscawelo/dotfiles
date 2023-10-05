@@ -25,3 +25,5 @@ alias svn='svn --config-dir $XDG_CONFIG_HOME/subversion'
 alias pm-ls='pacman -Qq | fzf --preview "pacman -Qil {}" --layout=reverse --bind "enter:execute(pacman -Qil {} | less)"'
 alias pm-lse='pacman -Qqe | fzf --preview "pacman -Qil {}" --layout=reverse --bind "enter:execute(pacman -Qil {} | less)"'
 alias pm-find='pacman -Slq | fzf --preview "pacman -Si {}" --layout=reverse'
+
+alias sudo='sudo -v; sudo '
