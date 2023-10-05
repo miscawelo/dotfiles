@@ -22,16 +22,22 @@ killall swayidle ; swayidle -w timeout 300 'brightnessctl -s ; [[ $(pactl list |
 /usr/lib/polkit-kde-authentication-agent-1 &
 
 killall dunst ; dunst &
-killall waybar ; waybar &
+# killall waybar ; waybar &
 killall swaybg ; swaybg -i $HOME/pictures/wallpapers/$(ls $HOME/pictures/wallpapers | sort -R | tail -1) &
 
-killall nm-applet ; nm-applet &
-killall blueman-applet ; blueman-applet &
+# killall nm-applet ; nm-applet &
+# killall blueman-applet ; blueman-applet &
 
 killall rog-control-center ; rog-control-center &
-killall corectrl ; corectrl &
+# killall corectrl ; corectrl &
 
-killall wl-paste ; wl-paste --watch cliphist store &
+cliphist wipe ; killall wl-paste ; wl-paste --watch cliphist store &
+
+# killall syncthing ; syncthing --no-browser &
+
+# killall iwgtk ; iwgtk -i &
+
+asusctl -c 60
 
 # Hyprland
 # systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
@@ -56,6 +62,9 @@ killall wl-paste ; wl-paste --watch cliphist store &
 
 # # Hyprland socket
 # # $HOME/scripts/hyprland/hyprland_socket &
+killall eww
+eww open topBar ; eww open bottomBar ;
+eww open topBar & eww open bottomBar &
 
 # Secure Boot
 if [[ ! $(sbctl status | grep Secure | grep Enabled) ]]; then
