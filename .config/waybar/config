@@ -4,9 +4,9 @@
     "position": "top",
     "margin": "0, 0, 0, 0",
 
-    "modules-left":   ["idle_inhibitor", "wlr/workspaces", "custom/power_mode"],
+    "modules-left":   ["idle_inhibitor", "hyprland/workspaces", "custom/power_mode"],
     "modules-center": ["hyprland/window"],
-    "modules-right":  ["hyprland/language", "clock", "custom/user"],
+    "modules-right":  ["hyprland/language", "clock"],
 
     "clock": {
         "interval": 1,
