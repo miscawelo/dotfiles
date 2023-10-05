@@ -13,14 +13,14 @@
 #custom-cpu_details,
 #custom-gpu,
 #custom-fans,
+#custom-media,
 #cpu,
 #window,
 #idle_inhibitor,
 #network,
 #tray,
 #wireplumber,
-#workspaces,
-#custom-user {
+#workspaces {
     background: rgba(58, 58, 60, 0.0);
     padding: 2px 5px;
 }
