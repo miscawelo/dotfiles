@@ -44,7 +44,9 @@
     },
 
     "hyprland/language": {
-        "format": "Lang: {}",
+        "format": "({})",
+        "format-en": "us",
+        "format-es": "mx",
     },
 
     "idle_inhibitor": {
