@@ -35,8 +35,7 @@
     "custom/power_mode": {
         "interval": 1,
         "format": "{}",
-        "exec": "asusctl profile -p | cut -d ' ' -f4",
-        "on-click" : "$HOME/scripts/asus/power_mode",
+        "exec": "echo 'Fan: '$(asusctl profile -p | cut -d ' ' -f4)' P-State: '$(cat /sys/devices/system/cpu/cpufreq/policy0/energy_performance_preference)",
     },
 
     "hyprland/window": {
