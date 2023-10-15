@@ -18,6 +18,10 @@ for file in $HOME/.config/zsh/zsh.d/*; do
     source "$file"
 done
 
+for file in $HOME/.config/environment.d/*; do
+    source "$file"
+done
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
