@@ -114,7 +114,7 @@ autocmd BufWritePre * %s/\s\+$//e
 "---------- Vim-plug ----------"
 call plug#begin("$HOME/.config/nvim/plugged")
     Plug 'sbdchd/neoformat'
-    Plug 'dracula/vim'
+    Plug 'Mofiqul/dracula.nvim'
     Plug 'ryanoasis/vim-devicons'
     Plug 'scrooloose/nerdtree'
     Plug 'normen/vim-pio'
