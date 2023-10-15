@@ -26,7 +26,7 @@ return {
 
     color_scheme = 'Dracula',
 
-    window_background_opacity = 0.7,
+    window_background_opacity = 1,
 
     window_close_confirmation = "AlwaysPrompt",
 
