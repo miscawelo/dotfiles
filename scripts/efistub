@@ -6,13 +6,15 @@ distro="Arch Linux"
 espDir="/boot"
 drive="nvme0n1"
 driveMainPartition="p3"
-bootOrder="2,0,3,1,7"
+swapfile="/swap/swapfile"
 
 create-ukis () {
     rootUUID=$(blkid | grep $drive$driveMainPartition | cut -d '"' -f 2)
     luksOptions=""
-    hibernation=""
-    kernelParams="nowatchdog rootflags=subvol=@ amd_pstate=active zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+    swap_uuid=$(blkid | grep cryptroot | cut -d '"' -f 4)
+    swap_offset=$(btrfs inspect-internal map-swapfile -r $swapfile)
+    hibernation="resume=UUID="$swap_uuid" resume-offset="$swap_offset
+    kernelParams="nowatchdog amd_pstate=active rootflags=subvol=@ zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
 
     echo "root=UUID=$rootUUID $luksOptions $hibernation $kernelParams" > /etc/kernel/cmdline
 
