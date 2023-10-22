@@ -4,7 +4,6 @@
 
 distro="Arch Linux"
 espDir="/boot"
-cpu="amd"
 drive="nvme0n1"
 driveMainPartition="p3"
 bootOrder="2,0,3,1,7"
@@ -23,7 +22,7 @@ create-ukis () {
 
         mv $espDir/EFI/Linux/$kernel.efi $espDir/EFI/Linux/$kernel-backup.efi
 
-        cat $espDir/$cpu-ucode.img $espDir/booster-$kernel.img > /tmp/$kernel.img
+        cat $espDir/amd-ucode.img $espDir/booster-$kernel.img > /tmp/$kernel.img
         stubLine=$(objdump -h "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" | tail -2 | head -1)
         stubSize=0x$(echo "$stubLine" | awk '{print $3}')
         stubOffs=0x$(echo "$stubLine" | awk '{print $4}')
