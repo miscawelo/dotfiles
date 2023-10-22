@@ -1,7 +1,7 @@
 [user]
 	email = m_moreno.15@hotmail.com
 	name = Missael Moreno
-	signingkey = 760E376794FD640D19908FD69EC0B9031E326A0F
+	signingkey = A45CE8BC76320B4B17E54406CB5992796C902AB3
 [commit]
 	gpgsign = true
 [tag]
