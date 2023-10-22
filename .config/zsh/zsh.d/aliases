@@ -26,4 +26,6 @@ alias pm-ls='pacman -Qq | fzf --preview "pacman -Qil {}" --layout=reverse --bind
 alias pm-lse='pacman -Qqe | fzf --preview "pacman -Qil {}" --layout=reverse --bind "enter:execute(pacman -Qil {} | less)"'
 alias pm-find='pacman -Slq | fzf --preview "pacman -Si {}" --layout=reverse'
 
+alias watch='watch -n 0.1'
+
 alias sudo='sudo -v; sudo '
