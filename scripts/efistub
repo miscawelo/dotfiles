@@ -57,7 +57,14 @@ update-efistub () {
         efibootmgr -q -c -d /dev/$drive -L "$label (backup)" -l EFI/Linux/$kernel-backup.efi
     done
 
-    efibootmgr -q -o $bootOrder
+    efibootmgr
+
+    read -p "Boot order: " bootOrder
+    efibootmgr -o $bootOrder
+    while [ $? -ne 0 ]; do
+        read -p "Boot order: " bootOrder
+        efibootmgr -o $bootOrder
+    done
 }
 
 getopts 'cesh' action
@@ -72,7 +79,7 @@ case "$action" in
         ;;
     s)
         sbctl list-files
-        efibootmgr
+        efibootmgr -o $bootOrder
         exit 0
         ;;
     h)
