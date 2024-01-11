@@ -10,6 +10,7 @@
 (include "widgets/windowTitle.yuck")
 
 ; Bottom bar widgets
+(include "widgets/nowPlaying.yuck")
 (include "widgets/wifi.yuck")
 (include "widgets/bluetooth.yuck")
 (include "widgets/keyboard.yuck")

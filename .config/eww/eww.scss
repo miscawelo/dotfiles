@@ -46,6 +46,12 @@ scale trough {
     min-height: 3rem;
 }
 
+.nowPlaying.Paused {
+    color: $light_gray;
 }
 
+.nowPlaying:hover {
+    color: white;
+    background: $light_gray;
+    border-radius: 0.5rem;
 }

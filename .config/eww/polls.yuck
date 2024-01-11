@@ -21,7 +21,13 @@
 (defpoll time
   :initial "0"
   :interval "1s"
-  "date '+%A, %B %d | %H:%M:%S'"
+  "date '+%A, %B %d | %H:%M'"
+)
+
+; Now playing
+(deflisten nowPlaying
+  :initial ""
+  "scripts/now-playing"
 )
 
 ; Keyboard
