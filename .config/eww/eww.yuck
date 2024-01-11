@@ -8,6 +8,7 @@
 ; Top bar widgets
 (include "widgets/workspaces.yuck")
 (include "widgets/windowTitle.yuck")
+(include "widgets/logout.yuck")
 
 ; Bottom bar widgets
 (include "widgets/nowPlaying.yuck")

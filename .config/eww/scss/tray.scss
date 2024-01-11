@@ -33,7 +33,16 @@
     padding: 0rem 0.5rem;
 }
 
-.quickSettings:hover {
+.controlCenterButton:hover {
+    background: $light_gray;
+    border-radius: 0.5rem;
+}
+
+.logout {
+    padding: 0rem 0.5rem;
+}
+
+.logout:hover {
     background: $light_gray;
     border-radius: 0.5rem;
 }
