@@ -29,3 +29,6 @@ alias pm-find='pacman -Slq | fzf --preview "pacman -Si {}" --layout=reverse'
 alias watch='watch -n 0.1'
 
 alias sudo='sudo -v; sudo '
+
+alias yt-mp3='yt-dlp --audio-format mp3 --audio-quality 0'
+alias yt-flac='yt-dlp --audio-format flac --audio-quality 0 -x'

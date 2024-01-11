@@ -18,9 +18,3 @@ extract () {
      echo "'$1' is not a valid file"
  fi
 }
-
-image_dimensions () {
-    for i in $(ls); do
-        file $i | grep -Eo "[[:digit:]]+ *x *[[:digit:]]+"
-    done
-}
