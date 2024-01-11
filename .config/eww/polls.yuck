@@ -3,18 +3,18 @@
 ; Workspaces
 (deflisten workspaces
   :initial "[]"
-  "bash $HOME/.config/eww/scripts/get-workspaces"
+  "scripts/get-workspaces"
 )
 
 (deflisten workspaceCurr
-  :initial "1"
-  "bash $HOME/.config/eww/scripts/get-active-workspace"
+  :initial ""
+  "scripts/get-active-workspace"
 )
 
 ; Window title
 (deflisten windowTitle
   :initial "Arch Linux"
-  "sh $HOME/.config/eww/scripts/get-window-title"
+  "scripts/get-window-title"
 )
 
 ; Time
