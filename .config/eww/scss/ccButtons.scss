@@ -16,11 +16,11 @@
     margin: 0.5rem 0.5rem 0.5rem 0.25rem;
 }
 
-.ccButton.on {
+.ccButton.enabled {
     background: $light_blue;
 }
 
-.ccButton.off {
+.ccButton.disabled {
     background: $light_gray;
 }
 

@@ -3,7 +3,7 @@
 }
 
 // WiFi
-.wifi.on {
+.wifi.enabled {
     color: $light_gray;
 }
 
@@ -11,12 +11,12 @@
     margin: 0rem 0rem 0rem 0.5rem;
 }
 
-.wifiLabel.off {
+.wifiLabel.disabled {
     color: $light_gray;
 }
 
 // Bluetooth
-.bluetooth.on {
+.bluetooth.enabled {
     color: $light_gray;
 }
 
@@ -24,12 +24,12 @@
     margin: 0rem 0rem 0rem 0.5rem;
 }
 
-.bluetoothLabel.off {
+.bluetoothLabel.disabled {
     color: $light_gray;
 }
 
 // Quick settings menu
-.quickSettings {
+.controlCenterButton {
     padding: 0rem 0.5rem;
 }
 

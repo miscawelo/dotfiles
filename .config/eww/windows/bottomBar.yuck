@@ -24,6 +24,6 @@
     (brightness)
     (volume)
     (battery)
-    (quickSettings)
+    (controlCenterButton)
   )
 )
