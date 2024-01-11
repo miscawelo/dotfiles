@@ -1,4 +1,0 @@
-#!/usr/bin/bash
-
-echo "$(sensors | grep Tdie | awk '{print $2+0}')°C $(sensors | grep cpu | awk '{print $2}') RPM"
-
