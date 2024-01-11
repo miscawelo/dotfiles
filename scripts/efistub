@@ -1,6 +1,6 @@
-#!/usr/bin/bash
+#!/usr/bin/env sh
 
-[[ $(id -u) -eq 0 ]] || { echo >&2 "Must be root to run script"; exit 1; }
+# [[ $(id -u) -eq 0 ]] || { echo >&2 "Must be root to run script"; exit 1; }
 
 distro="Arch Linux"
 espDir="/boot"
@@ -8,21 +8,18 @@ drive="nvme0n1"
 driveMainPartition="p3"
 swapfile="/swap/swapfile"
 
-create-ukis () {
+create_ukis () {
     rootUUID=$(blkid | grep $drive$driveMainPartition | cut -d '"' -f 2)
     luksOptions=""
     swap_uuid=$(blkid | grep cryptroot | cut -d '"' -f 4)
     swap_offset=$(btrfs inspect-internal map-swapfile -r $swapfile)
     hibernation="resume=UUID="$swap_uuid" resume-offset="$swap_offset
-    kernelParams="nowatchdog amd_pstate=active rootflags=subvol=@ zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+    kernelParams="nowatchdog loglevel=3 rootflags=subvol=@ zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
 
     echo "root=UUID=$rootUUID $luksOptions $hibernation $kernelParams" > /etc/kernel/cmdline
 
-
     for vmlinuz in $espDir/vmlinuz* ; do
         kernel=${vmlinuz#*-}
-
-        mv $espDir/EFI/Linux/$kernel.efi $espDir/EFI/Linux/$kernel-backup.efi
 
         cat $espDir/amd-ucode.img $espDir/booster-$kernel.img > /tmp/$kernel.img
         stubLine=$(objdump -h "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" | tail -2 | head -1)
@@ -41,22 +38,10 @@ create-ukis () {
             "/usr/lib/systemd/boot/efi/linuxx64.efi.stub" "$espDir/EFI/Linux/$kernel.efi"
 
         sbctl sign -s $espDir/EFI/Linux/$kernel.efi &> /dev/null
-        sbctl sign -s $espDir/EFI/Linux/$kernel-backup.efi &> /dev/null
     done
 }
 
-update-efistub () {
-    for vmlinuz in /boot/vmlinuz* ; do
-        kernel=${vmlinuz#*-}
-        label="$distro ($kernel)"
-
-        efibootmgr -q -BL "$label"
-        efibootmgr -q -BL "$label (backup)"
-
-        efibootmgr -q -c -d /dev/$drive -L "$label" -l EFI/Linux/$kernel.efi
-        efibootmgr -q -c -d /dev/$drive -L "$label (backup)" -l EFI/Linux/$kernel-backup.efi
-    done
-
+boot_order () {
     efibootmgr
 
     read -p "Boot order: " bootOrder
@@ -67,23 +52,47 @@ update-efistub () {
     done
 }
 
-getopts 'cesh' action
+update_efistub () {
+    for vmlinuz in /boot/vmlinuz* ; do
+        kernel=${vmlinuz#*-}
+        label="$distro ($kernel)"
+
+        efibootmgr -q -BL "$label"
+
+        efibootmgr -q -c -d /dev/$drive -L "$label" -l EFI/Linux/$kernel.efi
+    done
+
+    efibootmgr
+}
+
+getopts 'ceosh' action
 case "$action" in
     c)
-        create-ukis
+        create_ukis
         exit 0
         ;;
     e)
-        update-efistub
+        update_efistub
+        exit 0
+        ;;
+    o)
+        boot_order
         exit 0
         ;;
     s)
         sbctl list-files
+        efibootmgr
+
+        read -p "Boot order: " bootOrder
         efibootmgr -o $bootOrder
+        while [ $? -ne 0 ]; do
+            read -p "Boot order: " bootOrder
+            efibootmgr -o $bootOrder
+        done
         exit 0
         ;;
     h)
-        echo -e "Usage: $(basename $0) <action>\n\nActions:\n  -c  Create Unified Kernel Images\n  -e  Update EFISTUB entries\n  -s  Check status"
+        echo -e "Usage: $(basename $0) <action>\n\nActions:\n  -c  Create Unified Kernel Images\n  -e  Update EFISTUB entries\n  -o  Modify boot order\n  -s  Check status and update boot order"
         exit 0
         ;;
 
