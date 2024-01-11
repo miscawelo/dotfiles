@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+screen="desc:Thermotrex Corporation TL140ADXP01"
+resolution="2560x1600"
+lowRefreshRate="48"
+highRefreshRate="120"
+scale="1.25"
+
+update_screen() {
+    hyprctl keyword monitor $screen, $resolution@$1, auto, $scale, bitdepth, 10
+    asusctl bios -O $2
+
+    echo $2 >> $HOME/.cache/scripts/eww_screen
+}
+
+[ "$1" = "low" ] && update_screen "$lowRefreshRate" "false" && exit
+[ "$1" = "high" ] && update_screen "$highRefreshRate" "true" && exit

@@ -1,0 +1,7 @@
+(defwidget logout []
+  (button
+    :onclick "wlogout &"
+    :class "logout"
+    ""
+  )
+)

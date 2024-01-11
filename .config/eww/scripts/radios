@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+rfkill toggle $1
+rfkill | grep -qE "$1.* blocked" && echo disabled >> $HOME/.cache/scripts/eww_$1_status || echo enabled >> $HOME/.cache/scripts/eww_$1_status

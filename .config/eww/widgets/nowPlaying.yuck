@@ -1,0 +1,7 @@
+(defwidget nowPlaying []
+  (eventbox
+    :class "nowPlaying ${nowPlaying.status}"
+    :onclick "playerctl play-pause"
+    "${nowPlaying.text}"
+  )
+)

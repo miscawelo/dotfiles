@@ -1,0 +1,7 @@
+(defwidget controlCenterButton []
+  (button
+    :onclick "eww open controlCenter"
+    :class "controlCenterButton"
+    ""
+  )
+)
