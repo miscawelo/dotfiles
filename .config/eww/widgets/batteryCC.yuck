@@ -1,17 +1,25 @@
 (defwidget batteryCC []
   (box
-    :class "controlCenterModule"
-    (battStatus)
+    :space-evenly "false"
+    :orientation "v"
+    (label
+      :class "controlCenterLabel"
+      :text "Battery"
+    )
     (box
-      :orientation "v"
-      :space-evenly "false"
-      (battStats)
-      (scale
-        :class "slider subModule"
-        :value "${battChrgLimit / 10}"
-        :onchange "asusctl -c {}0"
-        :max 11
-        :min 2
+      :class "controlCenterModule"
+      (battStatus)
+      (box
+        :orientation "v"
+        :space-evenly "false"
+        (battStats)
+        (scale
+          :class "slider subModule"
+          :value "${battChrgLimit / 10}"
+          :onchange "asusctl -c {}0"
+          :max 11
+          :min 2
+        )
       )
     )
   )
@@ -50,10 +58,10 @@
     :class "battStats"
     :orientation "v"
     (label
-      :text "${battStatus == "Charging" ? " Charging with: ${powerDraw / 1000000} W" :
+      :text "${battStatus == "Charging" ? " Charging at ${powerDraw / 1000000}W" :
       battStatus == "Not charging" ? " Running on AC" :
       acStatus == "1" ? " Running on AC" :
-      " Discharging with: ${powerDraw / 1000000} W"}"
+      " Discharging at ${powerDraw / 1000000}W"}"
     )
     (label
       :text "Charge limit: ${battChrgLimit}%"

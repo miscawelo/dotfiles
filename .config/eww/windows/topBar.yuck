@@ -17,6 +17,7 @@
 (defwidget topBarCenter []
   (box
     :class "bar center"
+    :space-evenly "false"
     (windowTitle)
   )
 )
@@ -25,6 +26,7 @@
   (box
     :class "bar right"
     :halign "end"
+    :space-evenly "false"
     time
     (logout)
   )

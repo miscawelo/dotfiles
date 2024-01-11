@@ -1,24 +1,13 @@
-(defvar wifiRev false)
-
 (defwidget wifi []
-  (eventbox
-    :onhover "eww update wifiRev=true"
-    :onhoverlost "eww update wifiRev=false"
-    (box
-      :class "wifi ${wifiNetwork != "" ? "connected" : wifiStatus}"
-      :space-evenly "false"
-      (label
-        :text "${wifiStatus == "on" ? "" : ""}"
-      )
-      (revealer
-        :transition "slideright"
-        :reveal wifiRev
-        :duration "${sliderDuration}ms"
-        (label
-          :class "wifiLabel ${wifiStatus}"
-          :text "${wifiNetwork != "" ? wifiNetwork : "Not connected"}"
-        )
-      )
+  (box
+    :class "wifi ${wifiNetwork != "" ? "connected" : wifiStatus}"
+    :space-evenly "false"
+    (label
+      :text "${wifiStatus == "enabled" ? "" : ""}"
+    )
+    (label
+      :class "wifiLabel ${wifiStatus}"
+      :text "${wifiStatus == "disabled" ? "" : wifiNetwork != "" ? wifiNetwork : "Not connected"}"
     )
   )
 )

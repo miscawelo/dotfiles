@@ -1,24 +1,13 @@
-(defvar bluetoothRev false)
-
 (defwidget bluetooth []
-  (eventbox
-    :onhover "eww update bluetoothRev=true"
-    :onhoverlost "eww update bluetoothRev=false"
-    (box
-      :class "bluetooth ${bluetoothDevice != "" ? "connected" : bluetoothStatus}"
-      :space-evenly "false"
-      (label
-        :text "${bluetoothStatus == "on" ? "" : ""}"
-      )
-      (revealer
-        :transition "slideright"
-        :reveal bluetoothRev
-        :duration "${sliderDuration}ms"
-        (label
-          :class "bluetoothLabel ${bluetoothStatus}"
-          :text "${bluetoothDevice != "" ? bluetoothDevice : "Not connected"}"
-        )
-      )
+  (box
+    :class "bluetooth ${bluetoothDevice != "" ? "connected" : bluetoothStatus}"
+    :space-evenly "false"
+    (label
+      :text "${bluetoothStatus == "enabled" ? "" : ""}"
+    )
+    (label
+      :class "bluetoothLabel ${bluetoothStatus}"
+      :text "${bluetoothStatus == "disabled" ? "" : bluetoothDevice != "" ? bluetoothDevice : "Not connected"}"
     )
   )
 )

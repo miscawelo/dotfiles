@@ -8,7 +8,7 @@
       :class "keyboard"
       :space-evenly "false"
       (label
-        :text " (${keyboardLayout}) ${kbBrightness == 0 ? "off" : kbBrightness}"
+        :text " (${keyboardLayout}) "
       )
       (revealer
         :transition "slideright"
@@ -17,10 +17,13 @@
         (scale
           :class "slider"
           :value kbBrightness
-          :onchange "$HOME/scripts/dunst/kb_blacklight {}"
           :max 4
           :min 0
+          :onchange "$HOME/scripts/dunst/kb_backlight set {}"
         )
+      )
+      (label
+        :text "${kbBrightness > 0 ? "" : ""}"
       )
     )
   )

@@ -1,5 +1,6 @@
 (defwindow topBar
   :monitor 0
+  :exclusive true
   :geometry (geometry
     :x "0px"
     :y "0px"
@@ -7,12 +8,12 @@
     :height "2%"
     :anchor "top center"
   )
-  :exclusive true
   (topBar)
 )
 
 (defwindow bottomBar
   :monitor 0
+  :exclusive true
   :geometry (geometry
     :x "0px"
     :y "0px"
@@ -20,7 +21,6 @@
     :height "2%"
     :anchor "bottom center"
   )
-  :exclusive true
   (bottomBar)
 )
 

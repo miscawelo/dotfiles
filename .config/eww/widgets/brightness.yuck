@@ -8,7 +8,7 @@
       :class "brightness"
       :space-evenly "false"
       (label
-        :text " ${brightnessCurr}"
+        :text " "
       )
       (revealer
         :transition "slideright"
@@ -17,10 +17,13 @@
         (scale
           :class "slider"
           :value brightnessCurr
-          :onchange "brightnessctl set {}%"
+          :onchange "$HOME/scripts/dunst/brightness set {}"
           :max 101
           :min 0
         )
+      )
+      (label
+        :text "${brightnessCurr}"
       )
     )
   )

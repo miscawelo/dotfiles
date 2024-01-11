@@ -8,7 +8,7 @@
       :class "volume"
       :space-evenly "false"
       (label
-        :text " ${volumeCurr}"
+        :text " "
       )
       (revealer
         :transition "slideright"
@@ -19,8 +19,11 @@
           :value volumeCurr
           :max 101
           :min 0
-          :onchange "pamixer --set-volume {}"
+          :onchange "$HOME/scripts/dunst/volume set {}"
         )
+      )
+      (label
+        :text "${volumeCurr}"
       )
     )
   )
