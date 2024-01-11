@@ -20,74 +20,6 @@
     font-weight: 900;
 }
 
-
-.pstate.perf {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.5rem 0.5rem 0.25rem;
-}
-
-.pstate.eco {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-}
-
-.pstate:hover {
-    background: $lighter_gray;
-}
-
-.pstate.eco.power, .pstate.perf.performance {
-    background: $blue;
-}
-
-.fanMode.quiet {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-}
-
-.fanMode.quiet:hover {
-    background: $lighter_gray;
-}
-
-.fanMode.quiet.Quiet {
-    background: $blue;
-}
-
-.fanMode.balanced {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.25rem 0.5rem 0.25rem;
-}
-
-.fanMode.balanced:hover {
-    background: $lighter_gray;
-}
-
-.fanMode.balanced.Balanced {
-    background: $blue;
-}
-
-.fanMode.performance {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.5rem 0.5rem 0.2rem;
-}
-
-.fanMode.performance:hover {
-    background: $lighter_gray;
-}
-
-.fanMode.performance.Performance {
-    background: $blue;
-}
-
-
-
-
-
-
 .slider slider {
     margin: -20px;
 }
@@ -105,22 +37,6 @@ scale trough {
     min-height: 8px;
     min-width: 200px;
     margin: 0px 10px;
-}
-
-
-.battStatus {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-    padding: 1rem 0rem;
-    min-height: 10rem;
-}
-
-.battStats {
-    background: $light_gray;
-    border-radius: 1rem;
-    margin: 0.5rem 0.5rem 0.25rem 0.25rem;
-    min-height: 9rem;
 }
 
 .slider.subModule {
