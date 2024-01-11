@@ -1,4 +1,4 @@
-(defvar sliderDuration 500)
+(defvar sliderDuration 200)
 
 ; Workspaces
 (deflisten workspaces
