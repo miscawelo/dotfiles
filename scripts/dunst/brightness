@@ -1,8 +1,13 @@
-#!/usr/bin/bash
+#!/usr/bin/env sh
 
 send_notif() {
-  dunstify "Brightness" "Device" -i $HOME/scripts/assets/icons/brightness.png -h string:x-dunst-stack-tag:brightness -h int:value:"$(brightnessctl -m -d amdgpu_bl1 | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%')"
+  brightness=$(($(brightnessctl g) * 100 / 255))
+  echo $brightness >> $HOME/.cache/scripts/dunst_brightness
+  [ "$1" = "set" ] && exit
+
+  dunstify "Brightness" "Device" -i $HOME/scripts/assets/icons/brightness.png -h string:x-dunst-stack-tag:brightness -h int:value:"$brightness"
 }
 
 [ "$1" = "down" ] && brightnessctl set $2%- && send_notif && exit
 [ "$1" = "up" ] && brightnessctl set +$2% && send_notif && exit
+[ "$1" = "set" ] && brightnessctl set $2% && send_notif "$1" && exit

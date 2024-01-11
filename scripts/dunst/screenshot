@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+path="$HOME/Pictures/Screenshots/"
+schema="$(date +"%Y%m%d_%H%M%S")"
+
+[ "$1" = "quick" ] && grim $path$schema.png && echo && dunstify "Screenshot taken" "Desktop captured" -i $path$(ls $path | tail -n1) -h string:x-dunst-stack-tag:screenshot_"$1" && exit
+[ "$1" = "selection" ] && grim -g "$(slurp)" $path$schema.png && dunstify "Screenshot taken" "Desktop captured" -i $path$(ls $path | tail -n1) -h string:x-dunst-stack-tag:screenshot_"$1" && exit
+[ "$1" = "ocr" ] && grim -g "$(slurp)" "tesseract.png" && tesseract "tesseract.png" - | wl-copy && rm "tesseract.png" && dunstify "Text grabbed" "$(wl-paste)" -h string:x-dunst-stack-tag:screenshot_"$1" && exit

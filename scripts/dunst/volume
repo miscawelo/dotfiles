@@ -1,7 +1,9 @@
-#!/usr/bin/bash
+#!/usr/bin/env sh
 
 send_notif() {
   volume=$(pamixer --get-volume)
+  echo $volume >> $HOME/.cache/scripts/dunst_volume
+  [ "$1" = "set" ] && exit
 
   if [ "$(pamixer --get-mute)" = "true" ];then
     icon="speaker_mute.png"
@@ -18,4 +20,5 @@ send_notif() {
 
 [ "$1" = "down" ] && pamixer -u && pamixer -d $2 && send_notif && exit
 [ "$1" = "up" ] && pamixer -u && pamixer -i $2 && send_notif && exit
+[ "$1" = "set" ] && pamixer -u && pamixer --set-volume $2 && send_notif "$1" && exit
 [ "$1" = "mute" ] && pamixer -m && send_notif && exit

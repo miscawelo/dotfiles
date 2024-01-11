@@ -31,10 +31,9 @@
 )
 
 ; Keyboard
-(defpoll kbBrightness
+(deflisten kbBrightness
   :initial "0"
-  :interval "1s"
-  "asusctl -k | cut -d ' ' -f 5"
+  "tail -F $HOME/.cache/scripts/dunst_kb_backlight"
 )
 
 (deflisten keyboardLayout
@@ -43,23 +42,21 @@
 )
 
 ; Brightness
-(defpoll brightnessCurr
+(deflisten brightnessCurr
   :initial "0"
-  :interval "1s"
-  "brightnessctl -m -d amdgpu_bl1 | awk -F, '{print substr($4, 0, length($4)-1)}' | tr -d '%'"
+  "tail -F $HOME/.cache/scripts/dunst_brightness"
 )
 
 ; Volume
-(defpoll volumeCurr
+(deflisten volumeCurr
   :initial "0"
-  :interval "1s"
-  "pamixer --get-volume"
+  "tail -F $HOME/.cache/scripts/dunst_volume"
 )
 
 ; Battery
 (defpoll battLevel
   :initial "0"
-  :interval "1s"
+  :interval "30s"
   "cat /sys/class/power_supply/BAT0/capacity"
 )
 
@@ -71,95 +68,55 @@
 
 (defpoll acStatus
   :initial "0"
-  :interval "1s"
+  :interval "30s"
   "cat /sys/class/power_supply/AC0/online"
 )
 
 (defpoll battChrgLimit
   :initial "20"
-  :interval "1s"
+  :interval "30s"
   "cat /sys/class/power_supply/BAT0/charge_control_end_threshold"
 )
 
 (defpoll powerDraw
   :initial "0"
-  :interval "1s"
+  :interval "30s"
   "cat /sys/class/power_supply/BAT0/power_now"
 )
 
 ; WiFi
-(defpoll wifiStatus
-  :initial "Off"
-  :interval "1s"
-  "rfkill list wlan | grep -q yes && echo off || echo on"
+(deflisten wifiStatus
+  :initial "disabled"
+  "tail -F $HOME/.cache/scripts/eww_wlan_status"
 )
 
 (defpoll wifiNetwork
   :initial ""
-  :interval "1s"
-  "iwctl station wlan0 show | grep -oP '(?<=network).*' | sed 's/[[:blank:]]*$//' && echo $1 || echo ''"
+  :interval "2s"
+  "iwctl station wlan0 show | grep network | cut -d ' ' -f 1-18 --complement | tr -s ' '"
 )
 
 ; Bluetooth
-(defpoll bluetoothStatus
-  :initial "Off"
-  :interval "1s"
-  "rfkill list bluetooth | grep -q yes && echo off || echo on"
+(deflisten bluetoothStatus
+  :initial "disabled"
+  "tail -F $HOME/.cache/scripts/eww_bluetooth_status"
 )
 
 (defpoll bluetoothDevice
   :initial ""
-  :interval "1s"
+  :interval "2s"
   "bluetoothctl info | grep -oP '(?<=Alias:).*' | sed 's/[[:blank:]]*$//' && echo $1 || echo ''"
 )
 
 ; Do not disturb
 (defpoll dndStatus
   :initial "Off"
-  :interval "1s"
+  :interval "60s"
   "dunstctl is-paused"
 )
 
 ; Screen
-(defpoll screenOD
-  :initial "false"
-  :interval "1s"
-  "asusctl  bios -o | cut -d ' ' -f 4"
-)
-
-; Performance
-(defpoll pstate
-  :initial "performance"
-  :interval "1s"
-  "cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference"
-)
-
-(defpoll cpuFanSpeed
-  :initial "0"
-  :interval "1s"
-  "cat /sys/devices/platform/asus-nb-wmi/hwmon/hwmon5/fan1_input"
-)
-
-(defpoll gpuFanSpeed
-  :initial "0"
-  :interval "1s"
-  "cat /sys/devices/platform/asus-nb-wmi/hwmon/hwmon5/fan2_input"
-)
-
-(defpoll fanMode
-  :initial "Quiet"
-  :interval "1s"
-  "asusctl profile -p | cut -d ' ' -f 4"
-)
-
-
-
-
-
-
-
-(defpoll cores
-  :initial "0"
-  :interval "1s"
-  "cat $HOME/cores"
+(deflisten screenOD
+  :initial "true"
+  "tail -F $HOME/.cache/scripts/eww_screen"
 )
