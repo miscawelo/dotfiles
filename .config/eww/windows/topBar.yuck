@@ -26,5 +26,6 @@
     :class "bar right"
     :halign "end"
     time
+    (logout)
   )
 )
