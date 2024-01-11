@@ -46,24 +46,6 @@ scale trough {
     min-height: 3rem;
 }
 
-.battChrg {
-    background: $transparent;
-    font-size: 2.5rem;
 }
 
-.battChrg.charging {
-    color: $green;
-}
-
-.battChrg.notCharging {
-    color: $yellow;
-}
-
-.battChrg.critical {
-    color: $red;
-}
-
-.battChrgLimit {
-    background: black;
-    color: $gray;
 }
