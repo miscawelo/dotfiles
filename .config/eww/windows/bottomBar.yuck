@@ -9,6 +9,7 @@
   (box
     :class "bar left"
     :halign "start"
+    (nowPlaying)
   )
 )
 
