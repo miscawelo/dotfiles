@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+dimTime=60
+step=$(($(brightnessctl get) / dimTime + 1))
+
+while [ $dimTime -gt 0 ]; do
+    if [ "$(brightnessctl get)" -lt 1 ]; then
+      echo exited
+      exit
+    fi
+    brightnessctl set $step-
+    dimTime=$((dimTime-1))
+    sleep 1
+done

@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+send_notif() {
+  volume=$(pamixer --get-volume)
+
+  if [ "$(pamixer --get-mute)" = "true" ];then
+    icon="speaker_mute.png"
+  elif [ "$volume" -ge 51 ]; then
+    icon="speaker_high.png"
+  elif [ "$volume" -ge 2 ]; then
+    icon="speaker_low.png"
+  else
+    icon="speaker_mute.png"
+  fi
+
+  dunstify "Volume" "Device" -i "$HOME/bin/assets/icons/$icon" -h string:x-dunst-stack-tag:volume -h int:value:"$volume"
+}
+
+[ "$1" = "down" ] && pamixer -u && pamixer -d "$2" && send_notif && exit
+[ "$1" = "up" ] && pamixer -u && pamixer -i "$2" && send_notif && exit
+[ "$1" = "set" ] && pamixer -u && pamixer --set-volume "$2" && send_notif "$1" && exit
+[ "$1" = "mute" ] && pamixer -m && send_notif && exit
