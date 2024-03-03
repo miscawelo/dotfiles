@@ -1,10 +1,29 @@
 require("ibl").setup()
 
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {"c", "c_sharp", "cpp" , "html", "hyprlang", "json", "latex", "css", "python", "latex", "markdown", "lua", "vim", "bash", "yaml", "yuck"},
+  sync_install = false,
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+
+  indent = {
+    enable = true
+  },
+}
+
+vim.filetype.add({
+pattern = { [".*/hyprland%.conf"] = "hyprlang" },
+})
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
+    theme = 'dracula',
+    component_separators = { left = '|', right = '|'},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
       statusline = {},
@@ -19,35 +38,27 @@ require('lualine').setup {
       winbar = 1000,
     }
   },
+
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_b = {'filetype', 'branch'},
     lualine_c = {'filename'},
-    lualine_x = {'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_x = {'selectioncount', 'searchcount'},
+    lualine_y = {'location', 'progress'},
+    lualine_z = {'hostname'}
   },
+
   inactive_sections = {
     lualine_a = {},
-    lualine_b = {},
+    lualine_b = {'filetype'},
     lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_x = {},
     lualine_y = {},
     lualine_z = {}
   },
+
   tabline = {},
   winbar = {},
   inactive_winbar = {},
   extensions = {}
-}
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "cpp" , "python", "latex", "markdown", "vim"},
-  sync_install = false,
-  auto_install = true,
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
 }
