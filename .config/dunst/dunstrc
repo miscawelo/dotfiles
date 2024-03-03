@@ -1,124 +1,110 @@
 [global]
-    ### Display ###
+  monitor = 0
+  follow = mouse
 
-    monitor = 0
-    follow = mouse
+  enable_posix_regex = true
 
-    enable_posix_regex = true
+  width = 500
+  height = 200
+  notification_limit = 5
+  origin = top-right
+  offset = 20x120
+#   scale = 0
 
-    ### Geometry ###
+  progress_bar = true
+  progress_bar_horizontal_alignment = right
+  progress_bar_height = 10
+  progress_bar_min_width = 450
+  progress_bar_max_width = 450
+  progress_bar_frame_width = 0
+  progress_bar_corner_radius = 3
 
-    width = 450
-    height = 300
-    origin = top-right
-    offset = 20x120
-    scale = 0
-    notification_limit = 10
+  icon_corner_radius = 5
 
-    ### Progress bar ###
+  indicate_hidden = true
 
-    progress_bar = true
-    progress_bar_horizontal_alignment = right
-    progress_bar_height = 10
-    progress_bar_frame_width = 1
-    progress_bar_min_width = 410
-    progress_bar_max_width = 410
-    progress_bar_corner_radius = 5
+#   transparency = 0
 
-    icon_corner_radius = 0
-    indicate_hidden = yes
-    separator_height = 1
-    padding = 8
-    horizontal_padding = 20
-    text_icon_padding = 0
-    frame_width = 1
+  separator_height = 1
+  padding = 8
+  horizontal_padding = 20
+  text_icon_padding = 0
+  frame_width = 1
+  gap_size = 10
+  separator_color = frame
 
-    gap_size = 10
+  sort = true
+  layer = overlay
+  force_xwayland = false
 
-    separator_color = frame
-    sort = yes
+  font = SF Mono 12
+  line_height = 0
+  format = "<b>%s</b> (<i>%a</i>)\n%b %n"
+  vertical_alignment = center
 
-    idle_threshold = 60
+  idle_threshold = 60
+  ignore_newline = false
+  show_age_threshold = 60
+  stack_duplicates = true
+  hide_duplicate_count = true
+  show_indicators = true
 
-    ### Text ###
+#   icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+  icon_path = $HOME/bin/assets/icons/
+  icon_theme = Adwaita
+  enable_recursive_icon_lookup = true
 
-    font = SF Mono 12
-    line_height = 0
-    markup = full
-    format = "<b>%s</b>\n%b %p"
-    alignment = left
-    vertical_alignment = center
-    show_age_threshold = 60
-    # Specify where to make an ellipsis in long lines.
-    # Possible values are "start", "middle" and "end".
-    ellipsize = middle
-    ignore_newline = no
-    stack_duplicates = true
-    hide_duplicate_count = true
-    show_indicators = yes
+  sticky_history = true
+  history_length = 20
 
-    ### Icons ###
+  dmenu = /usr/bin/tofi -c $HOME/.config/tofi/tofi.cfg
+  browser = /usr/bin/xdg-open
 
-    enable_recursive_icon_lookup = true
-    icon_theme = Adwaita
-    icon_position = left
-    min_icon_size = 32
-    max_icon_size = 128
+  always_run_script = true
 
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+  title = Dunst
+  class = dunst
 
-    ### History ###
+#   force_xinerama = false
 
-    sticky_history = yes
-    history_length = 20
+  corner_radius = 10
 
-    ### Misc/Advanced ###
+  mouse_left_click = do_action, open_url, close_current
+  mouse_middle_click = none
+  mouse_right_click = close_all
 
-    dmenu = /usr/bin/dmenu -p dunst:
+  ignore_dbusclose = true
 
-    browser = /usr/bin/xdg-open
-    always_run_script = true
-    title = dunst
-    class = dunst
+  override_pause_level = 100
 
-    corner_radius = 10
+  min_icon_size = 32
+  max_icon_size = 128
+  icon_position = left
 
-    ignore_dbusclose = true
-
-    ### Wayland ###
-
-    layer = overlay
-    force_xwayland = false
-
-    ### Legacy
-
-    force_xinerama = false
-
-    ### Mouse
-
-    mouse_left_click = open_url , close_current
-    mouse_middle_click = do_action, close_current
-    mouse_right_click = close_all
-
-[experimental]
-    per_monitor_dpi = false
-
+  word_wrap = true
+  ellipsize = end
+  alignment = left
+  hide_text = false
+  markup = full
 
 [urgency_low]
-    background = "#636366c0"
-    foreground = "#ffffff"
-    frame_color = "#d1d1d6"
-    timeout = 10
+  background = "#636366c0"
+  foreground = "#ffffff"
+  frame_color = "#d1d1d6"
+  timeout = 10
+  override_pause_level = 0
 
 [urgency_normal]
-    background = "#3a3a3cc0"
-    foreground = "#ffffff"
-    frame_color = "#d1d1d6"
-    highlight = "#0a84ff80"
-    timeout = 10
+  background = "#3a3a3cc0"
+  foreground = "#ffffff"
+  frame_color = "#d1d1d6"
+  highlight = "#0a84ff80"
+  timeout = 10
+  override_pause_level = 50
 
 [urgency_critical]
-    background = "#ff453ac0"
-    foreground = "#ffffff"
-    frame_color = "#d1d1d6"
-    timeout = 0
+  background = "#ff453ac0"
+  foreground = "#ffffff"
+  frame_color = "#d1d1d6"
+  timeout = 0
+  override_pause_level = 100
