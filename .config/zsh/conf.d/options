@@ -4,3 +4,5 @@ setopt histignoredups
 
 HISTSIZE=10000
 SAVEHIST=10000
+
+eval "$(atuin init zsh)"
