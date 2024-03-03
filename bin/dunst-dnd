@@ -1,0 +1,16 @@
+#!/bin/bash
+
+count=$(dunstctl count waiting)
+
+if dunstctl is-paused | grep -q "false" ; then
+  state=""
+  class="disabled"
+else
+  state=""
+  class="enabled"
+  if [ $count != 0 ]; then
+    state=" $count"
+  fi
+fi
+
+echo "{\"text\": \"$state\", \"class\": \"$class\"}"
