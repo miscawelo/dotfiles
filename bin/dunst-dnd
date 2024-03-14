@@ -8,7 +8,7 @@ if dunstctl is-paused | grep -q "false" ; then
 else
   state=""
   class="enabled"
-  if [ $count != 0 ]; then
+  if [ "$count" != 0 ]; then
     state=" $count"
   fi
 fi

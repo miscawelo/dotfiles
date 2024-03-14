@@ -1,10 +1,22 @@
 #!/usr/bin/env sh
 
+icon="$HOME/bin/assets/icons/"
+
 send_notif() {
   brightness=$(($(brightnessctl g) * 100 / 255))
-  dunstify "Brightness" "Device" -i "$HOME/bin/assets/icons/brightness.png" -h string:x-dunst-stack-tag:brightness -h int:value:"$brightness"
+
+  if [ $brightness -gt 75 ]; then
+    icon=$icon"screenBrightnessMax.png"
+  elif [ $brightness -gt 50 ]; then
+    icon=$icon"screenBrightnessHigh.png"
+  elif [ $brightness -gt 25 ]; then
+    icon=$icon"screenBrightnessMed.png"
+  else
+    icon=$icon"screenBrightnessLow.png"
+  fi
+
+  dunstify "Brightness" "$(brightnessctl i | awk -F "'" '/Device/ {print $2}')" -a "System" -i "$icon" -h string:x-dunst-stack-tag:brightness -h int:value:"$brightness"
 }
 
 [ "$1" = "down" ] && brightnessctl set "$2"%- && send_notif && exit
-[ "$1" = "up" ] && brightnessctl set +"$2"% && send_notif && exit
-[ "$1" = "set" ] && brightnessctl set "$2"% && send_notif "$1" && exit
+[ "$1" = "up" ]   && brightnessctl set +"$2"% && send_notif && exit

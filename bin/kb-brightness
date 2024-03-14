@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+kbDevice="asus::kbd_backlight"
+icon="$HOME/bin/assets/icons/"
+
+send_notif() {
+  brightness=$(brightnessctl --device=$kbDevice g)
+
+  case "$brightness" in
+    3)
+      icon=$icon"kbBrightnessHigh.png"
+      brightness=100
+      ;;
+    2)
+      icon=$icon"kbBrightnessMed.png"
+      brightness=67
+      ;;
+    1)
+      icon=$icon"kbBrightnessLow.png"
+      brightness=33
+      ;;
+    0)
+      icon=$icon"kbBrightnessOff.png"
+      ;;
+  esac
+
+  dunstify "Brightness" "Keyboard" -a "System" -i "$icon" -h string:x-dunst-stack-tag:kb-backlight -h int:value:"$brightness"
+}
+
+[ "$1" = "down" ] && if [ "$(brightnessctl --device=$kbDevice g)" -gt 0 ]; then asusctl -p ; fi && send_notif && exit
+[ "$1" = "up" ] && if [ "$(brightnessctl --device=$kbDevice g)" -lt 3 ]; then asusctl -n ; fi && send_notif && exit

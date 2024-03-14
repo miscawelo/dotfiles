@@ -1,19 +1,29 @@
 #!/usr/bin/env sh
 
+sink="$(pamixer --list-sinks | awk -F '"' '/Running/ {print $6}')"
+btStatus="$(pamixer --list-sinks | awk '/bluez/')"
+icon="$HOME/bin/assets/icons/"
+
 send_notif() {
   volume=$(pamixer --get-volume)
 
-  if [ "$(pamixer --get-mute)" = "true" ];then
-    icon="speaker_mute.png"
-  elif [ "$volume" -ge 51 ]; then
-    icon="speaker_high.png"
-  elif [ "$volume" -ge 2 ]; then
-    icon="speaker_low.png"
+  if [ -n "$btStatus" ]; then
+    icon=$icon"bluetooth.png"
   else
-    icon="speaker_mute.png"
+    if [ "$(pamixer --get-mute)" = "true" ]; then
+      icon=$icon"volumeMute.png"
+    elif [ "$volume" -gt 66 ]; then
+      icon=$icon"volumeHigh.png"
+    elif [ "$volume" -gt 33 ]; then
+      icon=$icon"volumeMed.png"
+    elif [ "$volume" -gt 0 ]; then
+      icon=$icon"volumeLow.png"
+    else
+      icon=$icon"volumeOff.png"
+    fi
   fi
 
-  dunstify "Volume" "Device" -i "$HOME/bin/assets/icons/$icon" -h string:x-dunst-stack-tag:volume -h int:value:"$volume"
+  dunstify "Volume" "$sink" -a "System" -i "$icon" -h string:x-dunst-stack-tag:volume -h int:value:"$volume"
 }
 
 [ "$1" = "down" ] && pamixer -u && pamixer -d "$2" && send_notif && exit

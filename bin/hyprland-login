@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Hyprpaper
+wallpaper=$(find "$HOME/Pictures/Wallpapers" -type f | shuf -n 1)
+
+hyprctl hyprpaper preload "$wallpaper"
+
+for monitor in $(hyprctl monitors | awk '/Monitor/ { print $2 }'); do
+  hyprctl hyprpaper wallpaper "$monitor,$wallpaper"
+done
