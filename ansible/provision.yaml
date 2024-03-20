@@ -1,0 +1,74 @@
+---
+
+- hosts: proxmox
+  become: true
+  tasks:
+
+    - name: Replace Enterprise repository
+      copy:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+        owner: root
+        group: root
+        mode: '0644'
+      with_items:
+        - { src: 'proxmox/sources.list', dest: '/etc/apt/sources.list' }
+        - { src: 'proxmox/ceph.list', dest: '/etc/apt/sources.list.d/ceph.list' }
+
+    - name: Add SSH daemon config
+      copy:
+        src: etc/sshd_config
+        dest: /etc/ssh/sshd_config.d/0-defaults.conf
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+      register: sshdFlag
+
+    - name: Restart SSH daemon
+      service:
+        name: sshd
+        state: restarted
+      when: sshdFlag.changed
+
+    - name: Add admin user
+      user:
+        name: miscawelo
+        password: '$6$aGtwHJlJIbgMH.yv$6FaMIJf7Rly27R7cWE8rhmgz2uDy8FnOMuUqIqrQ9u6./oNnL62s/nZMQgv6GkbYyFRLFW7yiATvEUuqkW508.'
+        groups: sudo
+        append: true
+        shell: /bin/bash
+
+    - name: Create '.ssh' directory
+      file:
+        path: '/home/{{ item }}/.ssh'
+        state: directory
+        owner: '{{ item }}'
+        group: '{{ item }}'
+        mode: '0700'
+      with_items:
+        - miscawelo
+
+    - name: Add authorized keys
+      copy:
+        src: etc/sshd_authorized_keys
+        dest: '/home/{{ item }}/.ssh/authorized_keys'
+        owner: '{{ item }}'
+        group: '{{ item }}'
+        mode: '0600'
+      with_items:
+        - miscawelo
+
+    - name: Update and upgrade system
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install base packages
+      apt:
+        name:
+        - sudo
+
+    - name: Remove authorized keys from root user
+      file:
+        path: /root/.ssh/authorized_keys
+        state: absent

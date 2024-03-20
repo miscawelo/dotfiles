@@ -1,0 +1,10 @@
+---
+
+- hosts: proxmox
+  become: true
+  tasks:
+
+    - name: Update and upgrade system
+      apt:
+        update_cache: yes
+        upgrade: dist

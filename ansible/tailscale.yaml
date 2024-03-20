@@ -1,0 +1,37 @@
+---
+
+- hosts: all
+  become: true
+  vars_files:
+    -  secrets.yaml
+  tasks:
+
+    - name: Install Tailscale repository and GPG keys
+      uri:
+        url: '{{ item.url }}'
+        method: GET
+        follow_redirects: safe
+        dest: '{{ item.dest }}'
+      with_items:
+        - { url: 'https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg', dest: '/usr/share/keyrings/tailscale-archive-keyring.gpg' }
+        - { url: 'https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list', dest: '/etc/apt/sources.list.d/tailscale.list' }
+
+    - name: Install Tailscale
+      apt:
+        update_cache: yes
+        name: tailscale
+        state: latest
+
+    - name: Run command using argv with mixed argument formats
+      command:
+        argv:
+          - /usr/bin/tailscale
+          - up
+          - --accept-dns=false
+          - --advertise-exit-node=true
+          - '--auth-key={{ tsAuthKey }}'
+    # - name: Servers
+    #   roles:
+    #     - role: artis3n.tailscale
+    #       vars:
+    #         tailscale_args: '--accept-dns=false --advertise-exit-node'

@@ -1,0 +1,16 @@
+proxmox:
+  hosts:
+    pve0:
+      ansible_host: 192.168.1.200
+      # ansible_host: server0
+    # pve0:
+    #   ansible_host: 192.168.4.10
+    # dorje:
+    #   ansible_host: 192.168.4.20
+  vars:
+    ansible_port: 6304
+
+# nas:
+#   hosts:
+#     truenas:
+#       ansible_host: 192.168.1.201
