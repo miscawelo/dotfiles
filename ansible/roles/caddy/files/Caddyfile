@@ -1,0 +1,6 @@
+pihole.miscawelo-nas.com {
+  tls m_moreno.15@hotmail.com {
+    dns cloudflare PK5Hhvgzt6KPvdg7hVgOgqfs-cFUCIDPlJ4xVrIw
+  }
+  reverse_proxy 192.168.1.100
+}

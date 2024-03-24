@@ -1,0 +1,54 @@
+- name: Install additional packages
+  apt:
+    update_cache: yes
+    name:
+    - caddy
+
+- name: Create Caddy config directory
+  file:
+    path: /etc/caddy
+    state: directory
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
+- name: Copy config file
+  copy:
+    src: roles/caddy/files/Caddyfile
+    dest: /etc/caddy/Caddyfile
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+- name: Download custom Caddy build
+  get_url:
+    url: 'https://caddyserver.com/api/download?os=linux&arch=amd64&p=github.com%2Fcaddy-dns%2Fcloudflare&idempotency=8689950411470'
+    dest: /usr/bin/caddy.custom
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
+- name: Divert caddy install
+  community.general.dpkg_divert:
+    divert: /usr/bin/caddy.default
+    path: /usr/bin/caddy
+    rename: true
+
+- name: Update alternatives, default
+  alternatives:
+    name: caddy
+    link: /usr/bin/caddy
+    path: /usr/bin/caddy.default
+    priority: 10
+
+- name: Update alternatives, custom
+  alternatives:
+    name: caddy
+    link: /usr/bin/caddy
+    path: /usr/bin/caddy.custom
+    priority: 50
+
+- name: Restart Caddy service
+  service:
+    name: caddy
+    state: restarted

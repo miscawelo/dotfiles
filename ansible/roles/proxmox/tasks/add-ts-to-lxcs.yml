@@ -1,0 +1,6 @@
+- name: Insert/Update eth0 configuration stanza in /etc/network/interfaces
+  blockinfile:
+    path: '/etc/pve/lxc/{{ lxcHost }}.conf'
+    block: |
+      lxc.cgroup2.devices.allow: c 10:200 rwm
+      lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file

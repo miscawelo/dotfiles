@@ -1,0 +1,113 @@
+---
+
+- hosts: all
+  # user: root
+  become: true
+  vars_files:
+    - roles/common/vars/secrets.yml
+    - roles/common/vars/vars.yml
+    - ~/ansible/roles/common/vars/main.yml
+  tasks:
+
+    - name: Copy SSH daemon config
+      tags: always
+      copy:
+        src: sshd_config
+        dest: /etc/ssh/sshd_config.d/0-defaults.conf
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+      register: sshdFlag
+
+    - name: Restart SSH daemon
+      tags: always
+      service:
+        name: sshd
+        state: restarted
+      when: sshdFlag.changed
+
+    # - name: Add admin user
+    #   tags: always
+    #   user:
+    #     name: '{{ adminUser }}'
+    #     password: '{{ hAdminPass }}'
+    #     groups: sudo
+    #     append: true
+    #     shell: /bin/bash
+    #   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    # - name: Add admin user
+    #   tags: always
+    #   user:
+    #     name: '{{ adminUser }}'
+    #     password: '{{ hAdminPass }}'
+    #     groups: wheel
+    #     append: true
+    #     shell: /bin/bash
+    #   when: ansible_distribution == 'Arch'
+
+    - name: Add admin key to every user
+      tags: always
+      authorized_key:
+        user: '{{ item }}'
+        state: present
+        key: https://github.com/miscawelo.keys
+        exclusive: true
+      with_items:
+        - miscawelo
+
+    - name: Remove key from root user
+      tags: always
+      authorized_key:
+        user: root
+        state: present
+        key: ""
+        exclusive: true
+
+    - name: Create directories for system config files
+      tags: always
+      file:
+        path: '{{ item }}'
+        state: directory
+        owner: 'root'
+        group: 'root'
+        mode: '0755'
+      with_items:
+        - '/etc/systemd/logind.conf.d'
+        - '/etc/systemd/sleep.conf.d'
+
+    # - name: Copy systemd config files for proxmox systems
+    #   tags: proxmox
+    #   copy:
+    #     src: '{{ item.src }}'
+    #     dest: '{{ item.dest }}'
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
+    #   with_items:
+    #     - { src: 'common/files/proxmox_logind', dest: '/etc/systemd/logind.conf.d/0-defaults.conf' }
+    #     - { src: 'common/files/proxmox_sleep', dest: '/etc/systemd/sleep.conf.d/0-defaults.conf' }
+    #   register: systemdFlag
+
+    - name: Reload systemd daemon
+      tags: always
+      service:
+        daemon_reload: true
+        name: '{{ item }}.service'
+        state: restarted
+      when: systemdFlag.changed
+      with_items:
+        - 'systemd-logind'
+
+    - name: Update and upgrade system
+      tags: always
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+# - hosts: proxmox
+#   become: true
+#   vars_files:
+#     - vars/secrets.yml
+#     - vars/vars.yml
