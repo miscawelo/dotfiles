@@ -40,7 +40,7 @@ noremap <silent>gh 0
 noremap <silent><S-h> b
 noremap <silent><S-l> w
 noremap <silent><S-j> }
-noremap <silent><S-k> {<Esc>
+noremap <silent><S-k> {
 
 " Move block
 inoremap <silent><A-j> <Esc>:m .+1<CR>==gi
