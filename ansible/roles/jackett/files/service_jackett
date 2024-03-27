@@ -1,0 +1,33 @@
+#!/sbin/openrc-run
+
+command="/opt/Jackett/jackett"
+command_args="--NoRestart"
+command_user="jackett:jackett"
+command_background=true
+
+name="\${RC_SVCNAME}"
+basedir="/opt/Jackett"
+datadir="/opt/JackettData"
+
+start_stop_daemon_args="--chdir \${basedir}"
+pidfile="/run/\${RC_SVCNAME}.pid"
+
+depend() {
+  after network-online
+  use network-online
+}
+
+stop_pre() {
+  # from jackett_launcher.sh
+  while pgrep -u "\$(whoami)" JackettUpdater > /dev/null; do
+    sleep 1
+  done
+}
+
+start_pre() {
+  checkpath -q -d -m 0777 -o "\${command_user}" \\
+  \${basedir} \\
+  \${datadir}
+  export XDG_CONFIG_HOME=\${datadir}
+  rm -f "\${datadir}/\${RC_SVCNAME}.pid"
+}

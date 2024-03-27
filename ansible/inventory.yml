@@ -1,21 +1,23 @@
 proxmox:
   hosts:
     pve0:
-      ansible_host: 192.168.1.200
+      ansible_host: 10.92.27.200
     # pbs0:
-    #   ansible_host: 192.168.1.201
+    #   ansible_host: 10.92.27.201
   vars:
     ansible_port: 6304
 
 # nas:
 #   hosts:
 #     truenas:
-#       ansible_host: 192.168.1.201
+#       ansible_host: 10.92.27.201
+#   vars:
+#     ansible_port: 6304
 
 workstations:
   hosts:
     miscawelo-arch:
-      ansible_host: 192.168.1.250
+      ansible_host: 10.92.27.230
   vars:
     ansible_port: 6304
 
@@ -23,17 +25,17 @@ workstations:
 containers:
   hosts:
     pihole:
-      ansible_host: 192.168.1.100
+      ansible_host: 10.92.27.100
     caddy:
-      ansible_host: 192.168.1.101
+      ansible_host: 10.92.27.101
     jackett:
-      ansible_host: 192.168.1.102
+      ansible_host: 10.92.27.102
     radarr:
-      ansible_host: 192.168.1.103
+      ansible_host: 10.92.27.103
     sonarr:
-      ansible_host: 192.168.1.104
+      ansible_host: 10.92.27.104
     qbittorrent:
-      ansible_host: 192.168.1.105
+      ansible_host: 10.92.27.105
         # lxc.idmap: u 0 100000 1005
         # lxc.idmap: g 0 100000 1005
         # lxc.idmap: u 1005 1005 1
@@ -41,7 +43,7 @@ containers:
         # lxc.idmap: u 1006 101006 64530
         # lxc.idmap: g 1006 101006 64530
     plex:
-      ansible_host: 192.168.1.106
+      ansible_host: 10.92.27.106
         # lxc.cgroup2.devices.allow: a
         # lxc.cap.drop:
         # lxc.cgroup2.devices.allow: c 188:* rwm
@@ -57,19 +59,19 @@ containers:
         # lxc.mount.entry: /dev/fb0 dev/fb0 none bind,optional,create=file
         # lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir
         # lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
-    # nextcloud:
-    #   ansible_host: 192.168.1.107
+    nextcloud:
+      ansible_host: 10.92.27.107
     paperless:
-      ansible_host: 192.168.1.108
+      ansible_host: 10.92.27.108
     immich:
-      ansible_host: 192.168.1.109
+      ansible_host: 10.92.27.109
     homepage:
-      ansible_host: 192.168.1.110
+      ansible_host: 10.92.27.110
     vorta:
-      ansible_host: 192.168.1.111
+      ansible_host: 10.92.27.111
 
   # ntfy:
-# ansible_host: 192.168.1.
+# ansible_host: 10.92.27.
 # cores: 1
 # features: keyctl=1,nesting=1
 # memory: 512
@@ -78,7 +80,7 @@ containers:
 # swap: 512
 
   # ombi:
-# ansible_host: 192.168.1.
+# ansible_host: 10.92.27.
 # cores: 2
 # features: keyctl=1,nesting=1
 # memory: 2048
@@ -86,7 +88,7 @@ containers:
 # rootfs: local-lvm:vm-102-disk-1,size=4G
 # swap: 512
   # overseer:
-# ansible_host: 192.168.1.
+# ansible_host: 10.92.27.
 # cores: 2
 # features: keyctl=1,nesting=1
 # memory: 2048
@@ -94,7 +96,7 @@ containers:
 # rootfs: local-lvm:vm-102-disk-1,size=4G
 # swap: 512
   # guacamole:
-# ansible_host: 192.168.1.
+# ansible_host: 10.92.27.
 # cores: 2
 # features: keyctl=1,nesting=1
 # memory: 2048

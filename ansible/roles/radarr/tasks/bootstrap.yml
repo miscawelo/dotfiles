@@ -1,0 +1,6 @@
+- name: Install additional packages
+  apt:
+    update_cache: yes
+    name:
+    - curl
+    - sqlite3

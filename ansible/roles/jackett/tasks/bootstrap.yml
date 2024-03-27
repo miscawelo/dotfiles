@@ -1,0 +1,54 @@
+- name: Install base packages
+  apk:
+    name:
+      - sqlite-libs
+      - gcompat
+      - bash
+      - icu-libs
+      - krb5-libs
+      - libgcc
+      - libintl
+      - libssl3
+      - libstdc++
+      - zlib
+    no_cache: true
+
+- name: Add 'media' group
+  group:
+    name: media
+    state: present
+
+- name: Add 'jackett' user
+  user:
+    name: jackett
+    groups:
+      - jackett
+      - media
+    home: /opt/JackettData
+    shell: /sbin/nologin
+
+- name: Get latest Jackett version number
+  uri:
+    url: 'https://api.github.com/repos/Jackett/Jackett/releases/latest'
+    method: GET
+  register: curlResult
+
+- name: Download latest Jackett version
+  unarchive:
+    src: 'https://github.com/Jackett/Jackett/releases/download/{{ curlResult.json.tag_name }}/Jackett.Binaries.LinuxMuslAMDx64.tar.gz'
+    dest: /opt
+    owner: jackett
+    group: jackett
+    remote_src: yes
+
+- name: Copy Jackett service file
+  copy:
+    src: roles/jackett/files/service_jackett
+    dest: /etc/init.d/jackett
+    mode: '0755'
+
+- name: Start and enable 'jackett' service
+  service:
+    name: jackett
+    state: started
+    enabled: yes

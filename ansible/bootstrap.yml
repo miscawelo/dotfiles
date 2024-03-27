@@ -1,280 +1,243 @@
 ---
 
-- hosts: all:!containers
-  become: true
-  vars_files:
-    - roles/common/vars/main.yml
-  tasks:
+# - hosts: all:!containers
+#   become: true
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
 
-    - name: Copy SSH daemon config
-      copy:
-        src: roles/common/files/sshd_config
-        dest: /etc/ssh/sshd_config.d/0-defaults.conf
-        owner: 'root'
-        group: 'root'
-        mode: '0644'
-      register: sshdFlag
+#     - name: Set up SSH
+#       block:
 
-    - name: Restart SSH daemon
-      service:
-        name: sshd
-        state: restarted
-      when: sshdFlag.changed
+#         - name: Copy SSH daemon config
+#           copy:
+#             src: roles/common/files/sshd_config
+#             dest: /etc/ssh/sshd_config.d/0-defaults.conf
+#             owner: 'root'
+#             group: 'root'
+#             mode: '0644'
+#           register: sshdFlag
 
-    - name: Add admin user for Debian distributions
-      user:
-        name: '{{ adminUser }}'
-        password: '{{ adminUserPass }}'
-        groups: sudo
-        append: true
-        shell: /bin/bash
-      when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
+#         - name: Restart SSH daemon
+#           service:
+#             name: sshd
+#             state: restarted
+#           when: sshdFlag.changed
 
-    - name: Add admin user for Arch distributions
-      user:
-        name: '{{ adminUser }}'
-        password: '{{ adminUserPass }}'
-        groups:
-          - wheel
-          - video
-          - audio
-          - docker
-        append: true
-        shell: /usr/bin/zsh
-      when: (ansible_distribution == 'Archlinux')
+#     - name: Set up admin user
+#       block:
 
-    - name: Add admin key to every user
-      authorized_key:
-        user: '{{ item }}'
-        state: present
-        key: https://github.com/miscawelo.keys
-        exclusive: true
-      with_items:
-        - miscawelo
+#         - name: Add admin user for Debian distributions
+#           user:
+#             name: '{{ adminUser }}'
+#             password: '{{ adminUserPass }}'
+#             groups: sudo
+#             append: true
+#             shell: /bin/bash
+#           when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
 
-    - name: Remove all keys from root user
-      authorized_key:
-        user: root
-        state: present
-        key: ""
-        exclusive: true
+#         - name: Add admin user for Arch distributions
+#           user:
+#             name: '{{ adminUser }}'
+#             password: '{{ adminUserPass }}'
+#             groups:
+#               - wheel
+#               - video
+#               - audio
+#               - docker
+#             append: true
+#             shell: /usr/bin/zsh
+#           when: (ansible_distribution == 'Archlinux')
 
-    - name: Create directories for system config files
-      file:
-        path: '{{ item }}'
-        state: directory
-        owner: 'root'
-        group: 'root'
-        mode: '0755'
-      with_items:
-        - '/etc/systemd/logind.conf.d'
-        - '/etc/systemd/sleep.conf.d'
+#         - name: Add admin key to every user
+#           authorized_key:
+#             user: '{{ item }}'
+#             state: present
+#             key: https://github.com/miscawelo.keys
+#             exclusive: true
+#           with_items:
+#             - miscawelo
 
-    - name: Copy system config files (workstations)
-      copy:
-        src: '{{ item.src }}'
-        dest: '{{ item.dest }}'
-        owner: root
-        group: root
-        mode: '0644'
-      with_items:
-        - { src: 'roles/common/files/systemd_logind', dest: '/etc/systemd/logind.conf.d/0-defaults.conf' }
-        - { src: 'roles/common/files/systemd_sleep', dest: '/etc/systemd/sleep.conf.d/0-defaults.conf' }
-      register: systemdFlag
-      when: (ansible_hostname in groups['workstations'])
+#         - name: Remove all keys from root user
+#           authorized_key:
+#             user: root
+#             state: present
+#             key: ""
+#             exclusive: true
 
-    - name: Copy system config files (servers)
-      copy:
-        src: '{{ item.src }}'
-        dest: '{{ item.dest }}'
-        owner: root
-        group: root
-        mode: '0644'
-      with_items:
-        - { src: 'roles/common/files/systemd_logind_server', dest: '/etc/systemd/logind.conf.d/0-defaults.conf' }
-        - { src: 'roles/common/files/systemd_sleep_server', dest: '/etc/systemd/sleep.conf.d/0-defaults.conf' }
-      register: systemdFlag
-      when: (not ansible_hostname in groups['workstations'])
+#     - name: Set system defaults
+#       block:
 
-    - name: Reload systemd daemons
-      service:
-        daemon_reload: true
-        name: '{{ item }}.service'
-        state: restarted
-      when: systemdFlag.changed
-      with_items:
-        - 'systemd-logind'
+#         - name: Create directories for system config files
+#           file:
+#             path: '{{ item }}'
+#             state: directory
+#             owner: 'root'
+#             group: 'root'
+#             mode: '0755'
+#           with_items:
+#             - '/etc/systemd/logind.conf.d'
+#             - '/etc/systemd/sleep.conf.d'
 
-    - name: Add non-enterprise repository to Proxmox servers
-      copy:
-        src: '{{ item.src }}'
-        dest: '{{ item.dest }}'
-        owner: root
-        group: root
-        mode: '0644'
-      with_items:
-        - { src: 'roles/proxmox/files/sources.list', dest: '/etc/apt/sources.list' }
-        - { src: 'roles/proxmox/files/ceph.list', dest: '/etc/apt/sources.list.d/ceph.list' }
-      when: (ansible_hostname in groups['proxmox'])
+#         - name: Copy system config files (workstations)
+#           copy:
+#             src: '{{ item.src }}'
+#             dest: '{{ item.dest }}'
+#             owner: root
+#             group: root
+#             mode: '0644'
+#           with_items:
+#             - { src: 'roles/common/files/systemd_logind', dest: '/etc/systemd/logind.conf.d/0-defaults.conf' }
+#             - { src: 'roles/common/files/systemd_sleep', dest: '/etc/systemd/sleep.conf.d/0-defaults.conf' }
+#           register: systemdFlag
+#           when: (ansible_hostname in groups['workstations'])
 
-    - name: Update and upgrade Debian systems
-      apt:
-        update_cache: yes
-        upgrade: dist
-      when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
+#         - name: Copy system config files (servers)
+#           copy:
+#             src: '{{ item.src }}'
+#             dest: '{{ item.dest }}'
+#             owner: root
+#             group: root
+#             mode: '0644'
+#           with_items:
+#             - { src: 'roles/common/files/systemd_logind_server', dest: '/etc/systemd/logind.conf.d/0-defaults.conf' }
+#             - { src: 'roles/common/files/systemd_sleep_server', dest: '/etc/systemd/sleep.conf.d/0-defaults.conf' }
+#           register: systemdFlag
+#           when: (not ansible_hostname in groups['workstations'])
 
-    - name: Update and upgrade Arch
-      pacman:
-        update_cache: true
-        upgrade: true
-      when: (ansible_distribution == 'Archlinux')
+#         - name: Reload systemd daemons
+#           service:
+#             daemon_reload: true
+#             name: '{{ item }}.service'
+#             state: restarted
+#           when: systemdFlag.changed
+#           with_items:
+#             - 'systemd-logind'
 
-- hosts: proxmox
-  become: true
-  vars_files:
-    - roles/common/vars/main.yml
-    - roles/proxmox/vars/main.yml
-  tasks:
+# - hosts: proxmox
+#   become: true
+#   vars_files:
+#     - roles/common/vars/main.yml
+#     - roles/proxmox/vars/main.yml
+#   tasks:
 
-  - name: Install Tailscale repository and GPG keys
-    uri:
-      url: '{{ item.url }}'
-      method: GET
-      follow_redirects: safe
-      dest: '{{ item.dest }}'
-      creates: '{{ item.dest }}'
-    with_items:
-      - { url: 'https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg', dest: '/usr/share/keyrings/tailscale-archive-keyring.gpg' }
-      - { url: 'https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list', dest: '/etc/apt/sources.list.d/tailscale.list' }
+#     - name: Add non-enterprise repository to Proxmox servers
+#       copy:
+#         src: '{{ item.src }}'
+#         dest: '{{ item.dest }}'
+#         owner: root
+#         group: root
+#         mode: '0644'
+#       with_items:
+#         - { src: 'roles/proxmox/files/sources.list', dest: '/etc/apt/sources.list' }
+#         - { src: 'roles/proxmox/files/ceph.list', dest: '/etc/apt/sources.list.d/ceph.list' }
 
-  - name: Install base packages
-    apt:
-      update_cache: yes
-      name:
-      - sudo
-      - neovim
-      - tailscale
-      - python3-proxmoxer
+#     - name: Install base packages
+#       apt:
+#         update_cache: yes
+#         name:
+#         - sudo
+#         - neovim
 
-  - name: Create containers from list
-    proxmox:
-      vmid: '{{ item.vmid }}'
-      node: pve0
-      api_user: root@pam
-      api_password: '{{ pveRootPass }}'
-      api_host: pve0
-      hostname: '{{ item.hostname }}'
-      storage: local-lvm
-      password: '{{ pveRootPass }}'
-      cores: '{{ item.cores }}'
-      memory: '{{ item.memory }}'
-      swap: '{{ item.swap }}'
-      disk: 'local-lvm:{{ item.diskSize }}'
-      netif: '{"net0":"name=eth0,ip=192.168.1.{{ item.vmid | int }}/24,gw=192.168.1.1,bridge=vmbr0"}'
-      onboot: true
-      pubkey: '{{ publicKey }}'
-      ostemplate: '{{ item.lxcTemplate }}'
-      # update: true
-      features:
-        - keyctl=1
-        - nesting=1
-      state: present
-    with_items: '{{ lxcHosts }}'
+#     - name: Create containers if missing
+#       block:
 
-  - name: Add Tailscale support for all containers
-    block:
-      - name: Allow cGroup2 devices
-        lineinfile:
-          path: '/etc/pve/lxc/{{ item.vmid }}.conf'
-          regexp: '^lxc.cgroup2.devices.allow:'
-          line: 'lxc.cgroup2.devices.allow: c 10:200 rwm'
-        with_items: '{{ lxcHosts }}'
-        register: lxcFile
+#         - name: Create containers from list
+#           proxmox:
+#             vmid: '{{ item.vmid }}'
+#             node: pve0
+#             api_user: root@pam
+#             api_password: '{{ pveRootPass }}'
+#             api_host: pve0
+#             hostname: '{{ item.hostname }}'
+#             storage: local-lvm
+#             password: '{{ pveRootPass }}'
+#             cores: '{{ item.cores }}'
+#             memory: '{{ item.memory }}'
+#             swap: '{{ item.swap }}'
+#             disk: 'local-lvm:{{ item.diskSize }}'
+#             # disk: 'local-lvm:vm-{{ item.vmid }}-disk-0,size={{ item.diskSize }}G'
+#             netif: '{"net0":"name=eth0,bridge=vmbr0,gw=10.92.27.1,ip=10.92.27.{{ item.vmid | int }}/24,ip6=dhcp"}'
+#             onboot: true
+#             pubkey: '{{ publicKey }}'
+#             ostemplate: '{{ item.lxcTemplate }}'
+#             # update: true
+#             features:
+#               - keyctl=1
+#               - nesting=1
+#             state: present
+#           with_items: '{{ lxcHosts }}'
 
-      - name: Bind 'tun' device
-        lineinfile:
-          path: '/etc/pve/lxc/{{ item.vmid }}.conf'
-          regexp: '^lxc.mount.entry:'
-          line: 'lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file'
-        with_items: '{{ lxcHosts }}'
-        register: lxcFile
+#         - name: Start all containers
+#           proxmox:
+#             vmid: '{{ item.vmid }}'
+#             api_user: root@pam
+#             api_password: '{{ pveRootPass }}'
+#             api_host: pve0
+#             state: started
+#           with_items: '{{ lxcHosts }}'
 
-  - name: Reboot all containers if neccesary
-    proxmox:
-      vmid: '{{ item.vmid }}'
-      api_user: root@pam
-      api_password: '{{ pveRootPass }}'
-      api_host: pve0
-      state: restarted
-    with_items: '{{ lxcHosts }}'
-    when: lxcFile.changed
+#     - name: Install necessary packages and services
+#       shell: |
+#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/apk add python3
+#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/apk add ssh
+#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/rc-service sshd start
+#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/rc-update add sshd
+#       when: ("alpine" in item.lxcTemplate)
+#       with_items: '{{ lxcHosts }}'
 
-  - name: Start all containers
-    proxmox:
-      vmid: '{{ item.vmid }}'
-      api_user: root@pam
-      api_password: '{{ pveRootPass }}'
-      api_host: pve0
-      state: started
-    with_items: '{{ lxcHosts }}'
+#     #   when: ("alpine" in item.lxcTemplate)
+#     #   with_items: '{{ lxcHosts }}'
+#         # '/usr/sbin/pct exec {{ item.vmid }} /sbin/apk add python3'
+#         # /usr/sbin/pct exec {{ item.vmid }} /sbin/apk add openssh
+#         # /usr/sbin/pct exec {{ item.vmid }} /sbin/rc-service add sshd
+#         # /usr/sbin/pct exec {{ item.vmid }} /sbin/rc-update add sshd
 
-- hosts: containers
-  user: root
-  vars_files:
-    - roles/common/vars/main.yml
-  tasks:
+#     # - name: Install necessary packages and services
+#     #   tags: testing
+#     #   block:
 
-  - name: Install Tailscale repository and GPG keys
-    uri:
-      url: '{{ item.url }}'
-      method: GET
-      follow_redirects: safe
-      dest: '{{ item.dest }}'
-      creates: '{{ item.dest }}'
-    with_items:
-      - { url: 'https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg', dest: '/usr/share/keyrings/tailscale-archive-keyring.gpg' }
-      - { url: 'https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list', dest: '/etc/apt/sources.list.d/tailscale.list' }
-    when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
+#     #     - name: Install python3
+#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/apk add python3'
 
-  - name: Configure tailscale
-    block:
-      - name: Wait for SSH daemon to Start
-        wait_for:
-          host: '{{ ansible_default_ipv4.address }}'
-          port: 22
+#     #     - name: Install OpenSSH
+#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/apk add openssh'
 
-      - name: Install base packages
-        apk:
-          update_cache: true
-          name:
-            - neovim
-            - tailscale
-    when: (ansible_distribution == 'Alpine')
+#     #     - name: Enable the SSH daemon
+#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/rc-service add sshd'
 
-  - name: Install base packages
-    apt:
-      update_cache: yes
-      name:
-      - neovim
-      - tailscale
-    when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
+#     #     - name: Start the ssh daemon
+#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/rc-update add sshd'
 
-  - name: Tailscale up
-    command:
-      argv:
-        - /usr/bin/tailscale
-        - up
-        - --accept-dns=false
-        - '--auth-key={{ tsAuthKey }}'
-    when: (ansible_hostname == 'pihole')
+#     #   when: ("alpine" in item.lxcTemplate)
+#     #   with_items: '{{ lxcHosts }}'
 
-  - name: Tailscale up
-    command:
-      argv:
-        - /usr/bin/tailscale
-        - up
-        - '--auth-key={{ tsAuthKey }}'
-    when: (not ansible_hostname == 'pihole')
+# - hosts: containers
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+
+#     - name: Configure SSH daemon on Alpine containers
+#       block:
+#         - name: Wait for SSH daemon to Start
+#           wait_for:
+#             host: '{{ ansible_default_ipv4.address }}'
+#             port: 22
+
+#         - name: Install base packages
+#           apk:
+#             update_cache: true
+#             name:
+#               - neovim
+#       when: (ansible_distribution == 'Alpine')
+
+#     - name: Install base packages
+#       apt:
+#         update_cache: yes
+#         name:
+#         - neovim
+#       when: (ansible_distribution == 'Debian') or (ansible_distribution == 'Ubuntu')
 
 # - hosts: pihole
 #   user: root
@@ -292,4 +255,22 @@
 #   tasks:
 #     - import_role:
 #         name: roles/caddy
+#         tasks_from: bootstrap.yml
+
+- hosts: jackett
+  user: root
+  vars_files:
+    - roles/common/vars/main.yml
+  tasks:
+    - import_role:
+        name: roles/jackett
+        tasks_from: bootstrap.yml
+
+# - hosts: radarr
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/radarr
 #         tasks_from: bootstrap.yml
