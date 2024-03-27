@@ -1,6 +1,47 @@
-- name: Install additional packages
+- name: Install base packages
   apt:
-    update_cache: yes
     name:
-    - curl
-    - sqlite3
+      - sqlite3
+
+- name: Add groups
+  group:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - radarr
+    - media
+
+- name: Add 'radarr' user
+  user:
+    name: radarr
+    groups:
+      - radarr
+      - media
+
+- name: Create Radarr config directory
+  file:
+    path: /var/lib/radarr
+    state: directory
+    owner: radarr
+    group: radarr
+    mode: '0755'
+
+- name: Download latest Radarr version
+  unarchive:
+    src: 'http://radarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64'
+    dest: /opt
+    owner: radarr
+    group: radarr
+    remote_src: yes
+
+- name: Copy Radarr service file
+  copy:
+    src: roles/radarr/files/service_radarr
+    dest: /etc/systemd/system/radarr.service
+    mode: '0755'
+
+- name: Reload systemd daemons
+  service:
+    daemon_reload: true
+    name: 'radarr.service'
+    state: started

@@ -257,20 +257,20 @@
 #         name: roles/caddy
 #         tasks_from: bootstrap.yml
 
-- hosts: jackett
-  user: root
-  vars_files:
-    - roles/common/vars/main.yml
-  tasks:
-    - import_role:
-        name: roles/jackett
-        tasks_from: bootstrap.yml
-
-# - hosts: radarr
+# - hosts: jackett
 #   user: root
 #   vars_files:
 #     - roles/common/vars/main.yml
 #   tasks:
 #     - import_role:
-#         name: roles/radarr
+#         name: roles/jackett
 #         tasks_from: bootstrap.yml
+
+- hosts: radarr
+  user: root
+  vars_files:
+    - roles/common/vars/main.yml
+  tasks:
+    - import_role:
+        name: roles/radarr
+        tasks_from: bootstrap.yml
