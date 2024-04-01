@@ -1,0 +1,51 @@
+server {
+        #listen       [::]:80; #uncomment for IPv6 support
+        listen       80;
+        #return 301 https://$host$request_uri;
+        server_name mysite.mydomain.com;
+        #}
+
+        #server {
+        #listen       [::]:443 ssl; #uncomment for IPv6 support
+        #listen       443 ssl;
+        #listen 80;
+        #server_name  mysite.mydomain.com;
+
+        root /usr/share/webapps/nextcloud;
+        index  index.php index.html index.htm;
+        disable_symlinks off;
+
+        #ssl_certificate      /etc/ssl/certs/nextcloud-selfsigned.crt;
+        #ssl_certificate_key  /etc/ssl/private/nextcloud-selfsigned.key;
+        #ssl_session_timeout  5m;
+
+        #Enable Perfect Forward Secrecy and ciphers without known vulnerabilities
+        #Beware! It breaks compatibility with older OS and browsers (e.g. Windows XP, Android 2.x, etc.)
+        #ssl_ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA;
+        #ssl_prefer_server_ciphers  on;
+
+
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        location ~ [^/]\.php(/|$) {
+                fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+                if (!-f $document_root$fastcgi_script_name) {
+                        return 404;
+                }
+                #fastcgi_pass 127.0.0.1:9000;
+                #fastcgi_pass unix:/run/php-fpm/socket;
+                fastcgi_pass unix:/run/nextcloud/fastcgi.sock; # From the nextcloud-initscript package
+                fastcgi_index index.php;
+                include fastcgi.conf;
+        }
+
+        # Help pass nextcloud's configuration checks after install:
+        # Per https://docs.nextcloud.com/server/22/admin_manual/issues/general_troubleshooting.html#service-discovery
+        location ^~ /.well-known/carddav { return 301 /remote.php/dav/; }
+        location ^~ /.well-known/caldav { return 301 /remote.php/dav/; }
+        location ^~ /.well-known/webfinger { return 301 /index.php/.well-known/webfinger; }
+        location ^~ /.well-known/nodeinfo { return 301 /index.php/.well-known/nodeinfo; }
+}

@@ -139,78 +139,52 @@
 #         - sudo
 #         - neovim
 
-#     - name: Create containers if missing
-#       block:
+    # - name: Create containers if missing
+    #   block:
 
-#         - name: Create containers from list
-#           proxmox:
-#             vmid: '{{ item.vmid }}'
-#             node: pve0
-#             api_user: root@pam
-#             api_password: '{{ pveRootPass }}'
-#             api_host: pve0
-#             hostname: '{{ item.hostname }}'
-#             storage: local-lvm
-#             password: '{{ pveRootPass }}'
-#             cores: '{{ item.cores }}'
-#             memory: '{{ item.memory }}'
-#             swap: '{{ item.swap }}'
-#             disk: 'local-lvm:{{ item.diskSize }}'
-#             # disk: 'local-lvm:vm-{{ item.vmid }}-disk-0,size={{ item.diskSize }}G'
-#             netif: '{"net0":"name=eth0,bridge=vmbr0,gw=10.92.27.1,ip=10.92.27.{{ item.vmid | int }}/24,ip6=dhcp"}'
-#             onboot: true
-#             pubkey: '{{ publicKey }}'
-#             ostemplate: '{{ item.lxcTemplate }}'
-#             # update: true
-#             features:
-#               - keyctl=1
-#               - nesting=1
-#             state: present
-#           with_items: '{{ lxcHosts }}'
+    #     - name: Create containers from list
+    #       proxmox:
+    #         vmid: '{{ item.vmid }}'
+    #         node: pve0
+    #         api_user: root@pam
+    #         api_password: '{{ pveRootPass }}'
+    #         api_host: pve0
+    #         hostname: '{{ item.hostname }}'
+    #         storage: local-lvm
+    #         password: '{{ pveRootPass }}'
+    #         cores: '{{ item.cores }}'
+    #         memory: '{{ item.memory }}'
+    #         swap: '{{ item.swap }}'
+    #         disk: 'local-lvm:{{ item.diskSize }}'
+    #         # disk: 'local-lvm:vm-{{ item.vmid }}-disk-0,size={{ item.diskSize }}G'
+    #         netif: '{"net0":"name=eth0,bridge=vmbr0,gw=10.92.27.1,ip=10.92.27.{{ item.vmid | int }}/24,ip6=dhcp"}'
+    #         onboot: true
+    #         pubkey: '{{ publicKey }}'
+    #         ostemplate: '{{ item.lxcTemplate }}'
+    #         # update: true
+    #         features:
+    #           - keyctl=1
+    #           - nesting=1
+    #         state: present
+    #       with_items: '{{ lxcHosts }}'
 
-#         - name: Start all containers
-#           proxmox:
-#             vmid: '{{ item.vmid }}'
-#             api_user: root@pam
-#             api_password: '{{ pveRootPass }}'
-#             api_host: pve0
-#             state: started
-#           with_items: '{{ lxcHosts }}'
+    #     - name: Start all containers
+    #       proxmox:
+    #         vmid: '{{ item.vmid }}'
+    #         api_user: root@pam
+    #         api_password: '{{ pveRootPass }}'
+    #         api_host: pve0
+    #         state: started
+    #       with_items: '{{ lxcHosts }}'
 
-#     - name: Install necessary packages and services
-#       shell: |
-#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/apk add python3
-#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/apk add ssh
-#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/rc-service sshd start
-#         /usr/sbin/pct exec '{{ item.vmid }}' /sbin/rc-update add sshd
-#       when: ("alpine" in item.lxcTemplate)
-#       with_items: '{{ lxcHosts }}'
-
-#     #   when: ("alpine" in item.lxcTemplate)
-#     #   with_items: '{{ lxcHosts }}'
-#         # '/usr/sbin/pct exec {{ item.vmid }} /sbin/apk add python3'
-#         # /usr/sbin/pct exec {{ item.vmid }} /sbin/apk add openssh
-#         # /usr/sbin/pct exec {{ item.vmid }} /sbin/rc-service add sshd
-#         # /usr/sbin/pct exec {{ item.vmid }} /sbin/rc-update add sshd
-
-#     # - name: Install necessary packages and services
-#     #   tags: testing
-#     #   block:
-
-#     #     - name: Install python3
-#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/apk add python3'
-
-#     #     - name: Install OpenSSH
-#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/apk add openssh'
-
-#     #     - name: Enable the SSH daemon
-#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/rc-service add sshd'
-
-#     #     - name: Start the ssh daemon
-#     #       command: '/usr/sbin/pct exec {{ item.vmid }} /sbin/rc-update add sshd'
-
-#     #   when: ("alpine" in item.lxcTemplate)
-#     #   with_items: '{{ lxcHosts }}'
+    # - name: Install necessary packages and services
+    #   shell: |
+    #     /usr/sbin/pct exec '{{ item.vmid }}' /sbin/apk add python3
+    #     /usr/sbin/pct exec '{{ item.vmid }}' /sbin/apk add openssh
+    #     /usr/sbin/pct exec '{{ item.vmid }}' /sbin/rc-service sshd start
+    #     /usr/sbin/pct exec '{{ item.vmid }}' /sbin/rc-update add sshd
+    #   when: ("alpine" in item.lxcTemplate)
+    #   with_items: '{{ lxcHosts }}'
 
 # - hosts: containers
 #   user: root
@@ -218,18 +192,11 @@
 #     - roles/common/vars/main.yml
 #   tasks:
 
-#     - name: Configure SSH daemon on Alpine containers
-#       block:
-#         - name: Wait for SSH daemon to Start
-#           wait_for:
-#             host: '{{ ansible_default_ipv4.address }}'
-#             port: 22
-
-#         - name: Install base packages
-#           apk:
-#             update_cache: true
-#             name:
-#               - neovim
+#     - name: Install base packages
+#       apk:
+#         update_cache: true
+#         name:
+#           - neovim
 #       when: (ansible_distribution == 'Alpine')
 
 #     - name: Install base packages
@@ -266,11 +233,74 @@
 #         name: roles/jackett
 #         tasks_from: bootstrap.yml
 
-- hosts: radarr
+# - hosts: radarr
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/radarr
+#         tasks_from: bootstrap.yml
+
+# - hosts: sonarr
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/sonarr
+#         tasks_from: bootstrap.yml
+
+# - hosts: sonarr
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/sonarr
+#         tasks_from: bootstrap.yml
+
+# - hosts: sonarr
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/sonarr
+#         tasks_from: bootstrap.yml
+
+# - hosts: qbittorrent
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/qbittorrent
+#         tasks_from: bootstrap.yml
+
+# - hosts: plex
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/plex
+#         tasks_from: bootstrap.yml
+
+# - hosts: nextcloud
+#   user: root
+#   vars_files:
+#     - roles/common/vars/main.yml
+#   tasks:
+#     - import_role:
+#         name: roles/nextcloud
+#         tasks_from: bootstrap.yml
+
+- hosts: paperless
   user: root
   vars_files:
     - roles/common/vars/main.yml
   tasks:
     - import_role:
-        name: roles/radarr
+        name: roles/paperless
         tasks_from: bootstrap.yml

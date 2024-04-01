@@ -1,0 +1,35 @@
+- name: Install additional packages
+  apt:
+    name:
+      - python3
+      - python3-pip
+      - python3-dev
+      - imagemagick
+      - fonts-liberation
+      - gnupg
+      - libpq-dev
+      - default-libmysqlclient-dev
+      - pkg-config
+      - libmagic-dev
+      - mime-support
+      - libzbar0
+      - poppler-utils
+      - unpaper
+      - ghostscript
+      - icc-profiles-free
+      - qpdf
+      - liblept5
+      - libxml2
+      - pngquant
+      - zlib1g
+      - tesseract-ocr
+      - redis
+
+- name: Add group 'paperless'
+  group:
+    name: paperless
+
+- name: Add user 'paperless'
+  user:
+    name: paperless
+    home: /opt/paperless

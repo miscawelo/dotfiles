@@ -8,42 +8,42 @@
     name: '{{ item }}'
     state: present
   with_items:
-    - radarr
+    - sonarr
     - media
 
-- name: Add 'radarr' user
+- name: Add 'sonarr' user
   user:
-    name: radarr
+    name: sonarr
     groups:
-      - radarr
+      - sonarr
       - media
 
-- name: Create Radarr config directory
+- name: Create Sonarr config directory
   file:
-    path: /var/lib/radarr
+    path: /var/lib/sonarr
     state: directory
-    owner: radarr
+    owner: sonarr
     group: media
     mode: '0775'
 
-- name: Download latest Radarr version
+- name: Download latest Sonarr version
   unarchive:
-    src: 'http://radarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64'
+    src: 'https://services.sonarr.tv/v1/download/main/latest?version=4&os=linux&arch=x64'
     dest: /opt
-    owner: radarr
+    owner: sonarr
     group: media
     mode: '0775'
     remote_src: yes
 
-- name: Copy Radarr service file
+- name: Copy Sonarr service file
   copy:
-    src: roles/radarr/files/service_radarr
-    dest: /etc/systemd/system/radarr.service
+    src: roles/sonarr/files/service_sonarr
+    dest: /etc/systemd/system/sonarr.service
     mode: '0644'
 
 - name: Reload systemd daemons
   service:
     daemon_reload: true
-    name: 'radarr.service'
+    name: 'sonarr.service'
     state: started
     enabled: yes

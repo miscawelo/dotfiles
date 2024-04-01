@@ -1,12 +1,13 @@
 [Unit]
-Description=Radarr Daemon
+Description=Sonarr Daemon
 After=syslog.target network.target
 
 [Service]
-User=radarr
+User=sonarr
 Group=media
+UMask=0002
 Type=simple
-ExecStart=/opt/Radarr/Radarr -nobrowser -data=/var/lib/radarr/
+ExecStart=/opt/Sonarr/Sonarr -nobrowser -data=/var/lib/sonarr
 TimeoutStopSec=20
 KillMode=process
 Restart=on-failure
