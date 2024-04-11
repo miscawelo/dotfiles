@@ -1,8 +1,0 @@
-[Sleep]
-AllowSuspend=no
-AllowHibernation=no
-AllowSuspendThenHibernate=no
-AllowHybridSleep=no
-SuspendMode=suspend-then-hibernate
-HybridSleepMode=suspend platform shutdown
-HibernateDelaySec=0min
