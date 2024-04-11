@@ -1,7 +1,7 @@
 require("ibl").setup()
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"c", "c_sharp", "cpp" , "html", "hyprlang", "json", "latex", "css", "python", "latex", "markdown", "lua", "vim", "bash", "yaml", "yuck"},
+  ensure_installed = {"c", "c_sharp", "cpp" , "html", "hyprlang", "json", "css", "python", "markdown", "lua", "vim", "bash", "yaml", "yuck"},
   sync_install = false,
   auto_install = true,
 
@@ -16,7 +16,7 @@ require'nvim-treesitter.configs'.setup {
 }
 
 vim.filetype.add({
-pattern = { [".*/hyprland%.conf"] = "hyprlang" },
+  pattern = { [".*/hyprland%.conf"] = "hyprlang" },
 })
 
 require('lualine').setup {
