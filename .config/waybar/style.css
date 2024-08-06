@@ -77,14 +77,21 @@ tooltip label {
 }
 
 #tray menu {
-  background: rgb(99, 99, 102);
+  padding: 0.5rem 0rem;
   border: solid 2px rgb(44, 44, 46);
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
 }
 
-#tray > .needs-attention {
-  background: red;
+#tray menu menuitem:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#tray > .active {
+	background: none;
+	/* border-bottom: 2px solid red; */
+}
+
+#tray > widget:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 #network {
