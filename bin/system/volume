@@ -1,32 +1,71 @@
 #!/usr/bin/env sh
 
-sink="$(pamixer --list-sinks | awk -F '"' '/Running/ {print $6}')"
-btStatus="$(pamixer --list-sinks | awk '/bluez/')"
-icon="$HOME/bin/assets/icons/"
+BLOWN_SPEAKER="Family 17h/19h HD Audio Controller Analog Stereo"
+BLOWN_SPEAKER_RUNNING="$(pactl list sinks | grep "$BLOWN_SPEAKER" -B2 | grep RUNNING)"
+
+BT_RUNNING="$(pactl list short sinks | grep bluez)"
+
+ICON="$HOME/bin/assets/icons/"
 
 send_notif() {
-  volume=$(pamixer --get-volume)
+  VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $12}' | sed 's/%//')
 
-  if [ -n "$btStatus" ]; then
-    icon=$icon"bluetooth.png"
+  if pactl get-sink-mute @DEFAULT_SINK@ | grep yes ; then
+      ICON=$ICON"volumeMute_32x32.png"
+  elif [ -n "$BT_RUNNING" ]; then
+    ICON=$ICON"bluetooth_32x32.png"
   else
-    if [ "$(pamixer --get-mute)" = "true" ]; then
-      icon=$icon"volumeMute.png"
-    elif [ "$volume" -gt 66 ]; then
-      icon=$icon"volumeHigh.png"
-    elif [ "$volume" -gt 33 ]; then
-      icon=$icon"volumeMed.png"
-    elif [ "$volume" -gt 0 ]; then
-      icon=$icon"volumeLow.png"
+    if [ "$VOLUME" -gt 66 ]; then
+      ICON=$ICON"volumeHigh_32x32.png"
+    elif [ "$VOLUME" -gt 33 ]; then
+      ICON=$ICON"volumeMed_32x32.png"
+    elif [ "$VOLUME" -gt 0 ]; then
+      ICON=$ICON"volumeLow_32x32.png"
     else
-      icon=$icon"volumeOff.png"
+      ICON=$ICON"volumeOff_32x32.png"
     fi
   fi
 
-  dunstify "Volume" "$sink" -a "System" -i "$icon" -h string:x-dunst-stack-tag:volume -h int:value:"$volume"
+  dunstify "Volume" "$sink" -a "System" -i "$ICON" -h string:x-dunst-stack-tag:volume -h int:value:"$VOLUME"
 }
 
-[ "$1" = "down" ] && pamixer -u && pamixer -d "$2" && send_notif && exit
-[ "$1" = "up" ] && pamixer -u && pamixer -i "$2" && send_notif && exit
-[ "$1" = "set" ] && pamixer -u && pamixer --set-volume "$2" && send_notif "$1" && exit
-[ "$1" = "mute" ] && pamixer -m && send_notif && exit
+case $1 in
+  down)
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+    if [ -n "BLOWN_SPEAKER_RUNNING" ]; then
+      pactl set-sink-volume @DEFAULT_SINK@ -$2%
+    else
+      pactl set-sink-volume @DEFAULT_SINK@ -100% -$2%
+    fi
+    send_notif
+    ;;
+
+  up)
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+    if [ -n "BLOWN_SPEAKER_RUNNING" ]; then
+      pactl set-sink-volume @DEFAULT_SINK@ +$2%
+    else
+      pactl set-sink-volume @DEFAULT_SINK@ -100% +$2%
+    fi
+    send_notif
+    ;;
+
+  set)
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+    if [ -n "BLOWN_SPEAKER_RUNNING" ]; then
+      pactl set-sink-volume @DEFAULT_SINK@ $2%
+    else
+      pactl set-sink-volume @DEFAULT_SINK@ 0% $2%
+    fi
+    send_notif
+    ;;
+
+  mute)
+    pactl set-sink-mute @DEFAULT_SINK@ 1
+    send_notif
+    ;;
+
+  *)
+    echo "Invalid option"
+    ;;
+esac
