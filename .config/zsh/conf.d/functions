@@ -24,3 +24,7 @@ image_dimensions () {
         file $i | grep -Eo "[[:digit:]]+ *x *[[:digit:]]+"
     done
 }
+
+function lk {
+  cd "$(walk "$@")"
+}
