@@ -1,6 +1,9 @@
 {
-    "before_layer_change_gcode": "",
-    "extruder_clearance_height_to_rod": "30",
+    "before_layer_change_gcode": "G92 E0\n",
+    "disable_m73": "1",
+    "emit_machine_limits_to_gcode": "0",
+    "fan_kickstart": "1",
+    "fan_speedup_time": "1",
     "from": "User",
     "inherits": "MyKlipper 0.4 nozzle",
     "is_custom_defined": "0",
@@ -64,26 +67,29 @@
     ],
     "machine_start_gcode": "START_PRINT BED_TEMP={first_layer_bed_temperature[0]} EXTRUDER_TEMP={first_layer_temperature[0]} AREA_START={first_layer_print_min[0]},{first_layer_print_min[1]} AREA_END={first_layer_print_max[0]},{first_layer_print_max[1]}",
     "name": "Cheapwire",
-    "print_host": "http://ender3.banded-gecko.ts.net/",
+    "print_host": "http://10.92.27.12/",
     "printable_area": [
         "0x0",
         "235x0",
-        "235x220",
-        "0x220"
+        "235x231",
+        "0x231"
     ],
+    "printable_height": "240",
     "printer_settings_id": "Cheapwire",
     "retraction_length": [
-        "0"
+        "0.4"
     ],
     "thumbnails": [
         "32x32",
-        "400x300"
+        "300x300"
     ],
     "use_firmware_retraction": "1",
-    "use_relative_e_distances": "0",
-    "version": "1.6.1.0",
+    "version": "2.0.2.0",
     "wipe": [
         "0"
+    ],
+    "z_hop": [
+        "0.2"
     ],
     "z_hop_types": [
         "Slope Lift"
