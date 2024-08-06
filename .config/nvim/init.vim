@@ -18,9 +18,9 @@ set wildmode=longest,list
 set clipboard=unnamedplus
 set cursorline
 set ttyfast
-set mouse =
+" set mouse =
 
-set background=dark
+" set background=dark
 hi MatchParen cterm=bold ctermfg=white ctermbg=blue
 
 filetype plugin on
