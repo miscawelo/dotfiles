@@ -132,7 +132,7 @@ tooltip label {
 }
 
 #battery.not-charging {
-  color: grey;
+  color: white;
 }
 
 #battery.charging {
