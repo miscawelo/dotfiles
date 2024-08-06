@@ -45,7 +45,7 @@
   "hyprland/workspaces" : {
     "format"        : "{icon}",
     "format-icons"  : {
-      "special" : "",
+      "special" : "",
     },
     "show-special"  : true
   },
@@ -97,10 +97,11 @@
     "bat": "BAT0",
     "interval": 1,
     "states": {
-        "low": 40,
+        "low": 30,
         "warning": 20,
         "critical": 10
     },
+    "format": " {capacity}",
     "format-not-charging": " {capacity}",
     "format-charging": " {capacity} ({time})",
     "format-discharging": "{icon} {capacity} ({power:0.1f} W)",
@@ -112,7 +113,7 @@
     "format-disabled"           : "",
     "format-off"                : "",
     "format-on"                 : "",
-    "format-connected"          : " ({device_battery_percentage})%",
+    "format-connected"          : " {device_alias} ({device_battery_percentage}%)",
     "tooltip-format-disabled"   : "Bluetooth disabled",
     "tooltip-format-off"        : "Bluetooth off",
     "tooltip-format-on"         : "No device connected",
@@ -181,12 +182,12 @@
   "network" : {
     "format-disabled"             : "",
     "format-ethernet"             : "",
-    "format-wifi"                 : " ({signalStrength}%)",
+    "format-wifi"                 : " {essid} ({signalStrength}%)",
     "format-linked"               : " (LINKED)",
     "format-disconnected"         : "",
     "tooltip-format-disabled"     : "WiFi off",
     "tooltip-format-ethernet"     : "{ifname} {ipaddr}/{cidr}",
-    "tooltip-format-wifi"         : "{essid} ({frequency} MHz) - {ipaddr}/{cidr}",
+    "tooltip-format-wifi"         : "{essid} ({frequency} GHz) - {ipaddr}/{cidr}",
     "tooltip-format-linked"       : "{ipaddr}",
     "tooltip-format-disconnected" : "No connection",
     "on-click"                    : "nm-connection-editor"
