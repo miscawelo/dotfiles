@@ -6,7 +6,7 @@
 
   "modules-left"    : ["idle_inhibitor", "hyprland/submap", "hyprland/workspaces"],
   "modules-center"  : ["hyprland/window"],
-  "modules-right"   : ["clock", "custom/dunst"],
+  "modules-right"   : ["tray", "clock", "custom/dunst"],
 
   "clock" : {
     "interval"        : 1,
@@ -69,7 +69,13 @@
       "deactivated" : "",
     },
     "tooltip"       : false
-  }
+  },
+
+  "tray": {
+    "icon-size": 20,
+    "spacing": 10,
+    "reverse-direction": true,
+  },
 },
 
 {
@@ -79,7 +85,7 @@
 
   "modules-left":   ["group/hardware"],
   "modules-center": ["custom/media"],
-  "modules-right":  ["tray", "network", "bluetooth", "wireplumber", "hyprland/language", "backlight", "battery"],
+  "modules-right":  ["network", "bluetooth", "wireplumber", "hyprland/language", "backlight", "battery"],
 
   "backlight": {
     "device": "asus::kbd_backlight",
