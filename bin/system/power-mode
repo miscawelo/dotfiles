@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+CURRENT_PROFILE="$(asusctl profile -p | awk '/profile/ {print $4}')"
+
+case $CURRENT_PROFILE in
+  Quiet)
+    NEXT_PROFILE="Balanced"
+    PERFORMANCE_LEVEL=50
+    ;;
+  Balanced)
+    NEXT_PROFILE="Performance"
+    PERFORMANCE_LEVEL=100
+    ;;
+  Performance)
+    NEXT_PROFILE="Quiet"
+    PERFORMANCE_LEVEL=0
+    ;;
+esac
+
+asusctl profile -P $NEXT_PROFILE
+
+dunstify "Power mode" "$NEXT_PROFILE power profile active" -a "System" -i "$HOME/bin/assets/icons/powerMode$NEXT_PROFILE_32x32.png" -h string:x-dunst-stack-tag:power-mode -h int:value:"$PERFORMANCE_LEVEL"

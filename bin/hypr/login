@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+sleep 3
+
 # Hyprpaper
 wallpaper=$(find "$HOME/Pictures/Wallpapers" -type f | shuf -n 1)
 

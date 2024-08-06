@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+for file in *.pdf; do
+  mv $file tmp_$file
+  pdftk "tmp_$file" output "$file" do_ask 2> /dev/null
+  rm tmp_$file
+done

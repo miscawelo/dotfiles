@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+battStatus="$(cat /sys/class/power_supply/BAT*/status)"
+battLevel="$(cat /sys/class/power_supply/BAT*/capacity)"
+
+if [[ "$battStatus" == "Charging" ]]; then
+  msg=""
+elif [[ ("$battStatus" == "Full") || ("$battStatus" == "Not charging") ]]; then
+  msg=""
+fi
+
+if [[ ("$battLevel" -ge "80") ]]; then
+  msg=$msg" "
+elif [[ ("$battLevel" -ge "60") ]]; then
+  msg=$msg" "
+elif [[ ("$battLevel" -ge "40") ]]; then
+  msg=$msg" "
+elif [[ ("$battLevel" -ge "20") ]]; then
+  msg=$msg" "
+else
+  msg=$msg" "
+fi
+
+echo $msg
