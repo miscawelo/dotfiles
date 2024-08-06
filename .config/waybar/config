@@ -192,12 +192,6 @@
     "tooltip-format-disconnected" : "No connection",
     "on-click"                    : "nm-connection-editor"
   },
-
-  "tray": {
-    "icon-size": 20,
-    "spacing": 10,
-    "reverse-direction": true,
-  },
 }
 ]
 
