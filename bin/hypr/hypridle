@@ -1,0 +1,41 @@
+#!/usr/bin/env sh
+
+KB_DEVICE=$(brightnessctl -l | grep kb | cut -f 2 -d \')
+
+case $1 in
+  t1)
+    brightnessctl -s && brightnessctl s 0%
+    brightnessctl -sd $KB_DEVICE && brightnessctl -d $KB_DEVICE s 0%
+    $HOME/bin/system/screen-dimmer
+    ;;
+  r1)
+    brightnessctl -r
+    brightnessctl -rd $KB_DEVICE
+    ;;
+
+  t2)
+    hyprctl dispatch dpms off
+    ;;
+  r2)
+    hyprctl dispatch dpms on
+    ;;
+
+  t3)
+    hyprctl dispatch dpms on
+    brightnessctl -r
+    brightnessctl -rd $KB_DEVICE
+    loginctl lock-session
+    ;;
+
+  t4)
+    hyprctl dispatch dpms off
+    systemctl suspend
+    ;;
+  r4)
+    hyprctl dispatch dpms on
+    ;;
+
+  *)
+    echo "Invalid option"
+    ;;
+esac
