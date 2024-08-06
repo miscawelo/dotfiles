@@ -6,16 +6,16 @@ send_notif() {
   brightness=$(($(brightnessctl g) * 100 / 255))
 
   if [ $brightness -gt 75 ]; then
-    icon=$icon"screenBrightnessMax.png"
+    icon=$icon"screenBrightnessMax_32x32.png"
   elif [ $brightness -gt 50 ]; then
-    icon=$icon"screenBrightnessHigh.png"
+    icon=$icon"screenBrightnessHigh_32x32.png"
   elif [ $brightness -gt 25 ]; then
-    icon=$icon"screenBrightnessMed.png"
+    icon=$icon"screenBrightnessMed_32x32.png"
   else
-    icon=$icon"screenBrightnessLow.png"
+    icon=$icon"screenBrightnessLow_32x32.png"
   fi
 
-  dunstify "Brightness" "$(brightnessctl i | awk -F "'" '/Device/ {print $2}')" -a "System" -i "$icon" -h string:x-dunst-stack-tag:brightness -h int:value:"$brightness"
+  dunstify "Brightness" "Screen" -a "System" -i "$icon" -h string:x-dunst-stack-tag:brightness -h int:value:"$brightness"
 }
 
 [ "$1" = "down" ] && brightnessctl set "$2"%- && send_notif && exit

@@ -8,19 +8,19 @@ send_notif() {
 
   case "$brightness" in
     3)
-      icon=$icon"kbBrightnessHigh.png"
+      icon=$icon"kbBrightnessHigh_32x32.png"
       brightness=100
       ;;
     2)
-      icon=$icon"kbBrightnessMed.png"
+      icon=$icon"kbBrightnessMed_32x32.png"
       brightness=67
       ;;
     1)
-      icon=$icon"kbBrightnessLow.png"
+      icon=$icon"kbBrightnessLow_32x32.png"
       brightness=33
       ;;
     0)
-      icon=$icon"kbBrightnessOff.png"
+      icon=$icon"kbBrightnessOff_32x32.png"
       ;;
   esac
 
