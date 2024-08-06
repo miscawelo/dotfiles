@@ -3,6 +3,12 @@
   font-size: 14px;
   font-family: "SF Mono", "FontAwesome6Free";
   font-weight: 600;
+  padding: 0rem 0.25rem;
+}
+
+window#waybar {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 tooltip {
