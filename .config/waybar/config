@@ -37,7 +37,7 @@
   "custom/dunst": {
     "format"            : "{}",
     "return-type"       : "json",
-    "exec"              : "$HOME/bin/dunst-dnd",
+    "exec"              : "$HOME/bin/waybar/dunst-dnd",
     "on-click"          : "dunstctl set-paused toggle",
     "restart-interval"  : 1
   },
@@ -134,7 +134,7 @@
     "on-scroll-up"    : "playerctl previous",
     "on-scroll-down"  : "playerctl next",
     "on-click"        : "playerctl play-pause",
-    "exec"            : "$HOME/bin/mediaplayer 2> /dev/null",
+    "exec"            : "$HOME/bin/system/mediaplayer 2> /dev/null",
     "max-length"      : 100
   },
 
