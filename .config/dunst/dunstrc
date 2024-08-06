@@ -23,7 +23,7 @@
 
   indicate_hidden = true
 
-#   transparency = 0
+#  transparency = 0
 
   separator_height = 1
   padding = 8
@@ -37,7 +37,7 @@
   layer = overlay
   force_xwayland = false
 
-  font = SF Mono 12
+  font = SF Pro Display 12
   line_height = 0
   format = "<b>%s</b> (<i>%a</i>)\n%b %n"
   vertical_alignment = center
