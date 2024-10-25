@@ -102,6 +102,7 @@ call plug#begin("$HOME/.config/nvim/plugged")
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
   Plug 'vimwiki/vimwiki'
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+  Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " Neoformat
@@ -176,5 +177,8 @@ let g:mkdp_images_path = '$HOME/Documents/Notes/.images'
 let g:mkdp_filetypes = ['markdown']
 let g:mkdp_combine_preview = 1
 let g:mkdp_combine_preview_auto_refresh = 1
+
+" VimWiki
+let g:vimwiki_list = [{'path': '~/Documents/Notes', 'syntax': 'markdown', 'ext': 'md', 'path_html': '~/Documents/Notes/.html'}]
 
 lua require("init")

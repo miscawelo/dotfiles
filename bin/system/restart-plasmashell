@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Find the process ID of plasmashell
+pid=$(pgrep -u $USER plasmashell)
+
+# Check if plasmashell is running
+if [ -z "$pid" ]; then
+    echo "plasmashell is not running."
+    exit 1
+fi
+
+# Extract the WAYLAND_DISPLAY and DBUS_SESSION_BUS_ADDRESS variables from the running process
+export WAYLAND_DISPLAY=$(tr '\0' '\n' < /proc/$pid/environ | grep '^WAYLAND_DISPLAY=' | cut -d= -f2-)
+export DBUS_SESSION_BUS_ADDRESS=$(tr '\0' '\n' < /proc/$pid/environ | grep '^DBUS_SESSION_BUS_ADDRESS=' | cut -d= -f2-)
+
+# Check if the variables are set correctly
+if [ -z "$WAYLAND_DISPLAY" ] || [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    echo "Failed to retrieve WAYLAND_DISPLAY or DBUS_SESSION_BUS_ADDRESS."
+    exit 1
+fi
+
+# Restart plasmashell
+plasmashell --replace & disown
+
+echo "plasmashell has been restarted successfully."

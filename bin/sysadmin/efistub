@@ -5,16 +5,17 @@
 distro="Arch Linux"
 espDir="/boot"
 drive="nvme0n1"
-driveMainPartition="p3"
-swapfile="/swap/swapfile"
+driveMainPartition="p2"
+#swapfile="/swap/swapfile"
 
 createUkis () {
     luksUUID=$(blkid | grep $drive$driveMainPartition | cut -d '"' -f 2)
     luksOptions=""
     rootUUID=$(blkid | grep "/dev/mapper/root" | cut -d '"' -f 2)
-    swapOffset=$(sudo filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}')
-    hibernation="resume=UUID=$rootUUID resume-offset=$swapOffset"
-    kernelParams="nowatchdog booster.log=debug,console loglevel=7 zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+    #swapOffset=$(sudo filefrag -v /swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}')
+    #hibernation="resume=UUID=$rootUUID resume-offset=$swapOffset"
+    # kernelParams="nowatchdog booster.log=debug,console loglevel=7 zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
+    kernelParams="nowatchdog rootflags=subvol=@ zswap.enabled=0 amdgpu.ppfeaturemask=0xffffffff"
 
     echo "root=UUID=$luksUUID $luksOptions $hibernation $kernelParams" > /etc/kernel/cmdline
 

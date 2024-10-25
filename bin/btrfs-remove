@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SNAPSHOT_DIR="$1"
+FILE_PATH="$2"
+
+INODE_NUMBER=$(sudo ls -di "$FILE_PATH" | awk '{print $1}')
+
+if [ -z "$INODE_NUMBER" ]; then
+    echo "Error: Could not find the file $FILE_PATH or it does not exist."
+    exit 1
+fi
+
+for SNAPSHOT in $(sudo find "$SNAPSHOT_DIR" -mindepth 1 -maxdepth 1 -type d); do
+    sudo btrfs property set -ts "$SNAPSHOT"/snapshot ro false
+
+    SNAPSHOT_FILE=$(sudo find "$SNAPSHOT/snapshot" -inum "$INODE_NUMBER" -print -quit)
+
+    if [ -n "$SNAPSHOT_FILE" ]; then
+        echo "File found in snapshot $SNAPSHOT. Deleting..."
+
+        sudo rm -fr "$SNAPSHOT_FILE"
+    else
+        echo "File not found in snapshot $SNAPSHOT."
+    fi
+
+    sudo btrfs property set -ts "$SNAPSHOT"/snapshot ro true
+done

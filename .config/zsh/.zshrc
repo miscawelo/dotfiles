@@ -11,6 +11,6 @@ done
 for file in /usr/share/zsh/plugins/*/*.zsh; do
     source "$file"
 done
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
